@@ -76,6 +76,12 @@ public class TranslationServiceImplTest {
 
     @Test
     public void testGetLastOfTwoElements() {
+        Instance<TranslationSPI> providers = mock(Instance.class);
+        Iterator<TranslationSPI> iterator = mock(Iterator.class);
+        when(iterator.hasNext()).thenReturn(true).thenReturn(false).thenReturn(true).thenReturn(false);
+        when(iterator.next()).thenReturn(spi);
+        when(providers.iterator()).thenReturn(iterator);
+        translation.providers = providers;
         assertEquals(VALUE1, translation.get(KEY1_KEY, locale));
     }
 

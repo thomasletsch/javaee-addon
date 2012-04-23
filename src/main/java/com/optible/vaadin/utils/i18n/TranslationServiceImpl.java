@@ -18,8 +18,9 @@ public class TranslationServiceImpl implements TranslationService {
     public String get(String key, Locale locale) {
         List<String> variations = getPossibleKeyVariations(key);
         for (String variation : variations) {
-            if (checkKey(variation, locale)) {
-                return getForAllTranslationProviders(variation, locale);
+            String translation = searchInAllProviders(variation, locale);
+            if (isTranslated(variation, translation)) {
+                return translation;
             }
         }
         return key;
@@ -29,37 +30,41 @@ public class TranslationServiceImpl implements TranslationService {
     public String get(String key, Locale locale, Object... params) {
         List<String> variations = getPossibleKeyVariations(key);
         for (String variation : variations) {
-            if (checkKey(variation, locale)) {
-                return getForAllTranslationProviders(variation, locale, params);
+            String translation = searchInAllProviders(variation, locale, params);
+            if (isTranslated(variation, translation)) {
+                return translation;
             }
         }
         return key;
     }
 
-    boolean checkKey(String variation, Locale locale) {
-        return !variation.equals(getForAllTranslationProviders(variation, locale));
+    boolean isTranslated(String key, String translation) {
+        return !key.equals(translation);
     }
 
-    private String getForAllTranslationProviders(String key, Locale locale) {
+    private String searchInAllProviders(String key, Locale locale) {
         for (TranslationSPI spi : providers) {
-            if (checkKey(key, locale, spi)) {
-                return spi.get(key, locale);
+            String translation = spi.get(key, locale);
+            if (isTranslated(key, translation)) {
+                return translation;
             }
         }
         return key;
     }
 
-    private String getForAllTranslationProviders(String key, Locale locale, Object[] params) {
+    private String searchInAllProviders(String key, Locale locale, Object[] params) {
         for (TranslationSPI spi : providers) {
-            if (checkKey(key, locale, spi)) {
-                return spi.get(key, locale, params);
+            String translation = spi.get(key, locale, params);
+            if (isTranslated(key, translation)) {
+                return translation;
             }
         }
         return key;
     }
 
     boolean checkKey(String key, Locale locale, TranslationSPI spi) {
-        return !key.equals(spi.get(key, locale));
+        String translation = spi.get(key, locale);
+        return !key.equals(translation);
     }
 
     List<String> getPossibleKeyVariations(String key) {
