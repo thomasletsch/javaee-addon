@@ -19,7 +19,6 @@ import org.javaeeutils.jpa.PersistentEntity_;
 import com.optible.vaadin.utils.jpa.filter.FilterToQueryTranslator;
 import com.vaadin.data.Container.Filter;
 
-
 @Stateless
 public class JPAEntityProvider {
 
@@ -168,15 +167,27 @@ public class JPAEntityProvider {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         Root<ENTITY> root = (Root<ENTITY>) criteriaQuery.getRoots().iterator().next();
         Predicate gt = builder.greaterThan(root.get(PersistentEntity_.id), id);
-        return criteriaQuery.where(gt);
+        Predicate newWhere = null;
+        if (criteriaQuery.getRestriction() == null) {
+            newWhere = gt;
+        } else {
+            newWhere = builder.and(criteriaQuery.getRestriction(), gt);
+        }
+        return criteriaQuery.where(newWhere);
     }
 
     @SuppressWarnings("unchecked")
     private <ENTITY extends PersistentEntity> CriteriaQuery<ENTITY> lessThan(CriteriaQuery<ENTITY> criteriaQuery, Long id) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         Root<ENTITY> root = (Root<ENTITY>) criteriaQuery.getRoots().iterator().next();
-        Predicate gt = builder.lessThan(root.get(PersistentEntity_.id), id);
-        return criteriaQuery.where(gt);
+        Predicate lt = builder.lessThan(root.get(PersistentEntity_.id), id);
+        Predicate newWhere = null;
+        if (criteriaQuery.getRestriction() == null) {
+            newWhere = lt;
+        } else {
+            newWhere = builder.and(criteriaQuery.getRestriction(), lt);
+        }
+        return criteriaQuery.where(newWhere);
     }
 
     private <ENTITY> ENTITY getSingleResultOrNull(TypedQuery<ENTITY> query) {

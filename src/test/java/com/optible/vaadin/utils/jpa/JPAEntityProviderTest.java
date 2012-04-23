@@ -12,10 +12,10 @@ public class JPAEntityProviderTest extends BaseEntityTest {
 
     @Test
     public void testGet() {
-        TestEntity product = createTestEntity();
+        TestEntity entity = createTestEntity();
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        TestEntity savedTestEntity = provider.get(TestEntity.class, product.getId());
+        TestEntity savedTestEntity = provider.get(TestEntity.class, entity.getId());
         assertNotNull(savedTestEntity);
     }
 
@@ -57,9 +57,9 @@ public class JPAEntityProviderTest extends BaseEntityTest {
         last.setTestString("Last");
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        TestEntity product = provider.getFirst(TestEntity.class, null);
-        assertNotNull(product);
-        assertEquals(first, product);
+        TestEntity entity = provider.getFirst(TestEntity.class, null);
+        assertNotNull(entity);
+        assertEquals(first, entity);
     }
 
     @Test
@@ -70,9 +70,9 @@ public class JPAEntityProviderTest extends BaseEntityTest {
         last.setTestString("Last");
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        TestEntity product = provider.getLast(TestEntity.class, null);
-        assertNotNull(product);
-        assertEquals(last, product);
+        TestEntity entity = provider.getLast(TestEntity.class, null);
+        assertNotNull(entity);
+        assertEquals(last, entity);
     }
 
     @Test
@@ -85,9 +85,24 @@ public class JPAEntityProviderTest extends BaseEntityTest {
         last.setTestString("Last");
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        TestEntity product = provider.getNext(TestEntity.class, first.getId(), null);
-        assertNotNull(product);
-        assertEquals(middle, product);
+        TestEntity entity = provider.getNext(TestEntity.class, first.getId(), null);
+        assertNotNull(entity);
+        assertEquals(middle, entity);
+    }
+
+    @Test
+    public void testGetNextFiltered() {
+        TestEntity first = createTestEntity();
+        first.setTestString("First");
+        TestEntity middle = createTestEntity();
+        middle.setTestString("Middle");
+        TestEntity last = createTestEntity();
+        last.setTestString("First");
+        JPAEntityProvider provider = new JPAEntityProvider();
+        provider.entityManager = em;
+        TestEntity entity = provider.getNext(TestEntity.class, first.getId(), new SimpleStringFilter("testString", "First", false, true));
+        assertNotNull(entity);
+        assertEquals(last, entity);
     }
 
     @Test
@@ -98,8 +113,8 @@ public class JPAEntityProviderTest extends BaseEntityTest {
         last.setTestString("Last");
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        TestEntity product = provider.getNext(TestEntity.class, last.getId(), null);
-        assertNull(product);
+        TestEntity entity = provider.getNext(TestEntity.class, last.getId(), null);
+        assertNull(entity);
     }
 
     @Test
@@ -109,12 +124,27 @@ public class JPAEntityProviderTest extends BaseEntityTest {
         TestEntity middle = createTestEntity();
         middle.setTestString("Middle");
         TestEntity last = createTestEntity();
+        last.setTestString("First");
+        JPAEntityProvider provider = new JPAEntityProvider();
+        provider.entityManager = em;
+        TestEntity entity = provider.getPrev(TestEntity.class, last.getId(), new SimpleStringFilter("testString", "First", false, true));
+        assertNotNull(entity);
+        assertEquals(first, entity);
+    }
+
+    @Test
+    public void testGetPrevFiltered() {
+        TestEntity first = createTestEntity();
+        first.setTestString("First");
+        TestEntity middle = createTestEntity();
+        middle.setTestString("Middle");
+        TestEntity last = createTestEntity();
         last.setTestString("Last");
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        TestEntity product = provider.getPrev(TestEntity.class, last.getId(), null);
-        assertNotNull(product);
-        assertEquals(middle, product);
+        TestEntity entity = provider.getPrev(TestEntity.class, last.getId(), null);
+        assertNotNull(entity);
+        assertEquals(middle, entity);
     }
 
     @Test
@@ -125,8 +155,8 @@ public class JPAEntityProviderTest extends BaseEntityTest {
         last.setTestString("Last");
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        TestEntity product = provider.getPrev(TestEntity.class, first.getId(), null);
-        assertNull(product);
+        TestEntity entity = provider.getPrev(TestEntity.class, first.getId(), null);
+        assertNull(entity);
     }
 
     @Test

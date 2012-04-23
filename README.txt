@@ -14,3 +14,5 @@ It supports the following features:
 - Extended Field creation
 
 Tested and used with Hibernate 4 in JBoss 7.1.
+
+The JavaEE Addon is compatible to Vaadin 7! No stable version!

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.Dependent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,8 +20,6 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.filter.And;
 import com.vaadin.data.util.filter.UnsupportedFilterException;
 
-
-@Dependent
 public class EntityContainer<ENTITY extends PersistentEntity> implements Container, Container.Ordered, Container.Filterable,
         Container.ItemSetChangeNotifier, Container.PropertySetChangeNotifier {
 

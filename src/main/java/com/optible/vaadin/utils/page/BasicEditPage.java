@@ -36,8 +36,7 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Por
         VerticalLayout editPanel = new VerticalLayout();
         editPanel.setMargin(true);
         editPanel.setSpacing(true);
-        editPanel.setCaption(translationService.get(TranslationKeys.TITLE_EDIT) + ": "
-                + translationService.get(getEntityName()));
+        editPanel.setCaption(translationService.get(TranslationKeys.TITLE_EDIT) + ": " + translationService.get(getEntityName()));
         form = getForm();
         if (form != null)
             editPanel.addComponent(form);
@@ -50,7 +49,7 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Por
 
     protected ButtonBar initButtons() {
         ButtonBar buttonLayout = new ButtonBar();
-        SaveButton saveButton = new SaveButton(this);
+        SaveButton saveButton = new SaveButton(this, translationService.get(TranslationKeys.BUTTON_SAVE));
         buttonLayout.addComponent(saveButton);
         return buttonLayout;
     }
