@@ -42,6 +42,7 @@ public class TranslationServiceImplTest {
     private TranslationServiceImpl translation;
 
     @Before
+    @SuppressWarnings("unchecked")
     public void initMock() {
         spi = mock(TranslationSPI.class);
         for (String value : unknownValues) {
@@ -75,6 +76,7 @@ public class TranslationServiceImplTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testGetLastOfTwoElements() {
         Instance<TranslationSPI> providers = mock(Instance.class);
         Iterator<TranslationSPI> iterator = mock(Iterator.class);

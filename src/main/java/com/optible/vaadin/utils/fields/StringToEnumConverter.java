@@ -5,6 +5,7 @@ import java.util.Locale;
 import com.optible.vaadin.utils.i18n.TranslationService;
 import com.vaadin.data.util.converter.Converter;
 
+@SuppressWarnings("rawtypes")
 public class StringToEnumConverter implements Converter<String, Enum> {
 
     private TranslationService translationService;
