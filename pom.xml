@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.vaadin.addons</groupId>
-	<artifactId>javaee</artifactId>
+	<artifactId>javaee-addon</artifactId>
 	<version>0.5.0-SNAPSHOT</version>
 	<name>Vaadin JavaEE Addon</name>
 	<description>Basic Vaadin utitlities to easily build an application with JavaEE and Vaadin</description>
