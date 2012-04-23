@@ -1,11 +1,13 @@
 package com.optible.vaadin.utils.startup;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.optible.vaadin.utils.i18n.TranslationService;
 import com.optible.vaadin.utils.page.Portal;
 import com.vaadin.Application;
 import com.vaadin.RootRequiresMoreInformationException;
@@ -21,6 +23,9 @@ public class RootApplication extends Application {
     @Inject
     private Portal portal;
 
+    @Inject
+    private TranslationService translationService;
+
     @Override
     protected Root getRoot(WrappedRequest request) throws RootRequiresMoreInformationException {
         return portal;
@@ -29,5 +34,10 @@ public class RootApplication extends Application {
     @Override
     public void terminalError(ErrorEvent event) {
         log.error("Error", event.getThrowable());
+    }
+
+    @PostConstruct
+    public void setLocale() {
+        translationService.setLocale(getLocale());
     }
 }

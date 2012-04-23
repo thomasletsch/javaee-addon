@@ -76,7 +76,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     }
 
     protected void addColumn(String name, Class<?> type) {
-        addContainerProperty(name, type, null, translationService.get(name, getLocale()), null, null);
+        addContainerProperty(name, type, null, translationService.get(name), null, null);
     }
 
     protected void addColumn(String name, Converter<String, ?> converter) {

@@ -20,7 +20,7 @@ public class ClassNameColumnGenerator implements Table.ColumnGenerator {
         EntityItem<?> item = (EntityItem<?>) source.getItem(itemId);
         String name = item.getBean().getClass().getSimpleName();
         Label field = new Label();
-        field.setValue(translationService.get(name, source.getLocale()));
+        field.setValue(translationService.get(name));
         return field;
     }
 

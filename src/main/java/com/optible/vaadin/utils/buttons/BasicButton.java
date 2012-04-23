@@ -11,16 +11,14 @@ public class BasicButton extends Button {
     @Inject
     protected TranslationService translationService;
 
-    private final String titleKey;
+    private String titleKey;
 
     /**
      * Constructor to be used without CDI
      */
-    public BasicButton(String titleKey, TranslationService translationService) {
+    public BasicButton(String titleKey, String title) {
         super();
-        this.titleKey = titleKey;
-        this.translationService = translationService;
-        finishButton();
+        setCaption(title);
         setDebugId(titleKey);
     }
 
@@ -35,7 +33,7 @@ public class BasicButton extends Button {
 
     @PostConstruct
     protected void finishButton() {
-        setCaption(translationService.get(titleKey, getLocale()));
+        setCaption(translationService.get(titleKey));
     }
 
 }

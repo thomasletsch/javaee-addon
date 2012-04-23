@@ -13,4 +13,9 @@ public class SaveButton extends BasicButton {
         addListener(new SaveClickHandler(this, canHandle));
     }
 
+    public SaveButton(CanHandleSaveButton canHandle, String title) {
+        super(TranslationKeys.BUTTON_SAVE, title);
+        addListener(new SaveClickHandler(this, canHandle));
+    }
+
 }

@@ -36,8 +36,8 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Por
         VerticalLayout editPanel = new VerticalLayout();
         editPanel.setMargin(true);
         editPanel.setSpacing(true);
-        editPanel.setCaption(translationService.get(TranslationKeys.TITLE_EDIT, getLocale()) + ": "
-                + translationService.get(getEntityName(), getLocale()));
+        editPanel.setCaption(translationService.get(TranslationKeys.TITLE_EDIT) + ": "
+                + translationService.get(getEntityName()));
         form = getForm();
         if (form != null)
             editPanel.addComponent(form);

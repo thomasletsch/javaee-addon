@@ -2,7 +2,6 @@ package com.optible.vaadin.utils.page;
 
 import static com.optible.vaadin.utils.TranslationKeys.*;
 
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
@@ -17,8 +16,6 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.Root;
 import com.vaadin.ui.VerticalSplitPanel;
 
-@SessionScoped
-@SuppressWarnings("serial")
 public abstract class Portal extends Root {
 
     public static final int DEFAULT_MARGIN = 5;
@@ -70,14 +67,14 @@ public abstract class Portal extends Root {
         innerLayout.addComponent(mainPanel);
         innerLayout.setSplitPosition(MENU_WIDTH + DEFAULT_MARGIN, Unit.PIXELS);
         setContent(page);
-        setCaption(translationService.get(TITLE_PORTAL, getLocale()));
+        setCaption(translationService.get(TITLE_PORTAL));
     }
 
     private Layout createHeader() {
         HorizontalLayout head = new HorizontalLayout();
         head.setWidth(HEADER_WIDTH, Unit.PIXELS);
         head.setHeight(HEADER_HEIGHT, Unit.PIXELS);
-        title = new Label(translationService.get(TITLE_PORTAL, getLocale()));
+        title = new Label(translationService.get(TITLE_PORTAL));
         head.addComponent(title);
         return head;
     }
@@ -85,8 +82,8 @@ public abstract class Portal extends Root {
     private Panel createMenuPanel() {
         Panel menuContainer = new Panel();
         menuContainer.setWidth(MENU_WIDTH, Unit.PIXELS);
-        initMenu();
         menuContainer.addComponent(menu);
+        initMenu();
         return menuContainer;
     }
 

@@ -13,4 +13,9 @@ public class SearchButton extends BasicButton {
         addListener(new SearchClickHandler(this, canHandle));
     }
 
+    public SearchButton(CanHandleSearchButton canHandle, String title) {
+        super(TranslationKeys.BUTTON_SEARCH, title);
+        addListener(new SearchClickHandler(this, canHandle));
+    }
+
 }

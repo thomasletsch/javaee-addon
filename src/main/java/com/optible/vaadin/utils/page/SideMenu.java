@@ -52,13 +52,13 @@ public class SideMenu extends Tree {
     public void addMenu(String pageName, Instance<? extends PortalPagePanel> panel) {
         panels.put(pageName, panel);
         addItem(pageName);
-        setItemCaption(pageName, translationService.get(MENU_ITEM_PREFIX + pageName, getLocale()));
+        setItemCaption(pageName, translationService.get(MENU_ITEM_PREFIX + pageName));
     }
 
     public void addMenu(String parent, String pageName, Instance<? extends PortalPagePanel> panel) {
         panels.put(pageName, panel);
         addItem(pageName);
-        setItemCaption(pageName, translationService.get(MENU_ITEM_PREFIX + pageName, getLocale()));
+        setItemCaption(pageName, translationService.get(MENU_ITEM_PREFIX + pageName));
         setParent(pageName, parent);
         setChildrenAllowed(pageName, false);
         expandItem(parent);

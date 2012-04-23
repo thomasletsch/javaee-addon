@@ -61,17 +61,17 @@ public class TranslationServiceImplTest {
 
     @Test
     public void testGetSimple() {
-        assertEquals(VALUE1, translation.get(KEY1, locale));
+        assertEquals(VALUE1, translation.get(KEY1));
     }
 
     @Test
     public void testGetSimpleNotFound() {
-        assertEquals(UNKNOWN_KEY2, translation.get(UNKNOWN_KEY2, locale));
+        assertEquals(UNKNOWN_KEY2, translation.get(UNKNOWN_KEY2));
     }
 
     @Test
     public void testGetTwoElements() {
-        assertEquals(VALUE_KEY_KEY3, translation.get(KEY_KEY3, locale));
+        assertEquals(VALUE_KEY_KEY3, translation.get(KEY_KEY3));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class TranslationServiceImplTest {
         when(iterator.next()).thenReturn(spi);
         when(providers.iterator()).thenReturn(iterator);
         translation.providers = providers;
-        assertEquals(VALUE1, translation.get(KEY1_KEY, locale));
+        assertEquals(VALUE1, translation.get(KEY1_KEY));
     }
 
     @Test

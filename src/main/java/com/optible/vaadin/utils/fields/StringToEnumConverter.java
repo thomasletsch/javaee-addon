@@ -22,7 +22,7 @@ public class StringToEnumConverter implements Converter<String, Enum> {
     public String convertToPresentation(Enum value, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
         if (value == null)
             return null;
-        return translationService.get(value.getClass().getSimpleName() + "." + value.name(), locale);
+        return translationService.get(value.getClass().getSimpleName() + "." + value.name());
     }
 
     @Override

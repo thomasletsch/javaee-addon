@@ -45,7 +45,7 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
      * Can be overwritten
      */
     protected ButtonBar initSearchButtons() {
-        Button findItem = new SearchButton(this);
+        Button findItem = new SearchButton(this, translationService.get(TranslationKeys.BUTTON_SAVE));
         ButtonBar buttonLayout = new ButtonBar();
         buttonLayout.addComponent(findItem);
         return buttonLayout;
@@ -56,15 +56,15 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
         VerticalLayout searchPanel = new VerticalLayout();
         searchPanel.setMargin(true);
         searchPanel.setSpacing(true);
-        searchPanel.setCaption(translationService.get(TranslationKeys.TITLE_SEARCH, getLocale()) + ": "
-                + translationService.get(entityName, getLocale()));
+        searchPanel.setCaption(translationService.get(TranslationKeys.TITLE_SEARCH) + ": "
+                + translationService.get(entityName));
         searchForm = getSearchForm();
         if (searchForm != null)
             searchPanel.addComponent(searchForm);
         ButtonBar buttonBar = initSearchButtons();
         searchPanel.addComponent(buttonBar);
         addComponent(searchPanel);
-        Panel listPanel = new Panel(translationService.get(entityName + "s", getLocale()));
+        Panel listPanel = new Panel(translationService.get(entityName + "s"));
         table = getResultTable();
         listPanel.addComponent(table);
         addComponent(listPanel);

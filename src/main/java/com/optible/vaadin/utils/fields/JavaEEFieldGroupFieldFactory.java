@@ -41,7 +41,7 @@ public class JavaEEFieldGroupFieldFactory implements FieldFactory {
     public <T extends Field<?>> T createField(EntityContainer<?> container, String fieldName, Class<T> fieldType) {
         Class<?> dataType = container.getType(fieldName);
         T field = createField(dataType, fieldType);
-        field.setCaption(translationService.get(fieldName, field.getLocale()));
+        field.setCaption(translationService.get(fieldName));
         field.setBuffered(true);
         field.getState().setImmediate(false);
         return field;
@@ -107,7 +107,7 @@ public class JavaEEFieldGroupFieldFactory implements FieldFactory {
         for (Object r : enumSet) {
             Item newItem = select.addItem(r);
             String i18nKey = enumClass.getSimpleName() + "." + r.toString();
-            newItem.getItemProperty(CAPTION_PROPERTY_ID).setValue(translationService.get(i18nKey, select.getLocale()));
+            newItem.getItemProperty(CAPTION_PROPERTY_ID).setValue(translationService.get(i18nKey));
         }
     }
 

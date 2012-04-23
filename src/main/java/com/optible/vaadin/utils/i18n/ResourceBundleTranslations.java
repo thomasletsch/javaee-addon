@@ -18,8 +18,8 @@ public abstract class ResourceBundleTranslations implements TranslationSPI {
 
     @Override
     public String get(String key, Locale locale) {
-        if (getCommonBundle(locale).containsKey(key)) {
-            return getCommonBundle(locale).getString(key);
+        if (getBundle(locale).containsKey(key)) {
+            return getBundle(locale).getString(key);
         }
         return key;
     }
@@ -31,7 +31,7 @@ public abstract class ResourceBundleTranslations implements TranslationSPI {
         return translation;
     }
 
-    public ResourceBundle getCommonBundle(Locale locale) {
+    public ResourceBundle getBundle(Locale locale) {
         ResourceBundle bundle = bundles.get(locale);
         if (bundle == null) {
             bundle = ResourceBundle.getBundle(bundleName, locale);

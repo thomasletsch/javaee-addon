@@ -1,8 +1,7 @@
 package com.optible.vaadin.utils.i18n;
 
+import java.io.Serializable;
 import java.util.Locale;
-
-import javax.inject.Singleton;
 
 /**
  * Generic translation service. To extend it, just create a new TranslationSPI. The impl looks at all TranslationSPI implementations inside
@@ -11,8 +10,7 @@ import javax.inject.Singleton;
  * @author contact@thomas-letsch.de
  * 
  */
-@Singleton
-public interface TranslationService {
+public interface TranslationService extends Serializable {
 
     /**
      * Translates the given key.
@@ -22,7 +20,7 @@ public interface TranslationService {
      * 
      * @return The translation if found. Otherwise the given key is returned.
      */
-    public String get(String key, Locale locale);
+    public String get(String key);
 
     /**
      * Translates the given key and replaces {0-n} with the given params.
@@ -32,6 +30,11 @@ public interface TranslationService {
      * 
      * @return The translation if found. Otherwise the given key is returned.
      */
-    public String get(String key, Locale locale, Object... params);
+    public String get(String key, Object... params);
+
+    /**
+     * Set the locale of the current session. This is done automatically from within the RootApplication.
+     */
+    public void setLocale(Locale locale);
 
 }
