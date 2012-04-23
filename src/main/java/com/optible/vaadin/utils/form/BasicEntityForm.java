@@ -1,4 +1,4 @@
-package com.optible.vaadin.utils.components;
+package com.optible.vaadin.utils.form;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,7 @@ import org.javaeeutils.jpa.PersistentEntity;
 import com.optible.vaadin.utils.fields.FieldFactory;
 import com.optible.vaadin.utils.jpa.EntityContainer;
 import com.optible.vaadin.utils.jpa.EntityItem;
+import com.optible.vaadin.utils.table.BasicEntityTable;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.FieldGroup;

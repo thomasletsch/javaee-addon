@@ -1,4 +1,4 @@
-package com.optible.vaadin.utils.components;
+package com.optible.vaadin.utils.form;
 
 import java.util.ArrayList;
 import java.util.List;

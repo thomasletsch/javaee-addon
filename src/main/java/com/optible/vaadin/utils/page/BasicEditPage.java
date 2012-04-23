@@ -6,10 +6,10 @@ import javax.inject.Inject;
 import org.javaeeutils.jpa.PersistentEntity;
 
 import com.optible.vaadin.utils.TranslationKeys;
+import com.optible.vaadin.utils.buttons.ButtonBar;
 import com.optible.vaadin.utils.buttons.CanHandleSaveButton;
 import com.optible.vaadin.utils.buttons.SaveButton;
-import com.optible.vaadin.utils.components.BasicEntityForm;
-import com.optible.vaadin.utils.components.ButtonBar;
+import com.optible.vaadin.utils.form.BasicEntityForm;
 import com.optible.vaadin.utils.i18n.TranslationService;
 import com.vaadin.ui.VerticalLayout;
 

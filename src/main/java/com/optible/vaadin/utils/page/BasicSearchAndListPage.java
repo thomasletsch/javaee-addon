@@ -6,12 +6,12 @@ import javax.inject.Inject;
 import org.javaeeutils.jpa.PersistentEntity;
 
 import com.optible.vaadin.utils.TranslationKeys;
+import com.optible.vaadin.utils.buttons.ButtonBar;
 import com.optible.vaadin.utils.buttons.CanHandleSearchButton;
 import com.optible.vaadin.utils.buttons.SearchButton;
-import com.optible.vaadin.utils.components.BasicEntityTable;
-import com.optible.vaadin.utils.components.BasicSearchForm;
-import com.optible.vaadin.utils.components.ButtonBar;
+import com.optible.vaadin.utils.form.BasicSearchForm;
 import com.optible.vaadin.utils.i18n.TranslationService;
+import com.optible.vaadin.utils.table.BasicEntityTable;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;

@@ -1,4 +1,4 @@
-package com.optible.vaadin.utils.components;
+package com.optible.vaadin.utils.table;
 
 import java.util.List;
 
