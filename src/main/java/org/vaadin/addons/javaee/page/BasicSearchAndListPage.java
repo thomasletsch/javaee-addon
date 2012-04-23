@@ -1,0 +1,79 @@
+package org.vaadin.addons.javaee.page;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
+import org.javaeeutils.jpa.PersistentEntity;
+import org.vaadin.addons.javaee.TranslationKeys;
+import org.vaadin.addons.javaee.buttons.ButtonBar;
+import org.vaadin.addons.javaee.buttons.CanHandleSearchButton;
+import org.vaadin.addons.javaee.buttons.SearchButton;
+import org.vaadin.addons.javaee.form.BasicSearchForm;
+import org.vaadin.addons.javaee.i18n.TranslationService;
+import org.vaadin.addons.javaee.table.BasicEntityTable;
+
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.VerticalLayout;
+
+public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> extends PortalPagePanel implements CanHandleSearchButton {
+
+    @Inject
+    protected TranslationService translationService;
+
+    private BasicSearchForm<ENTITY> searchForm;
+
+    private BasicEntityTable<ENTITY> table;
+
+    private final String entityName;
+
+    public BasicSearchAndListPage(String pageName, String entityName) {
+        super(pageName);
+        this.entityName = entityName;
+    }
+
+    protected abstract BasicEntityTable<ENTITY> getResultTable();
+
+    /**
+     * Can be overwritten
+     */
+    protected BasicSearchForm<ENTITY> getSearchForm() {
+        return null;
+    }
+
+    /**
+     * Can be overwritten
+     */
+    protected ButtonBar initSearchButtons() {
+        Button findItem = new SearchButton(this, translationService.get(TranslationKeys.BUTTON_SEARCH));
+        ButtonBar buttonLayout = new ButtonBar();
+        buttonLayout.addComponent(findItem);
+        return buttonLayout;
+    }
+
+    @PostConstruct
+    protected void init() {
+        VerticalLayout searchPanel = new VerticalLayout();
+        searchPanel.setMargin(true);
+        searchPanel.setSpacing(true);
+        searchPanel.setCaption(translationService.get(TranslationKeys.TITLE_SEARCH) + ": " + translationService.get(entityName));
+        searchForm = getSearchForm();
+        if (searchForm != null)
+            searchPanel.addComponent(searchForm);
+        ButtonBar buttonBar = initSearchButtons();
+        searchPanel.addComponent(buttonBar);
+        addComponent(searchPanel);
+        Panel listPanel = new Panel(translationService.get(entityName + "s"));
+        table = getResultTable();
+        listPanel.addComponent(table);
+        addComponent(listPanel);
+    }
+
+    @Override
+    public void searchClicked() {
+        table.removeAllContainerFilters();
+        table.addContainerFilter(searchForm.getValuesAsFilter());
+        table.enableRefresh();
+    }
+
+}
