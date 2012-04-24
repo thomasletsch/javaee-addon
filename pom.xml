@@ -29,7 +29,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.googlecode</groupId>
+			<groupId>com.googlecode.javaeeutils</groupId>
 			<artifactId>javaeeutils</artifactId>
 			<version>${javaeeutils.version}</version>
 		</dependency>
