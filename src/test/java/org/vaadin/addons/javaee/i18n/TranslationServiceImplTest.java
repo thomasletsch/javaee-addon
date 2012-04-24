@@ -58,6 +58,7 @@ public class TranslationServiceImplTest {
         when(iterator.next()).thenReturn(spi);
         when(providers.iterator()).thenReturn(iterator);
         translation.providers = providers;
+        translation.setLocale(locale);
     }
 
     @Test

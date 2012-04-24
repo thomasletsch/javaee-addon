@@ -3,9 +3,9 @@
     <persistence-unit name="JavaEEAddonTestUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>org.vaadin.addons.javaee.jpa.TestEntity</class>
-        <class>org.javaeeutils.jpa.PersistentEntity</class>
-        <class>org.javaeeutils.jpa.EntityWithNaturalKey</class>
-        <class>org.javaeeutils.jpa.AuditableEntity</class>
+        <class>com.googlecode.javaeeutils.jpa.PersistentEntity</class>
+        <class>com.googlecode.javaeeutils.jpa.EntityWithNaturalKey</class>
+        <class>com.googlecode.javaeeutils.jpa.AuditableEntity</class>
         <properties>
             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
             <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.DefaultComponentSafeNamingStrategy" />

@@ -16,6 +16,6 @@ It supports the following features:
 Tested and used with Hibernate 4 in JBoss 7.1.
 
 For a working copy of the addon, you need to checkout the following project as well (no maven package available at the moment):
-https://github.com/thomasletsch/jpa-entity-base
+http://code.google.com/p/javaeeutils/source/checkout
 
 The JavaEE Addon is compatible to Vaadin 7! No stable version!
