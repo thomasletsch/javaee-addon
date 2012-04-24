@@ -9,12 +9,12 @@ import javax.inject.Inject;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.javaeeutils.jpa.PersistentEntity;
 import org.vaadin.addons.javaee.fields.FieldFactory;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 import org.vaadin.addons.javaee.jpa.EntityItem;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
 
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.FieldGroup;

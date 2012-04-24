@@ -3,7 +3,6 @@ package org.vaadin.addons.javaee.page;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.javaeeutils.jpa.PersistentEntity;
 import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
 import org.vaadin.addons.javaee.buttons.CanHandleSearchButton;
@@ -12,6 +11,7 @@ import org.vaadin.addons.javaee.form.BasicSearchForm;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
 
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;

@@ -11,8 +11,8 @@ import javax.ejb.EJB;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.javaeeutils.jpa.PersistentEntity;
 
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;

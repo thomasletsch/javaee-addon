@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.Test;
-import org.vaadin.addons.javaee.jpa.JPAEntityProvider;
 
 import com.vaadin.data.util.filter.SimpleStringFilter;
 

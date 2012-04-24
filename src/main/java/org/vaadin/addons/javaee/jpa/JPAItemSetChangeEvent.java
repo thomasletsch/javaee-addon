@@ -1,7 +1,6 @@
 package org.vaadin.addons.javaee.jpa;
 
-import org.javaeeutils.jpa.PersistentEntity;
-
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container;
 import com.vaadin.data.Container.ItemSetChangeEvent;
 

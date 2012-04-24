@@ -2,7 +2,7 @@ package org.vaadin.addons.javaee.jpa;
 
 import javax.persistence.Entity;
 
-import org.javaeeutils.jpa.AuditableEntity;
+import com.googlecode.javaeeutils.jpa.AuditableEntity;
 
 
 @Entity

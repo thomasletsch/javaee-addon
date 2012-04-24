@@ -13,10 +13,10 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.javaeeutils.jpa.PersistentEntity;
 import org.javaeeutils.jpa.PersistentEntity_;
 import org.vaadin.addons.javaee.jpa.filter.FilterToQueryTranslator;
 
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 
 @Stateless

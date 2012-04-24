@@ -6,9 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.javaeeutils.jpa.manager.EntityManagerHelper;
 import org.junit.After;
 import org.junit.Before;
+
+import com.googlecode.javaeeutils.jpa.manager.EntityManagerHelper;
 
 public class BaseEntityTest {
 

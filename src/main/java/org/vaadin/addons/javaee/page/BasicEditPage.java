@@ -3,7 +3,6 @@ package org.vaadin.addons.javaee.page;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.javaeeutils.jpa.PersistentEntity;
 import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
 import org.vaadin.addons.javaee.buttons.CanHandleSaveButton;
@@ -11,6 +10,7 @@ import org.vaadin.addons.javaee.buttons.SaveButton;
 import org.vaadin.addons.javaee.form.BasicEntityForm;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.ui.VerticalLayout;
 
 public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends PortalPagePanel implements CanHandleSaveButton {

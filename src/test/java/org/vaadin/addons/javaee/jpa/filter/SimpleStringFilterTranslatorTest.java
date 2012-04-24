@@ -9,10 +9,9 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.javaeeutils.jpa.PersistentEntity;
 import org.junit.Test;
-import org.vaadin.addons.javaee.jpa.filter.SimpleStringFilterTranslator;
 
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 
 

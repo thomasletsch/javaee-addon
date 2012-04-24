@@ -7,8 +7,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.javaeeutils.jpa.PersistentEntity;
-
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 

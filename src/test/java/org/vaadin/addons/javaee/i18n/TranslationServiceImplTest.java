@@ -12,8 +12,6 @@ import javax.enterprise.inject.Instance;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.vaadin.addons.javaee.i18n.TranslationSPI;
-import org.vaadin.addons.javaee.i18n.TranslationServiceImpl;
 
 public class TranslationServiceImplTest {
 

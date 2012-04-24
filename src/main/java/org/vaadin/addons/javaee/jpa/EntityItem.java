@@ -1,7 +1,6 @@
 package org.vaadin.addons.javaee.jpa;
 
-import org.javaeeutils.jpa.PersistentEntity;
-
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Buffered;
 import com.vaadin.data.Property;
 import com.vaadin.data.Validator.InvalidValueException;
