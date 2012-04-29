@@ -36,7 +36,6 @@ import com.vaadin.data.util.filter.SimpleStringFilter;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.GridLayout;
 
-
 @Dependent
 public class BasicSearchForm<ENTITY extends PersistentEntity> extends GridLayout {
 

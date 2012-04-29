@@ -31,7 +31,6 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
-import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.filter.And;
 import com.vaadin.data.util.filter.UnsupportedFilterException;
 
@@ -71,8 +70,8 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
     }
 
     public void updateItem(EntityItem<ENTITY> item) {
-        assert (item.getBean().getId() != null);
-        jpaEntityProvider.updateEntity(item.getBean());
+        assert (item.getEntity().getId() != null);
+        jpaEntityProvider.updateEntity(item.getEntity());
     }
 
     public void enable() {
@@ -89,7 +88,7 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
     @Override
     public Item getItem(Object itemId) {
         ENTITY entity = jpaEntityProvider.get(entityClass, (Long) itemId);
-        BeanItem<ENTITY> item = new EntityItem<ENTITY>(this, entity);
+        EntityItem<ENTITY> item = new EntityItem<ENTITY>(this, entity);
         return item;
     }
 
@@ -139,9 +138,9 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         return itemId;
     }
 
-    public Item addItem(ENTITY entity) {
+    public EntityItem<ENTITY> addItem(ENTITY entity) {
         jpaEntityProvider.createEntity(entity);
-        BeanItem<ENTITY> item = new EntityItem<ENTITY>(this, entity);
+        EntityItem<ENTITY> item = new EntityItem<ENTITY>(this, entity);
         return item;
     }
 

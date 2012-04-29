@@ -23,10 +23,10 @@ import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
+import org.vaadin.addons.javaee.jpa.EntityItem;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container;
-import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.converter.Converter;
 import com.vaadin.data.util.filter.UnsupportedFilterException;
 import com.vaadin.ui.Table;
@@ -126,8 +126,8 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     @SuppressWarnings("unchecked")
     public ENTITY getSelectedEntity() {
         Long id = (Long) getValue();
-        BeanItem<ENTITY> item = (BeanItem<ENTITY>) getItem(id);
-        ENTITY entity = item.getBean();
+        EntityItem<ENTITY> item = (EntityItem<ENTITY>) getItem(id);
+        ENTITY entity = item.getEntity();
         return entity;
     }
 }

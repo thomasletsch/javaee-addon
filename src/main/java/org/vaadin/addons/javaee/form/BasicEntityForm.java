@@ -41,7 +41,6 @@ import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.GridLayout;
 
-
 @Dependent
 public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends GridLayout {
 
@@ -124,7 +123,7 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends G
     @SuppressWarnings("unchecked")
     public ENTITY getEntity() {
         EntityItem<ENTITY> item = (EntityItem<ENTITY>) fieldGroup.getItemDataSource();
-        return item.getBean();
+        return item.getEntity();
     }
 
     protected ENTITY getDefaultValue() throws InstantiationException, IllegalAccessException {

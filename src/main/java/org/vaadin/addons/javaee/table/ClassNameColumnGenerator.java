@@ -34,7 +34,7 @@ public class ClassNameColumnGenerator implements Table.ColumnGenerator {
     @Override
     public Component generateCell(Table source, Object itemId, Object columnId) {
         EntityItem<?> item = (EntityItem<?>) source.getItem(itemId);
-        String name = item.getBean().getClass().getSimpleName();
+        String name = item.getEntity().getClass().getSimpleName();
         Label field = new Label();
         field.setValue(translationService.get(name));
         return field;

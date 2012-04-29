@@ -30,12 +30,9 @@ import com.vaadin.ui.Tree;
 /*
  * Testing:
  * 
- * First First-Level-Menu-Item: 
- *      //div[@id='SideMenu']/div/div/div[1]/div/span
- * 
- * First Second-Level-Menu-Item: 
- *      //div[@id='SideMenu']/div/div/div[2]/div/div/div/span
- * 
+ * Second-Level-Menu-Item: 
+ *      //div[@id='SideMenu']//div/div[{section}]/div[2]/div[{subSection}]/div/div/span
+ * where section = row of first level item starting by 1 and subSection = row of second level item starting by 1
  */
 public class SideMenu extends Tree {
 
