@@ -107,6 +107,10 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends G
         addComponent(field);
     }
 
+    public Field<?> getField(String name) {
+        return fieldGroup.getField(name);
+    }
+
     public void edit(Item item) {
         fieldGroup.setItemDataSource(item);
     }

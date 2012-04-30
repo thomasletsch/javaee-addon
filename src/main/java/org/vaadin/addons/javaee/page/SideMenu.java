@@ -42,43 +42,100 @@ public class SideMenu extends Tree {
     @Inject
     private TranslationService translationService;
 
-    private HashMap<String, Instance<? extends PortalPagePanel>> panels = new HashMap<>();
+    private HashMap<String, MenuItem> panels = new HashMap<>();
 
     public SideMenu() {
         setSizeFull();
         setImmediate(true);
         setItemCaptionMode(ItemCaptionMode.EXPLICIT);
         setDebugId("SideMenu");
+        addNavigationListener();
+        addDisabledStyleGenerator();
+    }
+
+    private void addDisabledStyleGenerator() {
+        setItemStyleGenerator(new Tree.ItemStyleGenerator() {
+
+            @Override
+            public String getStyle(Object itemId) {
+                String pageName = (String) itemId;
+                MenuItem item = panels.get(pageName);
+                if (!item.isEnabled()) {
+                    return "disabled";
+                } else {
+                    return null;
+                }
+            }
+        });
+    }
+
+    private void addNavigationListener() {
+
         addListener(new ValueChangeListener() {
+
+            Object previous = null;
 
             @Override
             public void valueChange(Property.ValueChangeEvent event) {
-                if (event.getProperty() != null && event.getProperty().getValue() != null) {
-                    String pageName = (String) event.getProperty().getValue();
-                    PortalPagePanel panel = panels.get(pageName).get();
-                    portal.navigateTo(panel);
+                if (event.getProperty() == null || event.getProperty().getValue() == null) {
+                    return;
+                }
+                String pageName = (String) event.getProperty().getValue();
+                MenuItem item = panels.get(pageName);
+                navigateToPageIfEnabled(item);
+            }
+
+            private void navigateToPageIfEnabled(MenuItem item) {
+                if (item.isEnabled()) {
+                    portal.navigateTo(item.getPanel().get());
+                    previous = getValue();
+                } else {
+                    setValue(previous);
                 }
             }
         });
     }
 
     public void addMenu(String pageName, Instance<? extends PortalPagePanel> panel) {
-        panels.put(pageName, panel);
-        addItem(pageName);
-        setItemCaption(pageName, translationService.get(MENU_ITEM_PREFIX + pageName));
+        MenuItem item = new MenuItem(pageName, translationService.get(MENU_ITEM_PREFIX + pageName), panel);
+        addMenu(item);
     }
 
     public void addMenu(String parent, String pageName, Instance<? extends PortalPagePanel> panel) {
-        panels.put(pageName, panel);
-        addItem(pageName);
-        setItemCaption(pageName, translationService.get(MENU_ITEM_PREFIX + pageName));
-        setParent(pageName, parent);
-        setChildrenAllowed(pageName, false);
-        expandItem(parent);
+        MenuItem item = new MenuItem(parent, pageName, translationService.get(MENU_ITEM_PREFIX + pageName), panel);
+        addMenu(item);
+    }
+
+    public void addMenu(String pageName, Instance<? extends PortalPagePanel> panel, boolean enabled) {
+        MenuItem item = new MenuItem(pageName, translationService.get(MENU_ITEM_PREFIX + pageName), panel, enabled);
+        addMenu(item);
+    }
+
+    public void addMenu(String parent, String pageName, Instance<? extends PortalPagePanel> panel, boolean enabled) {
+        MenuItem item = new MenuItem(parent, pageName, translationService.get(MENU_ITEM_PREFIX + pageName), panel, enabled);
+        addMenu(item);
+    }
+
+    private void addMenu(MenuItem item) {
+        panels.put(item.getName(), item);
+        addItem(item.getName());
+        setItemCaption(item.getName(), translationService.get(MENU_ITEM_PREFIX + item.getName()));
+        if (item.hasParent()) {
+            setParent(item.getName(), item.getParent());
+            setChildrenAllowed(item.getName(), false);
+            expandItem(item.getParent());
+        }
+    }
+
+    public void enableAll() {
+        for (MenuItem item : panels.values()) {
+            item.enable();
+        }
+        fireValueChange(false);
     }
 
     public PortalPagePanel getPanel(String pageName) {
-        return panels.get(pageName).get();
+        return panels.get(pageName).getPanel().get();
     }
 
 }
