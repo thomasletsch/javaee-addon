@@ -26,7 +26,6 @@ import org.vaadin.addons.javaee.i18n.TranslationService;
 import com.vaadin.terminal.WrappedRequest;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Root;
@@ -38,15 +37,15 @@ public abstract class Portal extends Root {
 
     public static final int SMALL_MARGIN = 2;
 
-    private static final int DEFAULT_BORDER_WIDTH = 1;
+    public static final int DEFAULT_BORDER_WIDTH = 1;
 
-    private static final int SCREEN_WIDTH = 1024;
+    public static final int SCREEN_WIDTH = 1024;
 
     public static final int PAGE_WIDTH = SCREEN_WIDTH - (DEFAULT_MARGIN * 2) - (DEFAULT_BORDER_WIDTH * 2);
 
-    private static final int HEADER_WIDTH = PAGE_WIDTH;
+    public static final int HEADER_WIDTH = PAGE_WIDTH;
 
-    private static final int HEADER_HEIGHT = 30;
+    public static final int HEADER_HEIGHT = 30;
 
     public static final int MENU_WIDTH = 185;
 
@@ -55,12 +54,12 @@ public abstract class Portal extends Root {
 
     protected Layout mainPanel;
 
-    private Label title;
-
     private String oldPageName = null;
 
     @Inject
     protected SideMenu menu;
+
+    protected Header header;
 
     @Override
     protected void init(WrappedRequest request) {
@@ -86,13 +85,10 @@ public abstract class Portal extends Root {
         setCaption(translationService.get(TITLE_PORTAL));
     }
 
-    private Layout createHeader() {
-        HorizontalLayout head = new HorizontalLayout();
-        head.setWidth(HEADER_WIDTH, Unit.PIXELS);
-        head.setHeight(HEADER_HEIGHT, Unit.PIXELS);
-        title = new Label(translationService.get(TITLE_PORTAL));
-        head.addComponent(title);
-        return head;
+    protected Header createHeader() {
+        header = new Header();
+        header.setTitle(translationService.get(TITLE_PORTAL));
+        return header;
     }
 
     private Panel createMenuPanel() {
