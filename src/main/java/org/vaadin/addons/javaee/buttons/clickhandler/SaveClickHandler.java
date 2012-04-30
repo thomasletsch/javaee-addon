@@ -13,11 +13,30 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.buttons;
+package org.vaadin.addons.javaee.buttons.clickhandler;
 
+import org.vaadin.addons.javaee.buttons.SaveButton;
+import org.vaadin.addons.javaee.buttons.handler.CanHandleSaveButton;
 
-public interface CanHandleSearchButton {
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
-    void searchClicked();
+public class SaveClickHandler implements ClickListener {
+
+    private final CanHandleSaveButton handle;
+
+    private final SaveButton saveButton;
+
+    public SaveClickHandler(SaveButton saveButton, CanHandleSaveButton handle) {
+        this.saveButton = saveButton;
+        this.handle = handle;
+    }
+
+    @Override
+    public void buttonClick(ClickEvent event) {
+        if (event.getButton() == saveButton) {
+            handle.saveClicked();
+        }
+    }
 
 }

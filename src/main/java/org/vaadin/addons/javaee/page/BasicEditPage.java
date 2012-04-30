@@ -20,8 +20,8 @@ import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
-import org.vaadin.addons.javaee.buttons.CanHandleSaveButton;
 import org.vaadin.addons.javaee.buttons.SaveButton;
+import org.vaadin.addons.javaee.buttons.handler.CanHandleSaveButton;
 import org.vaadin.addons.javaee.form.BasicEntityForm;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 

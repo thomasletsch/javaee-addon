@@ -27,6 +27,24 @@ public interface TranslationKeys {
 
     public static final String BUTTON_SAVE = "button_save";
 
+    public static final String BUTTON_CANCEL = "button_cancel";
+
+    public static final String BUTTON_OK = "button_ok";
+
+    public static final String BUTTON_RESET = "button_reset";
+
+    public static final String BUTTON_NEXT = "button_next";
+
+    public static final String BUTTON_PREV = "button_previous";
+
+    public static final String BUTTON_FINISH = "button_finish";
+
+    public static final String BUTTON_NEW = "button_new";
+
+    public static final String BUTTON_EDIT = "button_edit";
+
+    public static final String BUTTON_DELETE = "button_delete";
+
     public static final String PRODUCT = "product";
 
     public static final String TITLE_EDIT = "title_edit";

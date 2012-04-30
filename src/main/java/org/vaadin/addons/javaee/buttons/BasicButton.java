@@ -27,6 +27,9 @@ public class BasicButton extends Button {
     @Inject
     protected TranslationService translationService;
 
+    @Inject
+    private javax.enterprise.event.Event<ButtonClickedEvent> buttonClicked;
+
     private String titleKey;
 
     /**
@@ -50,6 +53,15 @@ public class BasicButton extends Button {
     @PostConstruct
     protected void finishButton() {
         setCaption(translationService.get(titleKey));
+    }
+
+    public void fireEvent() {
+        ButtonClickedEvent event = createEvent();
+        buttonClicked.fire(event);
+    }
+
+    protected ButtonClickedEvent createEvent() {
+        return new ButtonClickedEvent();
     }
 
 }

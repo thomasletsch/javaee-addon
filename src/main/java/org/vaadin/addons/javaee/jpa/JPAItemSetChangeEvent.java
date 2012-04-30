@@ -22,15 +22,15 @@ import com.vaadin.data.Container.ItemSetChangeEvent;
 
 public class JPAItemSetChangeEvent<ENTITY extends PersistentEntity> implements ItemSetChangeEvent {
 
-    private final EntityContainer<ENTITY> jpaContainer;
+    private final EntityContainer<ENTITY> entityContainer;
 
-    public JPAItemSetChangeEvent(EntityContainer<ENTITY> jpaContainer) {
-        this.jpaContainer = jpaContainer;
+    public JPAItemSetChangeEvent(EntityContainer<ENTITY> entityContainer) {
+        this.entityContainer = entityContainer;
     }
 
     @Override
     public Container getContainer() {
-        return jpaContainer;
+        return entityContainer;
     }
 
 }

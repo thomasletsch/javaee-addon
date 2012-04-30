@@ -37,12 +37,12 @@ import com.vaadin.data.util.VaadinPropertyDescriptor;
 
 public class EntityItem<ENTITY extends PersistentEntity> extends PropertysetItem implements Buffered {
 
-    private final EntityContainer<ENTITY> jpaContainer;
+    private final EntityContainer<ENTITY> entityContainer;
 
     private ENTITY entity;
 
-    public EntityItem(EntityContainer<ENTITY> jpaContainer, ENTITY entity) {
-        this.jpaContainer = jpaContainer;
+    public EntityItem(EntityContainer<ENTITY> entityContainer, ENTITY entity) {
+        this.entityContainer = entityContainer;
         this.setEntity(entity);
         addPropertyDescriptors(entity);
     }
@@ -80,10 +80,10 @@ public class EntityItem<ENTITY extends PersistentEntity> extends PropertysetItem
     @Override
     public void commit() throws SourceException, InvalidValueException {
         if (getEntity().getId() == null) {
-            EntityItem<ENTITY> addedItem = jpaContainer.addItem(getEntity());
+            EntityItem<ENTITY> addedItem = entityContainer.addItem(getEntity());
             setEntity(addedItem.getEntity());
         } else {
-            jpaContainer.updateItem(this);
+            entityContainer.updateItem(this);
         }
     }
 

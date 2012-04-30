@@ -20,8 +20,8 @@ import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
-import org.vaadin.addons.javaee.buttons.CanHandleSearchButton;
 import org.vaadin.addons.javaee.buttons.SearchButton;
+import org.vaadin.addons.javaee.buttons.handler.CanHandleSearchButton;
 import org.vaadin.addons.javaee.form.BasicSearchForm;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.table.BasicEntityTable;

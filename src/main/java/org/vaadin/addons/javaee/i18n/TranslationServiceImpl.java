@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
@@ -32,7 +31,6 @@ public class TranslationServiceImpl implements TranslationService {
 
     private static Log log = LogFactory.getLog(TranslationServiceImpl.class);
 
-    @Any
     @Inject
     Instance<TranslationSPI> providers;
 

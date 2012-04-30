@@ -16,6 +16,8 @@
 package org.vaadin.addons.javaee.buttons;
 
 import org.vaadin.addons.javaee.TranslationKeys;
+import org.vaadin.addons.javaee.buttons.clickhandler.SearchClickHandler;
+import org.vaadin.addons.javaee.buttons.handler.CanHandleSearchButton;
 
 public class SearchButton extends BasicButton {
 

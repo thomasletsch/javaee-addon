@@ -39,19 +39,19 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     @Inject
     private TranslationService translationService;
 
-    private EntityContainer<ENTITY> jpaContainer;
+    private EntityContainer<ENTITY> entityContainer;
 
     public BasicEntityTable(Class<ENTITY> entityClass) {
         setDebugId(entityClass.getSimpleName() + "Table");
     }
 
-    public abstract EntityContainer<ENTITY> getContainer();
+    protected abstract EntityContainer<ENTITY> getContainer();
 
     /**
      * Can be overwritten
      */
     protected void initColumns() {
-        List<String> columnNames = getContainer().getPropertyNames();
+        List<String> columnNames = entityContainer.getPropertyNames();
         initColumns(columnNames);
     }
 
@@ -66,12 +66,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     @PostConstruct
     protected void init() {
-        this.jpaContainer = getContainer();
-        init(jpaContainer);
-    }
-
-    protected void init(EntityContainer<ENTITY> jpaContainer) {
-        this.jpaContainer = jpaContainer;
+        this.entityContainer = getContainer();
         setImmediate(true);
         setEditable(false);
         setMultiSelect(false);
@@ -80,13 +75,13 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         setBuffered(true);
         setPageLength(BATCH_SIZE);
 
-        setContainerDataSource(jpaContainer);
+        setContainerDataSource(entityContainer);
         setVisibleColumns(new Object[] {});
         initColumns();
     }
 
     protected void addColumn(String name) {
-        Class<?> type = jpaContainer.getType(name);
+        Class<?> type = entityContainer.getType(name);
         addColumn(name, type);
     }
 
@@ -105,22 +100,26 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     }
 
     public void enableRefresh() {
-        jpaContainer.enable();
+        entityContainer.enable();
     }
 
     @Override
     public void addContainerFilter(Filter filter) throws UnsupportedFilterException {
-        jpaContainer.addContainerFilter(filter);
+        entityContainer.addContainerFilter(filter);
     }
 
     @Override
     public void removeContainerFilter(Filter filter) {
-        jpaContainer.removeContainerFilter(filter);
+        entityContainer.removeContainerFilter(filter);
     }
 
     @Override
     public void removeAllContainerFilters() {
-        jpaContainer.removeAllContainerFilters();
+        entityContainer.removeAllContainerFilters();
+    }
+
+    public boolean isAnySelected() {
+        return getValue() != null;
     }
 
     @SuppressWarnings("unchecked")
@@ -129,5 +128,10 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         EntityItem<ENTITY> item = (EntityItem<ENTITY>) getItem(id);
         ENTITY entity = item.getEntity();
         return entity;
+    }
+
+    public void removeSelectedItem() {
+        Long id = (Long) getValue();
+        entityContainer.removeItem(id);
     }
 }

@@ -53,12 +53,13 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends G
 
     private Class<ENTITY> entityClass;
 
-    private EntityContainer<ENTITY> jpaContainer;
+    private EntityContainer<ENTITY> entityContainer;
 
     public BasicEntityForm(Class<ENTITY> entityClass) {
         this.entityClass = entityClass;
         fieldGroup = new FieldGroup();
         setColumns(3);
+        setSpacing(true);
     }
 
     protected abstract EntityContainer<ENTITY> getContainer();
@@ -72,7 +73,7 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends G
 
     @PostConstruct
     protected void init() {
-        this.jpaContainer = getContainer();
+        this.entityContainer = getContainer();
         initFields();
         if (getTable() != null)
             init(getTable());
@@ -97,7 +98,7 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends G
     }
 
     protected void addField(String fieldName) {
-        Field<?> field = fieldFactory.createField(jpaContainer, fieldName);
+        Field<?> field = fieldFactory.createField(entityContainer, fieldName);
         addField(fieldName, field);
     }
 
