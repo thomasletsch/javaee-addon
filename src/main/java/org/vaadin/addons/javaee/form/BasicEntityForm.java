@@ -64,19 +64,10 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends G
 
     protected abstract EntityContainer<ENTITY> getContainer();
 
-    /**
-     * Can be overwritten if init from table
-     */
-    protected BasicEntityTable<ENTITY> getTable() {
-        return null;
-    }
-
     @PostConstruct
     protected void init() {
         this.entityContainer = getContainer();
         initFields();
-        if (getTable() != null)
-            init(getTable());
     }
 
     /**
@@ -103,9 +94,12 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends G
     }
 
     protected void addField(String fieldName, Field<?> field) {
-        field.setDebugId(entityClass.getSimpleName() + "." + fieldName);
         fieldGroup.bind(field, fieldName);
         addComponent(field);
+    }
+
+    public boolean isValid() {
+        return fieldGroup.isValid();
     }
 
     public Field<?> getField(String name) {
@@ -135,7 +129,7 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends G
         return entityClass.newInstance();
     }
 
-    protected void init(BasicEntityTable<ENTITY> table) {
+    public void connectWith(BasicEntityTable<ENTITY> table) {
         table.addListener(new ItemClickListener() {
 
             @Override

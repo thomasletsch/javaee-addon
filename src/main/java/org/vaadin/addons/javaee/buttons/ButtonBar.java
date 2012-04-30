@@ -21,5 +21,6 @@ public class ButtonBar extends HorizontalLayout {
 
     public ButtonBar() {
         setSpacing(true);
+        setMargin(true);
     }
 }

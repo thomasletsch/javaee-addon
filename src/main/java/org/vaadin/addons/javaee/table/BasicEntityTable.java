@@ -134,4 +134,8 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         Long id = (Long) getValue();
         entityContainer.removeItem(id);
     }
+
+    public void selectFirst() {
+        setValue(firstItemId());
+    }
 }

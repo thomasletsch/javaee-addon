@@ -59,6 +59,7 @@ public class JavaEEFieldGroupFieldFactory implements FieldFactory {
         field.setCaption(translationService.get(fieldName));
         field.setBuffered(true);
         field.getState().setImmediate(true);
+        field.setDebugId(container.getEntityClass().getSimpleName() + "." + fieldName);
         return field;
     }
 
