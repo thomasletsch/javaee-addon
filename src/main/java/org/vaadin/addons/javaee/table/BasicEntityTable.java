@@ -104,6 +104,11 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     }
 
     @Override
+    public Long getValue() {
+        return (Long) super.getValue();
+    }
+
+    @Override
     public void addContainerFilter(Filter filter) throws UnsupportedFilterException {
         entityContainer.addContainerFilter(filter);
     }
@@ -124,14 +129,14 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     @SuppressWarnings("unchecked")
     public ENTITY getSelectedEntity() {
-        Long id = (Long) getValue();
+        Long id = getValue();
         EntityItem<ENTITY> item = (EntityItem<ENTITY>) getItem(id);
         ENTITY entity = item.getEntity();
         return entity;
     }
 
     public void removeSelectedItem() {
-        Long id = (Long) getValue();
+        Long id = getValue();
         entityContainer.removeItem(id);
     }
 

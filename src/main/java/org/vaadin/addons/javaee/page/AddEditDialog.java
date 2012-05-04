@@ -24,6 +24,7 @@ import org.vaadin.addons.javaee.buttons.handler.CanHandleOkButton;
 import org.vaadin.addons.javaee.form.BasicEntityForm;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
+import org.vaadin.addons.javaee.jpa.EntityItem;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
 
 import com.vaadin.ui.Root;
@@ -63,8 +64,9 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
         addComponent(buttons);
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void editSelected(BasicEntityTable<?> table) {
-        form.edit(container.getItem(table.getValue()));
+        form.edit((EntityItem) container.getItem(table.getValue()));
         Root.getCurrentRoot().addWindow(this);
         center();
     }

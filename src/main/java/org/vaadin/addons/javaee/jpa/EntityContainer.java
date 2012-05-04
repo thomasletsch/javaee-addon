@@ -85,11 +85,15 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         }
     }
 
-    @Override
-    public Item getItem(Object itemId) {
-        ENTITY entity = jpaEntityProvider.get(entityClass, (Long) itemId);
+    public EntityItem<ENTITY> getItem(Long itemId) {
+        ENTITY entity = jpaEntityProvider.get(entityClass, itemId);
         EntityItem<ENTITY> item = new EntityItem<ENTITY>(this, entity);
         return item;
+    }
+
+    @Override
+    public Item getItem(Object itemId) {
+        return getItem((Long) itemId);
     }
 
     @Override
