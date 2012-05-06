@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.vaadin.addons.javaee.fields.FieldFactory;
+import org.vaadin.addons.javaee.fields.factory.FieldFactory;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
@@ -76,7 +76,7 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
         for (String fieldName : fieldNames) {
             addField(section, fieldName);
         }
-        fieldGroup.getFirstField().focus();
+        focusFirstField();
     }
 
     protected void addField(FormSection section, String fieldName) {
@@ -95,6 +95,10 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
 
     public Field<?> getField(String name) {
         return fieldGroup.getField(name);
+    }
+
+    public void focusFirstField() {
+        fieldGroup.getFirstField().focus();
     }
 
     protected FormSection getDefaultSection() {

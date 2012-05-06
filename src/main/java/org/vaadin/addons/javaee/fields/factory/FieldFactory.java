@@ -13,14 +13,15 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.fields;
+package org.vaadin.addons.javaee.fields.factory;
+
+import java.io.Serializable;
 
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
-import com.vaadin.data.fieldgroup.FieldGroupFieldFactory;
 import com.vaadin.ui.Field;
 
-public interface FieldFactory extends FieldGroupFieldFactory {
+public interface FieldFactory extends Serializable {
 
     <T extends Field<?>> T createField(EntityContainer<?> container, String fieldName);
 

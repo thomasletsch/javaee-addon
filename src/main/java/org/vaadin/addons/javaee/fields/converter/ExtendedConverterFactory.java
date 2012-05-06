@@ -13,43 +13,36 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.fields;
+package org.vaadin.addons.javaee.fields.converter;
 
-import java.util.Locale;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
 import com.vaadin.data.util.converter.Converter;
+import com.vaadin.data.util.converter.DefaultConverterFactory;
 
-@SuppressWarnings("rawtypes")
-public class StringToEnumConverter implements Converter<String, Enum> {
+public class ExtendedConverterFactory extends DefaultConverterFactory {
 
+    @Inject
     private TranslationService translationService;
 
-    public StringToEnumConverter(TranslationService translationService) {
-        this.translationService = translationService;
+    @Override
+    protected Converter<String, ?> createStringConverter(Class<?> sourceType) {
+        if (Calendar.class.isAssignableFrom(sourceType))
+            return new StringToCalenderConverter();
+        if (Enum.class.isAssignableFrom(sourceType))
+            return new StringToEnumConverter(translationService);
+        return super.createStringConverter(sourceType);
     }
 
     @Override
-    public Enum convertToModel(String value, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
-        return null;
+    protected Converter<Date, ?> createDateConverter(Class<?> sourceType) {
+        if (Calendar.class.isAssignableFrom(sourceType))
+            return new DateToCalenderConverter();
+        return super.createDateConverter(sourceType);
     }
-
-    @Override
-    public String convertToPresentation(Enum value, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
-        if (value == null)
-            return null;
-        return translationService.get(value.getClass().getSimpleName() + "." + value.name());
-    }
-
-    @Override
-    public Class<Enum> getModelType() {
-        return Enum.class;
-    }
-
-    @Override
-    public Class<String> getPresentationType() {
-        return String.class;
-    }
-
 }

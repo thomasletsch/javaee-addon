@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.fields;
+package org.vaadin.addons.javaee.fields.converter;
 
 import java.util.Calendar;
 import java.util.Date;

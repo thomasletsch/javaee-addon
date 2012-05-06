@@ -20,7 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 
-import org.vaadin.addons.javaee.fields.ExtendedConverterFactory;
+import org.vaadin.addons.javaee.fields.converter.ExtendedConverterFactory;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.gwt.server.AbstractApplicationServlet;
