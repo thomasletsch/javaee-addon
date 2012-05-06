@@ -14,6 +14,7 @@ import org.vaadin.addons.javaee.jpa.EntityContainer;
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.ui.Field;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 public abstract class BasicForm<ENTITY extends PersistentEntity> extends VerticalLayout {
@@ -86,6 +87,9 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
 
     protected void addField(FormSection section, String fieldName, Field<?> field) {
         fieldGroup.bind(field, fieldName);
+        Label label = new Label(translationService.get(section.getName() + "." + fieldName) + ":");
+        label.setStyleName("rightalign");
+        section.addComponent(label);
         section.addComponent(field);
     }
 
@@ -108,7 +112,7 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     protected FormSection getFormSection(String name) {
         FormSection section = sections.get(name);
         if (section == null) {
-            section = new FormSection(translationService.get(name));
+            section = new FormSection(name, translationService.get(name));
             sections.put(name, section);
             addComponent(section);
         }

@@ -95,8 +95,8 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     }
 
     protected void addColumn(String name, ColumnGenerator columnGenerator) {
-        addColumn(name);
         addGeneratedColumn(name, columnGenerator);
+        setColumnHeader(name, translationService.get(name));
     }
 
     public void enableRefresh() {

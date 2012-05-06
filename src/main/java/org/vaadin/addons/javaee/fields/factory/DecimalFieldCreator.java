@@ -5,14 +5,10 @@ import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.ui.TextField;
 
-public class DecimalFieldCreator<FIELD extends TextField> extends TextFieldCreator<FIELD> {
+public class DecimalFieldCreator<FIELD extends TextField> extends NumberFieldCreator<FIELD> {
 
     public DecimalFieldCreator(TranslationService translationService, EntityContainer<?> container, String fieldName, Class<FIELD> fieldType) {
         super(translationService, container, fieldName, fieldType);
     }
-
-    @Override
-    protected void initializeField(FIELD field) {
-    };
 
 }

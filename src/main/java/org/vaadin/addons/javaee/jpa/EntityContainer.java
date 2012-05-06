@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.jpa;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -307,6 +308,10 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         }
         Filter filter = new And(filters.toArray(new Filter[] {}));
         return filter;
+    }
+
+    public <T extends Annotation> T getAnnotation(String fieldName, Class<T> annotationClass) {
+        return ReflectionUtils.getAnnotation(entityClass, fieldName, annotationClass);
     }
 
 }

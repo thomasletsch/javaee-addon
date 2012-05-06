@@ -15,6 +15,7 @@
  */
 package org.vaadin.addons.javaee.jpa;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,11 +23,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * 
  * @author Joe Walker [joe at getahead dot ltd dot uk]
  */
 public class ReflectionUtils {
+
+    private static Log log = LogFactory.getLog(ReflectionUtils.class);
 
     /**
      * Return a list of all fields (whatever access status, and on whatever superclass they were defined) that can be found on this class.
@@ -79,11 +85,21 @@ public class ReflectionUtils {
     }
 
     public static Class<?> getType(Class<?> enclosingType, String propertyName) {
-        java.lang.reflect.Field f;
         try {
-            f = getField(enclosingType, propertyName);
+            java.lang.reflect.Field f = getField(enclosingType, propertyName);
             return f.getType();
         } catch (Exception e) {
+            log.error("Could not retrieve type of " + enclosingType.getName() + "." + propertyName, e);
+            return null;
+        }
+    }
+
+    public static <T extends Annotation> T getAnnotation(Class<?> enclosingType, String propertyName, Class<T> annotationClass) {
+        try {
+            java.lang.reflect.Field f = getField(enclosingType, propertyName);
+            return f.getAnnotation(annotationClass);
+        } catch (Exception e) {
+            log.error("Could not retrieve type of " + enclosingType.getName() + "." + propertyName, e);
             return null;
         }
     }
