@@ -36,6 +36,13 @@ public class FormSection extends GridLayout {
         }
     }
 
+    public void setColumnExpandRatios(float... ratios) {
+        int i = 0;
+        for (float f : ratios) {
+            setColumnExpandRatio(i++, f);
+        }
+    }
+
     @Override
     public void setColumns(int columns) {
         super.setColumns(columns * 2);

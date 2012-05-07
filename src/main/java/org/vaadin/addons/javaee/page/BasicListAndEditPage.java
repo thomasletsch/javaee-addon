@@ -23,12 +23,6 @@ import com.vaadin.ui.Button;
 public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> extends PortalPagePanel implements CanHandleSaveButton,
         CanHandleNewButton, CanHandleEditButton {
 
-    public static final String DEFAULT_EDIT_SECTION_HEIGHT = "60%";
-
-    public static final String DEFAULT_LIST_SECTION_HEIGHT = "20%";
-
-    protected static final String ICON_ORIENTATION = "left";
-
     @Inject
     protected TranslationService translationService;
 

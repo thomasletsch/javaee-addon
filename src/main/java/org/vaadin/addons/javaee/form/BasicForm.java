@@ -3,6 +3,7 @@ package org.vaadin.addons.javaee.form;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -114,6 +115,14 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
         Label label = new Label(translationService.get(section.getName() + "." + fieldSpec.getName()) + ":");
         label.setStyleName("rightalign");
         section.addField(fieldSpec, label, field);
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        for (Entry<String, FormSection> entry : sections.entrySet()) {
+            entry.getValue().setEnabled(enabled);
+        }
     }
 
     public boolean isValid() {
