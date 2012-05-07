@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.fields.converter;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -36,6 +37,8 @@ public class ExtendedConverterFactory extends DefaultConverterFactory {
             return new StringToCalenderConverter();
         if (Enum.class.isAssignableFrom(sourceType))
             return new StringToEnumConverter(translationService);
+        if (BigDecimal.class.isAssignableFrom(sourceType))
+            return new StringToBigDecimalConverter();
         return super.createStringConverter(sourceType);
     }
 
