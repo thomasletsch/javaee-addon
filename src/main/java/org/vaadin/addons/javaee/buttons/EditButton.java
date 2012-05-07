@@ -19,11 +19,14 @@ import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.clickhandler.EditClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleEditButton;
 
+import com.vaadin.terminal.ThemeResource;
+
 public class EditButton extends BasicButton {
 
     public EditButton(CanHandleEditButton canHandle, String title) {
         super(TranslationKeys.BUTTON_EDIT, title);
         addListener(new EditClickHandler(this, canHandle));
+        setIcon(new ThemeResource("icons/silk/application_form_edit.png"));
     }
 
 }

@@ -27,7 +27,7 @@ public class SaveButton extends BasicButton {
     public SaveButton(CanHandleSaveButton canHandle, String title) {
         super(TranslationKeys.BUTTON_SAVE, title);
         addListener(new SaveClickHandler(this, canHandle));
-        setIcon(new ThemeResource("icons/silk/disk.png"));
+        setIcon(new ThemeResource("icons/silk/page_save.png"));
         setClickShortcut(KeyCode.ENTER);
         addStyleName("primary");
     }

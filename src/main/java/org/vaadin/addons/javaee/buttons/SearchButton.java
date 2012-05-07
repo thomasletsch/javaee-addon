@@ -19,20 +19,14 @@ import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.clickhandler.SearchClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleSearchButton;
 
+import com.vaadin.terminal.ThemeResource;
+
 public class SearchButton extends BasicButton {
-
-    public SearchButton() {
-        super(TranslationKeys.BUTTON_SEARCH);
-    }
-
-    public SearchButton(CanHandleSearchButton canHandle) {
-        super(TranslationKeys.BUTTON_SEARCH);
-        addListener(new SearchClickHandler(this, canHandle));
-    }
 
     public SearchButton(CanHandleSearchButton canHandle, String title) {
         super(TranslationKeys.BUTTON_SEARCH, title);
         addListener(new SearchClickHandler(this, canHandle));
+        setIcon(new ThemeResource("icons/silk/find.png"));
     }
 
 }

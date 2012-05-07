@@ -19,11 +19,14 @@ import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.clickhandler.NewClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleNewButton;
 
+import com.vaadin.terminal.ThemeResource;
+
 public class NewButton extends BasicButton {
 
     public NewButton(CanHandleNewButton canHandle, String title) {
         super(TranslationKeys.BUTTON_NEW, title);
         addListener(new NewClickHandler(this, canHandle));
+        setIcon(new ThemeResource("icons/silk/add.png"));
     }
 
 }

@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.buttons;
 
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 
 public class ButtonBar extends HorizontalLayout {
@@ -23,6 +25,11 @@ public class ButtonBar extends HorizontalLayout {
         setSpacing(true);
         setMargin(true);
         setStyleName("smallmargin smallspacing");
-        setWidth(100, Unit.PERCENTAGE);
+    }
+
+    @Override
+    public void addComponent(Component c) {
+        super.addComponent(c);
+        setComponentAlignment(c, Alignment.MIDDLE_LEFT);
     }
 }

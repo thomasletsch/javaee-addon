@@ -20,12 +20,14 @@ import org.vaadin.addons.javaee.buttons.clickhandler.OkClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleOkButton;
 
 import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.terminal.ThemeResource;
 
 public class OkButton extends BasicButton {
 
     public OkButton(CanHandleOkButton canHandle, String title) {
         super(TranslationKeys.BUTTON_OK, title);
         addListener(new OkClickHandler(this, canHandle));
+        setIcon(new ThemeResource("icons/silk/accept.png"));
         setClickShortcut(KeyCode.ENTER);
         addStyleName("primary");
     }
