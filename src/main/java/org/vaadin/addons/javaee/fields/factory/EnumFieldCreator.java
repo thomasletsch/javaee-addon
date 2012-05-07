@@ -44,6 +44,9 @@ public class EnumFieldCreator<FIELD extends AbstractSelect> extends AbstractFiel
             String i18nKey = dataType.getSimpleName() + "." + r.toString();
             newItem.getItemProperty(CAPTION_PROPERTY_ID).setValue(translationService.get(i18nKey));
         }
+        if (enumSet.size() <= 3) {
+            field.setStyleName("horizontal");
+        }
     }
 
 }

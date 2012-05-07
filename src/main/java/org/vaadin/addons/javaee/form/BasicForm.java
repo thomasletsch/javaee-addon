@@ -81,8 +81,17 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     }
 
     protected void addField(FormSection section, String fieldName) {
-        Field<?> field = fieldFactory.createField(entityContainer, fieldName);
+        Field<?> field = fieldFactory.createField(entityContainer, fieldName, getDefaultFieldType(fieldName));
         addField(section, fieldName, field);
+    }
+
+    /**
+     * Can be overwritten.
+     * 
+     * Return the Field class for the fields that should have other types than the default ones (e.g. OptionGroup instead of ComboBox)
+     */
+    protected Class<? extends Field<?>> getDefaultFieldType(String fieldName) {
+        return null;
     }
 
     protected void addField(FormSection section, String fieldName, Field<?> field) {
