@@ -127,12 +127,17 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         return getValue() != null;
     }
 
-    @SuppressWarnings("unchecked")
     public ENTITY getSelectedEntity() {
-        Long id = getValue();
-        EntityItem<ENTITY> item = (EntityItem<ENTITY>) getItem(id);
+        EntityItem<ENTITY> item = getSelectedEntityItem();
         ENTITY entity = item.getEntity();
         return entity;
+    }
+
+    @SuppressWarnings("unchecked")
+    public EntityItem<ENTITY> getSelectedEntityItem() {
+        Long id = getValue();
+        EntityItem<ENTITY> item = (EntityItem<ENTITY>) getItem(id);
+        return item;
     }
 
     public void removeSelectedItem() {

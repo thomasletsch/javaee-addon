@@ -121,6 +121,7 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
             editNewRecord();
         } else {
             table.selectFirst();
+            form.edit(table.getSelectedEntityItem());
         }
     }
 
