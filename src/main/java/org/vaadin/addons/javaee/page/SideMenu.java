@@ -119,8 +119,9 @@ public class SideMenu extends Tree {
     private void addMenu(MenuItem item) {
         panels.put(item.getName(), item);
         addItem(item.getName());
-        setItemCaption(item.getName(), translationService.get(MENU_ITEM_PREFIX + item.getName()));
+        setItemCaption(item.getName(), item.getTitle());
         if (item.hasParent()) {
+            setChildrenAllowed(item.getParent(), true);
             setParent(item.getName(), item.getParent());
             setChildrenAllowed(item.getName(), false);
             expandItem(item.getParent());

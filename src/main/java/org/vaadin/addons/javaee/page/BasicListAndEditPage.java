@@ -57,7 +57,7 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
         form = getForm();
         table = getTable();
         form.connectWith(table);
-
+        removeAllComponents();
         createEditSection();
         createListSection();
     }

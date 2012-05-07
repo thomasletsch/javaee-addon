@@ -30,12 +30,17 @@ public abstract class BasicSearchForm<ENTITY extends PersistentEntity> extends B
 
     public BasicSearchForm(Class<ENTITY> entityClass) {
         super(entityClass);
+    }
+
+    @Override
+    protected void initFields() {
         try {
             BeanItem<ENTITY> itemDataSource = new BeanItem<ENTITY>(getDefaultValue());
             fieldGroup.setItemDataSource(itemDataSource);
         } catch (InstantiationException | IllegalAccessException e) {
             log.error("Could not instanciate " + entityClass, e);
         }
+        super.initFields();
     }
 
 }

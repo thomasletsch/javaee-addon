@@ -146,6 +146,6 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     }
 
     public void selectFirst() {
-        setValue(firstItemId());
+        select(firstItemId());
     }
 }

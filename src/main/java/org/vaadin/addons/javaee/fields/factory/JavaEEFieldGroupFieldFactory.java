@@ -17,6 +17,7 @@ package org.vaadin.addons.javaee.fields.factory;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -53,7 +54,7 @@ public class JavaEEFieldGroupFieldFactory implements FieldFactory {
             return (T) new TextFieldCreator(translationService, container, fieldName, fieldType).createField();
         } else if (Enum.class.isAssignableFrom(dataType)) {
             return (T) new EnumFieldCreator(translationService, container, fieldName, fieldType).createField();
-        } else if (Calendar.class.isAssignableFrom(dataType)) {
+        } else if (Calendar.class.isAssignableFrom(dataType) || Date.class.isAssignableFrom(dataType)) {
             return (T) new DateFieldCreator(translationService, container, fieldName, fieldType).createField();
         } else {
             return (T) new TextFieldCreator(translationService, container, fieldName, fieldType).createField();

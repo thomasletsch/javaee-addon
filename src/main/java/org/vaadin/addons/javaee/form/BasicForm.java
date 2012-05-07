@@ -35,7 +35,6 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
 
     public BasicForm(Class<ENTITY> entityClass) {
         this.entityClass = entityClass;
-        fieldGroup = new EntityFieldGroup<ENTITY>();
     }
 
     protected abstract EntityContainer<ENTITY> getContainer();
@@ -51,6 +50,9 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     @PostConstruct
     protected void init() {
         entityContainer = getContainer();
+        removeAllComponents();
+        sections.clear();
+        fieldGroup = new EntityFieldGroup<ENTITY>();
         initFields();
     }
 
@@ -73,6 +75,24 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     /**
      * Can be overwritten
      */
+    protected void initFieldsWithSpec(List<FieldSpecification> fieldSpecs) {
+        FormSection section = getFormSection(entityClass.getSimpleName());
+        initFieldsWithSpec(section, fieldSpecs);
+    }
+
+    /**
+     * Can be overwritten
+     */
+    protected void initFieldsWithSpec(FormSection section, List<FieldSpecification> fieldSpecs) {
+        for (FieldSpecification fieldSpec : fieldSpecs) {
+            addField(section, fieldSpec);
+        }
+        focusFirstField();
+    }
+
+    /**
+     * Can be overwritten
+     */
     protected void initFields(FormSection section, List<String> fieldNames) {
         for (String fieldName : fieldNames) {
             addField(section, fieldName);
@@ -81,25 +101,19 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     }
 
     protected void addField(FormSection section, String fieldName) {
-        Field<?> field = fieldFactory.createField(entityContainer, fieldName, getDefaultFieldType(fieldName));
-        addField(section, fieldName, field);
+        addField(section, new FieldSpecification(fieldName));
     }
 
-    /**
-     * Can be overwritten.
-     * 
-     * Return the Field class for the fields that should have other types than the default ones (e.g. OptionGroup instead of ComboBox)
-     */
-    protected Class<? extends Field<?>> getDefaultFieldType(String fieldName) {
-        return null;
+    protected void addField(FormSection section, FieldSpecification fieldSpec) {
+        Field<?> field = fieldFactory.createField(entityContainer, fieldSpec.getName(), fieldSpec.getFieldType());
+        addField(section, fieldSpec, field);
     }
 
-    protected void addField(FormSection section, String fieldName, Field<?> field) {
-        fieldGroup.bind(field, fieldName);
-        Label label = new Label(translationService.get(section.getName() + "." + fieldName) + ":");
+    protected void addField(FormSection section, FieldSpecification fieldSpec, Field<?> field) {
+        fieldGroup.bind(field, fieldSpec.getName());
+        Label label = new Label(translationService.get(section.getName() + "." + fieldSpec.getName()) + ":");
         label.setStyleName("rightalign");
-        section.addComponent(label);
-        section.addComponent(field);
+        section.addField(fieldSpec, label, field);
     }
 
     public boolean isValid() {

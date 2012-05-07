@@ -1,6 +1,8 @@
 package org.vaadin.addons.javaee.form;
 
+import com.vaadin.ui.Field;
 import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.Label;
 
 public class FormSection extends GridLayout {
 
@@ -18,6 +20,20 @@ public class FormSection extends GridLayout {
 
     public String getName() {
         return name;
+    }
+
+    public void addField(FieldSpecification fieldSpec, Label label, Field<?> field) {
+        if (fieldSpec.getLabelWidth() != null) {
+            label.setWidth(fieldSpec.getLabelWidth());
+        }
+        addComponent(label);
+        if (fieldSpec.getFieldWidth() != null) {
+            field.setWidth(fieldSpec.getFieldWidth());
+        }
+        addComponent(field, getCursorX(), getCursorY(), getCursorX() + fieldSpec.getColumns() - 1, getCursorY() + fieldSpec.getRows() - 1);
+        if (fieldSpec.isEndRow()) {
+            newLine();
+        }
     }
 
     @Override
