@@ -142,13 +142,21 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     }
 
     protected FormSection getFormSection(String name) {
-        FormSection section = sections.get(name);
+        FormSection section = getFormSectionInternal(name);
         if (section == null) {
             section = new FormSection(name, translationService.get(name));
-            sections.put(name, section);
+            addFormSection(name, section);
             addComponent(section);
         }
         return section;
+    }
+
+    protected void addFormSection(String name, FormSection section) {
+        sections.put(name, section);
+    }
+
+    protected FormSection getFormSectionInternal(String name) {
+        return sections.get(name);
     }
 
 }

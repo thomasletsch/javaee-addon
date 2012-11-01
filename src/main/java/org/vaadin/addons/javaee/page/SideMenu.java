@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.page;
 
-import static org.vaadin.addons.javaee.TranslationKeys.*;
+import static org.vaadin.addons.javaee.TranslationKeys.MENU_ITEM_PREFIX;
 
 import java.util.HashMap;
 
@@ -36,8 +36,10 @@ import com.vaadin.ui.Tree;
  */
 public class SideMenu extends Tree {
 
-    @Inject
-    private Portal portal;
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+    private Instance<Portal> portal;
 
     @Inject
     private TranslationService translationService;
@@ -48,16 +50,18 @@ public class SideMenu extends Tree {
         setSizeFull();
         setImmediate(true);
         setItemCaptionMode(ItemCaptionMode.EXPLICIT);
-        setDebugId("SideMenu");
+        setId("SideMenu");
         addNavigationListener();
         addDisabledStyleGenerator();
     }
 
     private void addDisabledStyleGenerator() {
-        setItemStyleGenerator(new Tree.ItemStyleGenerator() {
+        setItemStyleGenerator(new ItemStyleGenerator() {
 
-            @Override
-            public String getStyle(Object itemId) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+            public String getStyle(Tree tree, Object itemId) {
                 String pageName = (String) itemId;
                 MenuItem item = panels.get(pageName);
                 if (!item.isEnabled()) {
@@ -71,9 +75,11 @@ public class SideMenu extends Tree {
 
     private void addNavigationListener() {
 
-        addListener(new ValueChangeListener() {
+        addValueChangeListener(new ValueChangeListener() {
 
-            Object previous = null;
+			private static final long serialVersionUID = 1L;
+
+			Object previous = null;
 
             @Override
             public void valueChange(Property.ValueChangeEvent event) {
@@ -87,7 +93,7 @@ public class SideMenu extends Tree {
 
             private void navigateToPageIfEnabled(MenuItem item) {
                 if (item.isEnabled()) {
-                    portal.navigateTo(item.getPanel().get());
+                    portal.get().navigateTo(item.getPanel().get());
                     previous = getValue();
                 } else {
                     setValue(previous);

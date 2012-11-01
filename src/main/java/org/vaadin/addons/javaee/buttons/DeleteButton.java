@@ -19,13 +19,15 @@ import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.clickhandler.DeleteClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleDeleteButton;
 
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 
 public class DeleteButton extends BasicButton {
 
-    public DeleteButton(CanHandleDeleteButton canHandle, String title) {
+	private static final long serialVersionUID = 1L;
+
+	public DeleteButton(CanHandleDeleteButton canHandle, String title) {
         super(TranslationKeys.BUTTON_DELETE, title);
-        addListener(new DeleteClickHandler(this, canHandle));
+        addClickListener(new DeleteClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/delete.png"));
     }
 

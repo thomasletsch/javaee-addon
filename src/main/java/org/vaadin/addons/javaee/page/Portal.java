@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.page;
 
-import static org.vaadin.addons.javaee.TranslationKeys.*;
+import static org.vaadin.addons.javaee.TranslationKeys.TITLE_PORTAL;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -23,17 +23,20 @@ import javax.inject.Inject;
 import org.vaadin.addons.javaee.events.NavigationEvent;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
-import com.vaadin.terminal.WrappedRequest;
+import com.vaadin.server.Page;
+import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
-import com.vaadin.ui.Root;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalSplitPanel;
 
-public abstract class Portal extends Root {
+public abstract class Portal extends UI {
 
-    public static final int DEFAULT_MARGIN = 5;
+	private static final long serialVersionUID = 6788886405321379139L;
+
+	public static final int DEFAULT_MARGIN = 5;
 
     public static final int SMALL_MARGIN = 2;
 
@@ -62,7 +65,7 @@ public abstract class Portal extends Root {
     protected Header header;
 
     @Override
-    protected void init(WrappedRequest request) {
+    protected void init(VaadinRequest request) {
         initLayout();
         initMenu();
     }
@@ -82,7 +85,7 @@ public abstract class Portal extends Root {
         innerLayout.addComponent(mainPanel);
         innerLayout.setSplitPosition(MENU_WIDTH + DEFAULT_MARGIN, Unit.PIXELS);
         setContent(page);
-        setCaption(translationService.get(TITLE_PORTAL));
+        Page.getCurrent().setTitle(translationService.get(TITLE_PORTAL));
     }
 
     protected Header createHeader() {

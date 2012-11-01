@@ -32,18 +32,18 @@ public abstract class ResourceBundleTranslations implements TranslationSPI {
     }
 
     @Override
+    public String get(String key, Locale locale, Object... params) {
+        String translation = get(key, locale);
+        translation = MessageFormat.format(translation, params);
+        return translation;
+    }
+
+    @Override
     public String get(String key, Locale locale) {
         if (getBundle(locale).containsKey(key)) {
             return getBundle(locale).getString(key);
         }
         return key;
-    }
-
-    @Override
-    public String get(String key, Locale locale, Object... params) {
-        String translation = get(key, locale);
-        translation = MessageFormat.format(translation, params);
-        return translation;
     }
 
     public ResourceBundle getBundle(Locale locale) {

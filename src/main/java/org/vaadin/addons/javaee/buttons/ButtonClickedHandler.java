@@ -20,7 +20,12 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class ButtonClickedHandler implements ClickListener {
 
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
     public void buttonClick(ClickEvent event) {
         if (event.getButton() instanceof BasicButton) {
             BasicButton basicButton = (BasicButton) event.getButton();

@@ -20,13 +20,18 @@ import org.vaadin.addons.javaee.buttons.clickhandler.NextClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleNextButton;
 
 import com.vaadin.event.ShortcutAction.KeyCode;
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 
 public class NextButton extends BasicButton {
 
-    public NextButton(CanHandleNextButton canHandle, String title) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public NextButton(CanHandleNextButton canHandle, String title) {
         super(TranslationKeys.BUTTON_NEXT, title);
-        addListener(new NextClickHandler(this, canHandle));
+        addClickListener(new NextClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/resultset_next.png"));
         setClickShortcut(KeyCode.ENTER);
         addStyleName("primary");

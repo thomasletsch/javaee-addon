@@ -16,35 +16,31 @@
 package org.vaadin.addons.javaee.startup;
 
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
 
 import org.vaadin.addons.javaee.fields.converter.ExtendedConverterFactory;
 
-import com.vaadin.Application;
-import com.vaadin.terminal.gwt.server.AbstractApplicationServlet;
+import com.vaadin.server.ServiceException;
+import com.vaadin.server.SessionInitEvent;
+import com.vaadin.server.SessionInitListener;
+import com.vaadin.server.VaadinServlet;
 
 @WebServlet(urlPatterns = { "/vaadin/*", "/VAADIN/*" })
-public class VaadinAppServlet extends AbstractApplicationServlet {
+public class VaadinAppServlet extends VaadinServlet implements SessionInitListener {
 
     private static final long serialVersionUID = 1L;
 
     @Inject
-    RootApplication application;
+    CDIProvider cdiProvider;
 
     @Inject
     ExtendedConverterFactory converterFactory;
 
-    @Override
-    protected Class<? extends Application> getApplicationClass() throws ClassNotFoundException {
-        return RootApplication.class;
-    }
 
     @Override
-    protected Application getNewApplication(HttpServletRequest request) throws ServletException {
-        application.setConverterFactory(converterFactory);
-        return application;
+    public void sessionInit(SessionInitEvent event) throws ServiceException {
+      event.getSession().addUIProvider(cdiProvider);
     }
+
 
 }

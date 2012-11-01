@@ -35,283 +35,324 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.filter.And;
 import com.vaadin.data.util.filter.UnsupportedFilterException;
 
-public class EntityContainer<ENTITY extends PersistentEntity> implements Container, Container.Ordered, Container.Filterable,
-        Container.ItemSetChangeNotifier, Container.PropertySetChangeNotifier {
+public class EntityContainer<ENTITY extends PersistentEntity> implements
+		Container, Container.Ordered, Container.Filterable,
+		Container.ItemSetChangeNotifier, Container.PropertySetChangeNotifier {
 
-    @SuppressWarnings("unused")
-    private static Log log = LogFactory.getLog(EntityContainer.class);
+	private static final long serialVersionUID = 1L;
 
-    @EJB
-    private JPAEntityProvider jpaEntityProvider;
+	@SuppressWarnings("unused")
+	private static Log log = LogFactory.getLog(EntityContainer.class);
 
-    private List<Container.ItemSetChangeListener> itemSetChangeListeners = new ArrayList<>();
+	@EJB
+	private JPAEntityProvider jpaEntityProvider;
 
-    private List<Container.PropertySetChangeListener> propertySetChangeListeners = new ArrayList<>();
+	private List<Container.ItemSetChangeListener> itemSetChangeListeners = new ArrayList<>();
 
-    private List<Filter> filters = new ArrayList<>();
+	private List<Container.PropertySetChangeListener> propertySetChangeListeners = new ArrayList<>();
 
-    protected Map<String, Class<?>> properties = new HashMap<>();
+	private List<Filter> filters = new ArrayList<>();
 
-    protected Class<ENTITY> entityClass;
+	protected Map<String, Class<?>> properties = new HashMap<>();
 
-    private boolean enabled = true;
+	protected Class<ENTITY> entityClass;
 
-    public EntityContainer(Class<ENTITY> entityClass) {
-        this.entityClass = entityClass;
-        initProperties(entityClass);
-    }
+	private boolean enabled = true;
 
-    public EntityContainer(Class<ENTITY> entityClass, boolean enabled) {
-        this(entityClass);
-        this.enabled = enabled;
-    }
+	public EntityContainer(Class<ENTITY> entityClass) {
+		this.entityClass = entityClass;
+		initProperties(entityClass);
+	}
 
-    public Class<ENTITY> getEntityClass() {
-        return entityClass;
-    }
+	public EntityContainer(Class<ENTITY> entityClass, boolean enabled) {
+		this(entityClass);
+		this.enabled = enabled;
+	}
 
-    public void updateItem(EntityItem<ENTITY> item) {
-        assert (item.getEntity().getId() != null);
-        jpaEntityProvider.updateEntity(item.getEntity());
-    }
+	public Class<ENTITY> getEntityClass() {
+		return entityClass;
+	}
 
-    public void enable() {
-        this.enabled = true;
-        notifyItemSetChanged();
-    }
+	public void updateItem(EntityItem<ENTITY> item) {
+		assert (item.getEntity().getId() != null);
+		jpaEntityProvider.updateEntity(item.getEntity());
+	}
 
-    private void initProperties(Class<ENTITY> entityClass) {
-        for (Field field : ReflectionUtils.getAllFields(entityClass)) {
-            properties.put(field.getName(), field.getType());
-        }
-    }
+	public void enable() {
+		this.enabled = true;
+		notifyItemSetChanged();
+	}
 
-    public EntityItem<ENTITY> getItem(Long itemId) {
-        ENTITY entity = jpaEntityProvider.get(entityClass, itemId);
-        EntityItem<ENTITY> item = new EntityItem<ENTITY>(this, entity);
-        return item;
-    }
+	private void initProperties(Class<ENTITY> entityClass) {
+		for (Field field : ReflectionUtils.getAllFields(entityClass)) {
+			properties.put(field.getName(), field.getType());
+		}
+	}
 
-    @Override
-    public Item getItem(Object itemId) {
-        return getItem((Long) itemId);
-    }
+	public EntityItem<ENTITY> getItem(Long itemId) {
+		ENTITY entity = jpaEntityProvider.get(entityClass, itemId);
+		EntityItem<ENTITY> item = new EntityItem<ENTITY>(this, entity);
+		return item;
+	}
 
-    @Override
-    public Collection<?> getItemIds() {
-        List<ENTITY> entitys = jpaEntityProvider.find(entityClass, getContainerFilter());
-        List<Long> ids = new ArrayList<Long>(entitys.size());
-        for (ENTITY entity : entitys) {
-            ids.add(entity.getId());
-        }
-        return ids;
-    }
+	@Override
+	public Item getItem(Object itemId) {
+		return getItem((Long) itemId);
+	}
 
-    @Override
-    public int size() {
-        if (!enabled) {
-            return 0;
-        }
-        int size = jpaEntityProvider.size(entityClass, getContainerFilter()).intValue();
-        return size;
-    }
+	@Override
+	public Collection<?> getItemIds() {
+		List<ENTITY> entitys = jpaEntityProvider.find(entityClass,
+				getContainerFilter());
+		List<Long> ids = new ArrayList<Long>(entitys.size());
+		for (ENTITY entity : entitys) {
+			ids.add(entity.getId());
+		}
+		return ids;
+	}
 
-    @Override
-    public boolean containsId(Object itemId) {
-        boolean contains = jpaEntityProvider.contains(entityClass, (Long) itemId);
-        return contains;
-    }
+	@Override
+	public int size() {
+		if (!enabled) {
+			return 0;
+		}
+		int size = jpaEntityProvider.size(entityClass, getContainerFilter())
+				.intValue();
+		return size;
+	}
 
-    @Override
-    public boolean removeItem(Object itemId) throws UnsupportedOperationException {
-        boolean result = jpaEntityProvider.remove(entityClass, (Long) itemId);
-        notifyItemSetChanged();
-        return result;
-    }
+	@Override
+	public boolean containsId(Object itemId) {
+		boolean contains = jpaEntityProvider.contains(entityClass,
+				(Long) itemId);
+		return contains;
+	}
 
-    @Override
-    public boolean removeAllItems() throws UnsupportedOperationException {
-        boolean result = jpaEntityProvider.removeAll(entityClass, getContainerFilter());
-        notifyItemSetChanged();
-        return result;
-    }
+	@Override
+	public boolean removeItem(Object itemId)
+			throws UnsupportedOperationException {
+		boolean result = jpaEntityProvider.remove(entityClass, (Long) itemId);
+		notifyItemSetChanged();
+		return result;
+	}
 
-    @Override
-    public Object addItem() throws UnsupportedOperationException {
-        Long itemId = jpaEntityProvider.createEntity(entityClass).getId();
-        notifyItemSetChanged();
-        return itemId;
-    }
+	@Override
+	public boolean removeAllItems() throws UnsupportedOperationException {
+		boolean result = jpaEntityProvider.removeAll(entityClass,
+				getContainerFilter());
+		notifyItemSetChanged();
+		return result;
+	}
 
-    public EntityItem<ENTITY> addItem(ENTITY entity) {
-        jpaEntityProvider.createEntity(entity);
-        EntityItem<ENTITY> item = new EntityItem<ENTITY>(this, entity);
-        return item;
-    }
+	@Override
+	public Object addItem() throws UnsupportedOperationException {
+		Long itemId = jpaEntityProvider.createEntity(entityClass).getId();
+		notifyItemSetChanged();
+		return itemId;
+	}
 
-    @Override
-    public Item addItem(Object itemId) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
+	public EntityItem<ENTITY> addItem(ENTITY entity) {
+		jpaEntityProvider.createEntity(entity);
+		EntityItem<ENTITY> item = new EntityItem<ENTITY>(this, entity);
+		return item;
+	}
 
-    @Override
-    public Object addItemAfter(Object previousItemId) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
+	@Override
+	public Item addItem(Object itemId) throws UnsupportedOperationException {
+		throw new UnsupportedOperationException();
+	}
 
-    @Override
-    public Item addItemAfter(Object previousItemId, Object newItemId) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
+	@Override
+	public Object addItemAfter(Object previousItemId)
+			throws UnsupportedOperationException {
+		throw new UnsupportedOperationException();
+	}
 
-    @Override
-    public Collection<?> getContainerPropertyIds() {
-        return properties.keySet();
-    }
+	@Override
+	public Item addItemAfter(Object previousItemId, Object newItemId)
+			throws UnsupportedOperationException {
+		throw new UnsupportedOperationException();
+	}
 
-    @Override
-    public boolean addContainerProperty(Object propertyId, Class<?> type, Object defaultValue) throws UnsupportedOperationException {
-        properties.put((String) propertyId, type);
-        notifyPropertySetChanged();
-        return true;
-    }
+	@Override
+	public Collection<?> getContainerPropertyIds() {
+		return properties.keySet();
+	}
 
-    @Override
-    public Property<?> getContainerProperty(Object itemId, Object propertyId) {
-        Item item = getItem(itemId);
-        return item == null ? null : item.getItemProperty(propertyId);
-    }
+	@Override
+	public boolean addContainerProperty(Object propertyId, Class<?> type,
+			Object defaultValue) throws UnsupportedOperationException {
+		properties.put((String) propertyId, type);
+		notifyPropertySetChanged();
+		return true;
+	}
 
-    @Override
-    public boolean removeContainerProperty(Object propertyId) throws UnsupportedOperationException {
-        boolean result = properties.remove(propertyId.toString()) != null;
-        notifyPropertySetChanged();
-        return result;
-    }
+	@Override
+	public Property<?> getContainerProperty(Object itemId, Object propertyId) {
+		Item item = getItem(itemId);
+		return item == null ? null : item.getItemProperty(propertyId);
+	}
 
-    @Override
-    public Class<?> getType(Object propertyId) {
-        Class<?> type = properties.get(propertyId);
-        if (type == null) {
-            type = ReflectionUtils.getType(entityClass, (String) propertyId);
-            if (type != null)
-                properties.put((String) propertyId, type);
-        }
-        return type;
-    }
+	@Override
+	public boolean removeContainerProperty(Object propertyId)
+			throws UnsupportedOperationException {
+		boolean result = properties.remove(propertyId.toString()) != null;
+		notifyPropertySetChanged();
+		return result;
+	}
 
-    @Override
-    public Object firstItemId() {
-        ENTITY entity = jpaEntityProvider.getFirst(entityClass, getContainerFilter());
-        return getNullOrPk(entity);
-    }
+	@Override
+	public Class<?> getType(Object propertyId) {
+		Class<?> type = properties.get(propertyId);
+		if (type == null) {
+			type = ReflectionUtils.getType(entityClass, (String) propertyId);
+			if (type != null)
+				properties.put((String) propertyId, type);
+		}
+		return type;
+	}
 
-    @Override
-    public Object lastItemId() {
-        ENTITY entity = jpaEntityProvider.getLast(entityClass, getContainerFilter());
-        return getNullOrPk(entity);
-    }
+	@Override
+	public Object firstItemId() {
+		ENTITY entity = jpaEntityProvider.getFirst(entityClass,
+				getContainerFilter());
+		return getNullOrPk(entity);
+	}
 
-    @Override
-    public Object nextItemId(Object itemId) {
-        ENTITY entity = jpaEntityProvider.getNext(entityClass, (Long) itemId, getContainerFilter());
-        return getNullOrPk(entity);
-    }
+	@Override
+	public Object lastItemId() {
+		ENTITY entity = jpaEntityProvider.getLast(entityClass,
+				getContainerFilter());
+		return getNullOrPk(entity);
+	}
 
-    @Override
-    public Object prevItemId(Object itemId) {
-        ENTITY entity = jpaEntityProvider.getPrev(entityClass, (Long) itemId, getContainerFilter());
-        return getNullOrPk(entity);
-    }
+	@Override
+	public Object nextItemId(Object itemId) {
+		ENTITY entity = jpaEntityProvider.getNext(entityClass, (Long) itemId,
+				getContainerFilter());
+		return getNullOrPk(entity);
+	}
 
-    @Override
-    public boolean isFirstId(Object itemId) {
-        if (itemId == null)
-            return false;
-        return itemId.equals(firstItemId());
-    }
+	@Override
+	public Object prevItemId(Object itemId) {
+		ENTITY entity = jpaEntityProvider.getPrev(entityClass, (Long) itemId,
+				getContainerFilter());
+		return getNullOrPk(entity);
+	}
 
-    @Override
-    public boolean isLastId(Object itemId) {
-        if (itemId == null)
-            return false;
-        return itemId.equals(lastItemId());
-    }
+	@Override
+	public boolean isFirstId(Object itemId) {
+		if (itemId == null)
+			return false;
+		return itemId.equals(firstItemId());
+	}
 
-    public List<String> getPropertyNames() {
-        return new ArrayList<String>(properties.keySet());
-    }
+	@Override
+	public boolean isLastId(Object itemId) {
+		if (itemId == null)
+			return false;
+		return itemId.equals(lastItemId());
+	}
 
-    @Override
-    public void addContainerFilter(Filter filter) throws UnsupportedFilterException {
-        this.filters.add(filter);
-        notifyItemSetChanged();
-    }
+	public List<String> getPropertyNames() {
+		return new ArrayList<String>(properties.keySet());
+	}
 
-    @Override
-    public void removeContainerFilter(Filter filter) {
-        this.filters.remove(filter);
-        notifyItemSetChanged();
-    }
+	@Override
+	public void addContainerFilter(Filter filter)
+			throws UnsupportedFilterException {
+		this.filters.add(filter);
+		notifyItemSetChanged();
+	}
 
-    @Override
-    public void removeAllContainerFilters() {
-        this.filters.clear();
-        notifyItemSetChanged();
-    }
+	@Override
+	public void removeContainerFilter(Filter filter) {
+		this.filters.remove(filter);
+		notifyItemSetChanged();
+	}
 
-    private Object getNullOrPk(ENTITY entity) {
-        if (entity == null)
-            return null;
-        else
-            return entity.getId();
-    }
+	@Override
+	public void removeAllContainerFilters() {
+		this.filters.clear();
+		notifyItemSetChanged();
+	}
 
-    private void notifyPropertySetChanged() {
-        PropertySetChangeEvent event = new JPAPropertySetChangeEvent<ENTITY>(this);
-        for (Container.PropertySetChangeListener listener : this.propertySetChangeListeners)
-            listener.containerPropertySetChange(event);
-    }
+	private Object getNullOrPk(ENTITY entity) {
+		if (entity == null)
+			return null;
+		else
+			return entity.getId();
+	}
 
-    private void notifyItemSetChanged() {
-        ItemSetChangeEvent event = new JPAItemSetChangeEvent<ENTITY>(this);
-        for (Container.ItemSetChangeListener listener : this.itemSetChangeListeners)
-            listener.containerItemSetChange(event);
-    }
+	private void notifyPropertySetChanged() {
+		PropertySetChangeEvent event = new JPAPropertySetChangeEvent<ENTITY>(
+				this);
+		for (Container.PropertySetChangeListener listener : this.propertySetChangeListeners)
+			listener.containerPropertySetChange(event);
+	}
 
-    @Override
-    public void addListener(PropertySetChangeListener listener) {
-        propertySetChangeListeners.add(listener);
-    }
+	private void notifyItemSetChanged() {
+		ItemSetChangeEvent event = new JPAItemSetChangeEvent<ENTITY>(this);
+		for (Container.ItemSetChangeListener listener : this.itemSetChangeListeners)
+			listener.containerItemSetChange(event);
+	}
 
-    @Override
-    public void removeListener(PropertySetChangeListener listener) {
-        propertySetChangeListeners.remove(listener);
-    }
+	@Override
+	public void addListener(PropertySetChangeListener listener) {
+		propertySetChangeListeners.add(listener);
+	}
 
-    @Override
-    public void addListener(ItemSetChangeListener listener) {
-        itemSetChangeListeners.add(listener);
-    }
+	@Override
+	public void addPropertySetChangeListener(PropertySetChangeListener listener) {
+		propertySetChangeListeners.add(listener);
+	}
 
-    @Override
-    public void removeListener(ItemSetChangeListener listener) {
-        itemSetChangeListeners.remove(listener);
-    }
+	@Override
+	public void removePropertySetChangeListener(
+			PropertySetChangeListener listener) {
+		propertySetChangeListeners.remove(listener);
+	}
 
-    private Filter getContainerFilter() {
-        if (filters.isEmpty()) {
-            return null;
-        }
-        if (filters.size() == 1) {
-            return filters.get(0);
-        }
-        Filter filter = new And(filters.toArray(new Filter[] {}));
-        return filter;
-    }
+	@Override
+	public void removeListener(PropertySetChangeListener listener) {
+		propertySetChangeListeners.remove(listener);
+	}
 
-    public <T extends Annotation> T getAnnotation(String fieldName, Class<T> annotationClass) {
-        return ReflectionUtils.getAnnotation(entityClass, fieldName, annotationClass);
-    }
+	@Override
+	public void addItemSetChangeListener(ItemSetChangeListener listener) {
+		itemSetChangeListeners.add(listener);
+	}
+
+	@Override
+	public void addListener(ItemSetChangeListener listener) {
+		itemSetChangeListeners.add(listener);
+	}
+
+	@Override
+	public void removeItemSetChangeListener(ItemSetChangeListener listener) {
+		itemSetChangeListeners.remove(listener);
+	}
+
+	@Override
+	public void removeListener(ItemSetChangeListener listener) {
+		itemSetChangeListeners.remove(listener);
+	}
+
+	private Filter getContainerFilter() {
+		if (filters.isEmpty()) {
+			return null;
+		}
+		if (filters.size() == 1) {
+			return filters.get(0);
+		}
+		Filter filter = new And(filters.toArray(new Filter[] {}));
+		return filter;
+	}
+
+	public <T extends Annotation> T getAnnotation(String fieldName,
+			Class<T> annotationClass) {
+		return ReflectionUtils.getAnnotation(entityClass, fieldName,
+				annotationClass);
+	}
 
 }

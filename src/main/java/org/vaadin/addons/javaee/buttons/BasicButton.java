@@ -24,7 +24,12 @@ import com.vaadin.ui.Button;
 
 public class BasicButton extends Button {
 
-    @Inject
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Inject
     protected TranslationService translationService;
 
     @Inject

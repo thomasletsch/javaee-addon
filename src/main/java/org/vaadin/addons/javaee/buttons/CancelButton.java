@@ -19,13 +19,18 @@ import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.clickhandler.CancelClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleCancelButton;
 
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 
 public class CancelButton extends BasicButton {
 
-    public CancelButton(CanHandleCancelButton canHandle, String title) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public CancelButton(CanHandleCancelButton canHandle, String title) {
         super(TranslationKeys.BUTTON_CANCEL, title);
-        addListener(new CancelClickHandler(this, canHandle));
+        addClickListener(new CancelClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/cancel.png"));
     }
 
