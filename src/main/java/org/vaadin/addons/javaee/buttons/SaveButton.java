@@ -20,13 +20,18 @@ import org.vaadin.addons.javaee.buttons.clickhandler.SaveClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleSaveButton;
 
 import com.vaadin.event.ShortcutAction.KeyCode;
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 
 public class SaveButton extends BasicButton {
 
-    public SaveButton(CanHandleSaveButton canHandle, String title) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public SaveButton(CanHandleSaveButton canHandle, String title) {
         super(TranslationKeys.BUTTON_SAVE, title);
-        addListener(new SaveClickHandler(this, canHandle));
+        addClickListener(new SaveClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/page_save.png"));
         setClickShortcut(KeyCode.ENTER);
         addStyleName("primary");

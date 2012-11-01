@@ -5,7 +5,7 @@ import javax.validation.constraints.Digits;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
-import com.vaadin.terminal.Sizeable.Unit;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.TextField;
 
 public class NumberFieldCreator<FIELD extends TextField> extends TextFieldCreator<FIELD> {

@@ -27,12 +27,14 @@ import org.vaadin.addons.javaee.jpa.EntityContainer;
 import org.vaadin.addons.javaee.jpa.EntityItem;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
 
-import com.vaadin.ui.Root;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
 public class AddEditDialog extends Window implements CanHandleOkButton, CanHandleCancelButton {
 
-    private TranslationService translationService;
+	private static final long serialVersionUID = 1L;
+
+	private TranslationService translationService;
 
     protected BasicEntityForm<?> form;
 
@@ -47,7 +49,7 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
         this.container = container;
         this.form = form;
 
-        setDebugId(container.getEntityClass().getSimpleName() + "AddEditDialog");
+        setId(container.getEntityClass().getSimpleName() + "AddEditDialog");
         setCaption(translationService.get(container.getEntityClass().getSimpleName()));
         setWidth(300, Unit.PIXELS);
 
@@ -67,25 +69,25 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public void editSelected(BasicEntityTable<?> table) {
         form.edit((EntityItem) container.getItem(table.getValue()));
-        Root.getCurrentRoot().addWindow(this);
+        UI.getCurrent().addWindow(this);
         center();
     }
 
     public void editNew() {
         form.editNew();
-        Root.getCurrentRoot().addWindow(this);
+        UI.getCurrent().addWindow(this);
         center();
     }
 
     @Override
     public void cancelClicked() {
-        Root.getCurrentRoot().removeWindow(this);
+    	UI.getCurrent().removeWindow(this);
     }
 
     @Override
     public void okClicked() {
         form.save();
-        Root.getCurrentRoot().removeWindow(this);
+        UI.getCurrent().removeWindow(this);
     }
 
 }

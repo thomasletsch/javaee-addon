@@ -19,13 +19,18 @@ import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.clickhandler.PrevClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandlePrevButton;
 
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 
 public class PrevButton extends BasicButton {
 
-    public PrevButton(CanHandlePrevButton canHandle, String title) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public PrevButton(CanHandlePrevButton canHandle, String title) {
         super(TranslationKeys.BUTTON_PREV, title);
-        addListener(new PrevClickHandler(this, canHandle));
+        addClickListener(new PrevClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/resultset_previous.png"));
     }
 

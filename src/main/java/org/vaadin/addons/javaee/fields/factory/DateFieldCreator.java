@@ -6,8 +6,8 @@ import javax.persistence.TemporalType;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
+import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.DateField;
-import com.vaadin.ui.DateField.Resolution;
 
 public class DateFieldCreator<FIELD extends DateField> extends AbstractFieldCreator<FIELD> {
 

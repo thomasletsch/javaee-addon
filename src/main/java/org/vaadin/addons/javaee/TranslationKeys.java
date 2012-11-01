@@ -49,4 +49,8 @@ public interface TranslationKeys {
 
     public static final String TITLE_EDIT = "title_edit";
 
+    public static final String RIGHT = "right";
+
+    public static final String LEFT = "left";
+
 }

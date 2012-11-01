@@ -21,7 +21,12 @@ import com.vaadin.ui.HorizontalLayout;
 
 public class ButtonBar extends HorizontalLayout {
 
-    public ButtonBar() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public ButtonBar() {
         setSpacing(true);
         setMargin(true);
         setStyleName("smallmargin smallspacing");

@@ -30,7 +30,7 @@ import com.vaadin.ui.Field;
 
 @SessionScoped
 @SuppressWarnings({ "rawtypes", "unchecked" })
-public class JavaEEFieldGroupFieldFactory implements FieldFactory {
+public class JavaEEFieldFactory implements FieldFactory {
 
     @Inject
     private TranslationService translationService;
@@ -43,7 +43,7 @@ public class JavaEEFieldGroupFieldFactory implements FieldFactory {
     @Override
     public <T extends Field<?>> T createField(EntityContainer<?> container, String fieldName, Class<T> fieldType) {
         Class<?> dataType = container.getType(fieldName);
-        if (Boolean.class.isAssignableFrom(dataType) || boolean.class.isAssignableFrom(dataType)) {
+        if (Boolean.class.isAssignableFrom(dataType)) {
             return (T) new BooleanFieldCreator(translationService, container, fieldName, (Class<CheckBox>) fieldType).createField();
         } else if (BigDecimal.class.isAssignableFrom(dataType) || Float.class.isAssignableFrom(dataType)
                 || Double.class.isAssignableFrom(dataType)) {

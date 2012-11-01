@@ -37,7 +37,9 @@ import com.vaadin.data.util.VaadinPropertyDescriptor;
 
 public class EntityItem<ENTITY extends PersistentEntity> extends PropertysetItem implements Buffered {
 
-    private final EntityContainer<ENTITY> entityContainer;
+	private static final long serialVersionUID = 1L;
+
+	private final EntityContainer<ENTITY> entityContainer;
 
     private ENTITY entity;
 
@@ -90,24 +92,6 @@ public class EntityItem<ENTITY extends PersistentEntity> extends PropertysetItem
     @Override
     public void discard() throws SourceException {
         // TODO: implement!
-    }
-
-    @Override
-    public boolean isWriteThrough() {
-        return false;
-    }
-
-    @Override
-    public void setWriteThrough(boolean writeThrough) throws SourceException, InvalidValueException {
-    }
-
-    @Override
-    public boolean isReadThrough() {
-        return false;
-    }
-
-    @Override
-    public void setReadThrough(boolean readThrough) throws SourceException {
     }
 
     @Override

@@ -29,12 +29,15 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container;
 import com.vaadin.data.util.converter.Converter;
 import com.vaadin.data.util.filter.UnsupportedFilterException;
+import com.vaadin.shared.ui.MultiSelectMode;
 import com.vaadin.ui.Table;
 
 @Dependent
 public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends Table implements Container.Filterable {
 
-    private static final int BATCH_SIZE = 10;
+	private static final long serialVersionUID = 1L;
+
+	private static final int BATCH_SIZE = 10;
 
     @Inject
     private TranslationService translationService;
@@ -42,7 +45,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     private EntityContainer<ENTITY> entityContainer;
 
     public BasicEntityTable(Class<ENTITY> entityClass) {
-        setDebugId(entityClass.getSimpleName() + "Table");
+        setId(entityClass.getSimpleName() + "Table");
     }
 
     protected abstract EntityContainer<ENTITY> getContainer();

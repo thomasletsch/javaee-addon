@@ -19,13 +19,18 @@ import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.clickhandler.FinishClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleFinishButton;
 
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 
 public class FinishButton extends BasicButton {
 
-    public FinishButton(CanHandleFinishButton canHandle, String title) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public FinishButton(CanHandleFinishButton canHandle, String title) {
         super(TranslationKeys.BUTTON_FINISH, title);
-        addListener(new FinishClickHandler(this, canHandle));
+        addClickListener(new FinishClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/accept.png"));
     }
 

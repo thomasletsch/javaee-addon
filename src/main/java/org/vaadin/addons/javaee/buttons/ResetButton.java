@@ -19,13 +19,18 @@ import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.clickhandler.ResetClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleResetButton;
 
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 
 public class ResetButton extends BasicButton {
 
-    public ResetButton(CanHandleResetButton canHandle, String title) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public ResetButton(CanHandleResetButton canHandle, String title) {
         super(TranslationKeys.BUTTON_RESET, title);
-        addListener(new ResetClickHandler(this, canHandle));
+        addClickListener(new ResetClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/application.png"));
     }
 
