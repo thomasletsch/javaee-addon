@@ -29,12 +29,14 @@ import org.apache.commons.logging.LogFactory;
 @SessionScoped
 public class TranslationServiceImpl implements TranslationService {
 
+    private static final long serialVersionUID = 1L;
+
     private static Log log = LogFactory.getLog(TranslationServiceImpl.class);
 
     @Inject
     Instance<TranslationSPI> providers;
 
-    private Locale locale;
+    private Locale locale = Locale.getDefault();
 
     public TranslationServiceImpl() {
         log.debug("Cosntructor called");

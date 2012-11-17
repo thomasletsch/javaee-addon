@@ -33,6 +33,8 @@ import com.vaadin.ui.VerticalLayout;
 
 public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> extends PortalPagePanel implements CanHandleSearchButton {
 
+    private static final long serialVersionUID = 1L;
+
     @Inject
     protected TranslationService translationService;
 
@@ -80,7 +82,7 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
         addComponent(searchPanel);
         Panel listPanel = new Panel(translationService.get(entityName + "s"));
         table = getResultTable();
-        listPanel.addComponent(table);
+        listPanel.setContent(table);
         addComponent(listPanel);
     }
 

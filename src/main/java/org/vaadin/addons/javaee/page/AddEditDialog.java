@@ -28,13 +28,14 @@ import org.vaadin.addons.javaee.jpa.EntityItem;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
 
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 public class AddEditDialog extends Window implements CanHandleOkButton, CanHandleCancelButton {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private TranslationService translationService;
+    private TranslationService translationService;
 
     protected BasicEntityForm<?> form;
 
@@ -43,6 +44,8 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
     protected OkButton okButton;
 
     protected CancelButton cancelButton;
+
+    private VerticalLayout content;
 
     public AddEditDialog(EntityContainer<?> container, BasicEntityForm<?> form, TranslationService translationService) {
         this.translationService = translationService;
@@ -53,7 +56,9 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
         setCaption(translationService.get(container.getEntityClass().getSimpleName()));
         setWidth(300, Unit.PIXELS);
 
-        addComponent(form);
+        content = new VerticalLayout();
+        setContent(content);
+        content.addComponent(form);
         initButtons();
     }
 
@@ -63,7 +68,7 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
         buttons.addComponent(okButton);
         CancelButton cancelButton = new CancelButton(this, translationService.get(TranslationKeys.BUTTON_CANCEL));
         buttons.addComponent(cancelButton);
-        addComponent(buttons);
+        content.addComponent(buttons);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -81,7 +86,7 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
 
     @Override
     public void cancelClicked() {
-    	UI.getCurrent().removeWindow(this);
+        UI.getCurrent().removeWindow(this);
     }
 
     @Override

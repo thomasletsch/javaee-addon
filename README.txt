@@ -15,4 +15,4 @@ It supports the following features:
 
 Tested and used with Hibernate 4 in JBoss 7.1.
 
-The JavaEE Addon is compatible to Vaadin 7! No stable version!
+The JavaEE Addon is compatible to Vaadin 7 Beta 9! No stable version!

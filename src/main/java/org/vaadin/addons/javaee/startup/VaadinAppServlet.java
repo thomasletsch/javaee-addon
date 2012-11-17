@@ -16,6 +16,7 @@
 package org.vaadin.addons.javaee.startup;
 
 import javax.inject.Inject;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
 import org.vaadin.addons.javaee.fields.converter.ExtendedConverterFactory;
@@ -25,7 +26,7 @@ import com.vaadin.server.SessionInitEvent;
 import com.vaadin.server.SessionInitListener;
 import com.vaadin.server.VaadinServlet;
 
-@WebServlet(urlPatterns = { "/vaadin/*", "/VAADIN/*" })
+@WebServlet(urlPatterns = { "/vaadin/*", "/VAADIN/*" }, initParams = { @WebInitParam(name = "UI", value = "org.vaadin.addons.javaee.page.Portal") })
 public class VaadinAppServlet extends VaadinServlet implements SessionInitListener {
 
     private static final long serialVersionUID = 1L;
@@ -36,11 +37,14 @@ public class VaadinAppServlet extends VaadinServlet implements SessionInitListen
     @Inject
     ExtendedConverterFactory converterFactory;
 
+    @Override
+    protected void servletInitialized() {
+        getService().addSessionInitListener(this);
+    }
 
     @Override
     public void sessionInit(SessionInitEvent event) throws ServiceException {
-      event.getSession().addUIProvider(cdiProvider);
+        event.getSession().addUIProvider(cdiProvider);
     }
-
 
 }

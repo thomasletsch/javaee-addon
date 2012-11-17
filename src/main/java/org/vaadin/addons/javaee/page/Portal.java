@@ -34,9 +34,9 @@ import com.vaadin.ui.VerticalSplitPanel;
 
 public abstract class Portal extends UI {
 
-	private static final long serialVersionUID = 6788886405321379139L;
+    private static final long serialVersionUID = 6788886405321379139L;
 
-	public static final int DEFAULT_MARGIN = 5;
+    public static final int DEFAULT_MARGIN = 5;
 
     public static final int SMALL_MARGIN = 2;
 
@@ -97,7 +97,7 @@ public abstract class Portal extends UI {
     private Panel createMenuPanel() {
         Panel menuContainer = new Panel();
         menuContainer.setWidth(MENU_WIDTH, Unit.PIXELS);
-        menuContainer.addComponent(menu);
+        menuContainer.setContent(menu);
         initMenu();
         return menuContainer;
     }
