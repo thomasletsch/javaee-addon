@@ -10,7 +10,7 @@
 
     <properties>
         <javaeeutils.version>1.0.1-SNAPSHOT</javaeeutils.version>
-        <vaadin.version>7.0.0.beta9</vaadin.version>
+        <vaadin.version>7.0.0.beta11</vaadin.version>
         <gwt.version>2.4.0</gwt.version>
         <jboss.javaee.version>2.0.0.Final</jboss.javaee.version>
         <commons-lang.version>2.5</commons-lang.version>
