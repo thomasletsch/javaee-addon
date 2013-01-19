@@ -14,6 +14,8 @@ import com.vaadin.ui.Field;
 
 public class EntityFieldGroup<ENTITY extends PersistentEntity> extends FieldGroup {
 
+    private static final long serialVersionUID = 1L;
+
     private EntityItem<ENTITY> item;
 
     public EntityFieldGroup() {
@@ -50,10 +52,11 @@ public class EntityFieldGroup<ENTITY extends PersistentEntity> extends FieldGrou
     }
 
     private String getStringValue(Field<?> field) {
-        if (field.getValue() != null)
+        if (field.getValue() != null) {
             return field.getValue().toString();
-        else
+        } else {
             return null;
+        }
     }
 
 }

@@ -23,6 +23,8 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class DeleteClickHandler implements ClickListener {
 
+    private static final long serialVersionUID = 1L;
+
     private final CanHandleDeleteButton handle;
 
     private final BasicButton button;

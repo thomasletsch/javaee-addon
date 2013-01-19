@@ -21,6 +21,8 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 
 public class GenericEntityTable<ENTITY extends PersistentEntity> extends BasicEntityTable<ENTITY> {
 
+    private static final long serialVersionUID = 1L;
+
     private EntityContainer<ENTITY> entityContainer;
 
     public GenericEntityTable(Class<ENTITY> entityClass) {

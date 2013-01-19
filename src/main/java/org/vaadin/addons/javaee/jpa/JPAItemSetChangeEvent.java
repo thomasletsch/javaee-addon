@@ -19,8 +19,9 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container;
 import com.vaadin.data.Container.ItemSetChangeEvent;
 
-
 public class JPAItemSetChangeEvent<ENTITY extends PersistentEntity> implements ItemSetChangeEvent {
+
+    private static final long serialVersionUID = 1L;
 
     private final EntityContainer<ENTITY> entityContainer;
 

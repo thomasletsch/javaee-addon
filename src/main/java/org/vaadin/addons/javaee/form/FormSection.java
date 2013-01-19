@@ -6,6 +6,8 @@ import com.vaadin.ui.Label;
 
 public class FormSection extends GridLayout {
 
+    private static final long serialVersionUID = 1L;
+
     private final String name;
 
     public FormSection(String name, String title) {

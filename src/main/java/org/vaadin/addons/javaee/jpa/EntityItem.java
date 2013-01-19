@@ -37,9 +37,9 @@ import com.vaadin.data.util.VaadinPropertyDescriptor;
 
 public class EntityItem<ENTITY extends PersistentEntity> extends PropertysetItem implements Buffered {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private final EntityContainer<ENTITY> entityContainer;
+    private final EntityContainer<ENTITY> entityContainer;
 
     private ENTITY entity;
 

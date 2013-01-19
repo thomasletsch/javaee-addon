@@ -24,6 +24,8 @@ import com.vaadin.data.util.converter.Converter;
 @SuppressWarnings("rawtypes")
 public class StringToEnumConverter implements Converter<String, Enum> {
 
+    private static final long serialVersionUID = 1L;
+
     private TranslationService translationService;
 
     public StringToEnumConverter(TranslationService translationService) {
@@ -37,8 +39,9 @@ public class StringToEnumConverter implements Converter<String, Enum> {
 
     @Override
     public String convertToPresentation(Enum value, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
-        if (value == null)
+        if (value == null) {
             return null;
+        }
         return translationService.get(value.getClass().getSimpleName() + "." + value.name());
     }
 

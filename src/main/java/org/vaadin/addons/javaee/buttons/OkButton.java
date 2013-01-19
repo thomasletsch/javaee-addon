@@ -27,9 +27,9 @@ public class OkButton extends BasicButton {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public OkButton(CanHandleOkButton canHandle, String title) {
+    public OkButton(CanHandleOkButton canHandle, String title) {
         super(TranslationKeys.BUTTON_OK, title);
         addClickListener(new OkClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/accept.png"));

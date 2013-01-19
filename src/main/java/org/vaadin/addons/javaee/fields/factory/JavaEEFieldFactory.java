@@ -32,6 +32,8 @@ import com.vaadin.ui.Field;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class JavaEEFieldFactory implements FieldFactory {
 
+    private static final long serialVersionUID = 1L;
+
     @Inject
     private TranslationService translationService;
 

@@ -23,6 +23,8 @@ import com.vaadin.ui.Button;
 public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> extends PortalPagePanel implements CanHandleSaveButton,
         CanHandleNewButton, CanHandleEditButton {
 
+    private static final long serialVersionUID = 1L;
+
     @Inject
     protected TranslationService translationService;
 

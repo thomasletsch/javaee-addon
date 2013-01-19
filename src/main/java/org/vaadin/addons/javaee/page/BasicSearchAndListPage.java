@@ -75,8 +75,9 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
         searchPanel.setSpacing(true);
         searchPanel.setCaption(translationService.get(TranslationKeys.TITLE_SEARCH) + ": " + translationService.get(entityName));
         searchForm = getSearchForm();
-        if (searchForm != null)
+        if (searchForm != null) {
             searchPanel.addComponent(searchForm);
+        }
         ButtonBar buttonBar = initSearchButtons();
         searchPanel.addComponent(buttonBar);
         addComponent(searchPanel);

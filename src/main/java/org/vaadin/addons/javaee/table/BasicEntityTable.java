@@ -35,9 +35,9 @@ import com.vaadin.ui.Table;
 @Dependent
 public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends Table implements Container.Filterable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private static final int BATCH_SIZE = 10;
+    private static final int BATCH_SIZE = 10;
 
     @Inject
     private TranslationService translationService;

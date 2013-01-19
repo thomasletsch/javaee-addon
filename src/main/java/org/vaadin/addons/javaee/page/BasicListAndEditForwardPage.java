@@ -13,6 +13,8 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 public abstract class BasicListAndEditForwardPage<ENTITY extends PersistentEntity> extends BasicListAndEditPage<ENTITY> implements
         CanHandleNextButton {
 
+    private static final long serialVersionUID = 1L;
+
     protected NextButton nextButton;
 
     @Inject

@@ -24,7 +24,6 @@ import javax.persistence.criteria.Root;
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 
-
 public interface FilterTranslator<FILTER extends Filter> {
 
     Class<FILTER> getAcceptedClass();

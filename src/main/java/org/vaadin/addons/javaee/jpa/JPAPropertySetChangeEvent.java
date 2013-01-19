@@ -19,8 +19,9 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container;
 import com.vaadin.data.Container.PropertySetChangeEvent;
 
-
 public class JPAPropertySetChangeEvent<ENTITY extends PersistentEntity> implements PropertySetChangeEvent {
+
+    private static final long serialVersionUID = 1L;
 
     private final EntityContainer<ENTITY> entityContainer;
 

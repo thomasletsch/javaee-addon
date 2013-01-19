@@ -171,10 +171,11 @@ public class JPAEntityProvider {
     private <ENTITY extends PersistentEntity> CriteriaQuery<ENTITY> orderByPk(CriteriaQuery<ENTITY> criteriaQuery, boolean asc) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         Root<ENTITY> root = (Root<ENTITY>) criteriaQuery.getRoots().iterator().next();
-        if (asc)
+        if (asc) {
             return criteriaQuery.orderBy(builder.asc(root.get(PersistentEntity_.id)));
-        else
+        } else {
             return criteriaQuery.orderBy(builder.desc(root.get(PersistentEntity_.id)));
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -207,8 +208,9 @@ public class JPAEntityProvider {
 
     private <ENTITY> ENTITY getSingleResultOrNull(TypedQuery<ENTITY> query) {
         List<ENTITY> resultList = query.getResultList();
-        if (resultList.isEmpty())
+        if (resultList.isEmpty()) {
             return null;
+        }
         return resultList.get(0);
     }
 

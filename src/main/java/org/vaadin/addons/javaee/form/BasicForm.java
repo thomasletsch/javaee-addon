@@ -20,6 +20,8 @@ import com.vaadin.ui.VerticalLayout;
 
 public abstract class BasicForm<ENTITY extends PersistentEntity> extends VerticalLayout {
 
+    private static final long serialVersionUID = 1L;
+
     protected EntityFieldGroup<ENTITY> fieldGroup;
 
     @Inject

@@ -27,9 +27,9 @@ public class NextButton extends BasicButton {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public NextButton(CanHandleNextButton canHandle, String title) {
+    public NextButton(CanHandleNextButton canHandle, String title) {
         super(TranslationKeys.BUTTON_NEXT, title);
         addClickListener(new NextClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/resultset_next.png"));

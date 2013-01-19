@@ -27,9 +27,9 @@ public class SaveButton extends BasicButton {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public SaveButton(CanHandleSaveButton canHandle, String title) {
+    public SaveButton(CanHandleSaveButton canHandle, String title) {
         super(TranslationKeys.BUTTON_SAVE, title);
         addClickListener(new SaveClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/page_save.png"));

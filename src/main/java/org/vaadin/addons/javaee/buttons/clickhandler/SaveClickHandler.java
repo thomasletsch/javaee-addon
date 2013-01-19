@@ -23,6 +23,8 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class SaveClickHandler implements ClickListener {
 
+    private static final long serialVersionUID = 1L;
+
     private final CanHandleSaveButton handle;
 
     private final SaveButton saveButton;

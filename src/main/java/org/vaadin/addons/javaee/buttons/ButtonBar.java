@@ -24,9 +24,9 @@ public class ButtonBar extends HorizontalLayout {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public ButtonBar() {
+    public ButtonBar() {
         setSpacing(true);
         setMargin(true);
         setStyleName("smallmargin smallspacing");

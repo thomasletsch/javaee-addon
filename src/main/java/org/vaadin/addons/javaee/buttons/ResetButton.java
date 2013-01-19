@@ -26,9 +26,9 @@ public class ResetButton extends BasicButton {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public ResetButton(CanHandleResetButton canHandle, String title) {
+    public ResetButton(CanHandleResetButton canHandle, String title) {
         super(TranslationKeys.BUTTON_RESET, title);
         addClickListener(new ResetClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/application.png"));

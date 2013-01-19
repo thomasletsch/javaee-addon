@@ -28,6 +28,8 @@ import com.vaadin.data.util.converter.Converter;
 
 public class StringToCalenderConverter implements Converter<String, Calendar> {
 
+    private static final long serialVersionUID = 1L;
+
     private static final String DEFAULT_PATTERN = "dd.MM.yyyy HH:mm:ss z";
 
     public static final String DATE_ONLY_PATTERN = "dd.MM.yyyy";

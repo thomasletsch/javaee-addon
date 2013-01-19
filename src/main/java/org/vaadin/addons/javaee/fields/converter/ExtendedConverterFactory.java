@@ -28,24 +28,30 @@ import com.vaadin.data.util.converter.DefaultConverterFactory;
 
 public class ExtendedConverterFactory extends DefaultConverterFactory {
 
+    private static final long serialVersionUID = 1L;
+
     @Inject
     private TranslationService translationService;
 
     @Override
     protected Converter<String, ?> createStringConverter(Class<?> sourceType) {
-        if (Calendar.class.isAssignableFrom(sourceType))
+        if (Calendar.class.isAssignableFrom(sourceType)) {
             return new StringToCalenderConverter();
-        if (Enum.class.isAssignableFrom(sourceType))
+        }
+        if (Enum.class.isAssignableFrom(sourceType)) {
             return new StringToEnumConverter(translationService);
-        if (BigDecimal.class.isAssignableFrom(sourceType))
+        }
+        if (BigDecimal.class.isAssignableFrom(sourceType)) {
             return new StringToBigDecimalConverter();
+        }
         return super.createStringConverter(sourceType);
     }
 
     @Override
     protected Converter<Date, ?> createDateConverter(Class<?> sourceType) {
-        if (Calendar.class.isAssignableFrom(sourceType))
+        if (Calendar.class.isAssignableFrom(sourceType)) {
             return new DateToCalenderConverter();
+        }
         return super.createDateConverter(sourceType);
     }
 }

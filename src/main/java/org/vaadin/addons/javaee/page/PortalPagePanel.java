@@ -22,19 +22,22 @@ import com.vaadin.ui.VerticalLayout;
 @Dependent
 public abstract class PortalPagePanel extends VerticalLayout {
 
+    private static final long serialVersionUID = 1L;
+
     private String pageName;
 
     protected PortalPagePanel() {
     }
 
     public PortalPagePanel(String pageName) {
-        setDebugId(pageName + "Panel");
+        setId(pageName + "Panel");
         this.pageName = pageName;
         setMargin(true);
         setSpacing(true);
         setSizeFull();
     }
 
+    @SuppressWarnings("unused")
     public void onShow(String comingFrom) {
     }
 

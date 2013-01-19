@@ -26,6 +26,8 @@ import com.vaadin.data.util.BeanItem;
 @Dependent
 public abstract class BasicSearchForm<ENTITY extends PersistentEntity> extends BasicForm<ENTITY> {
 
+    private static final long serialVersionUID = 1L;
+
     private static Log log = LogFactory.getLog(BasicSearchForm.class);
 
     public BasicSearchForm(Class<ENTITY> entityClass) {

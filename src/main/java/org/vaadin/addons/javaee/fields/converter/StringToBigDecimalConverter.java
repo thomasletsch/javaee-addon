@@ -9,6 +9,8 @@ import com.vaadin.data.util.converter.Converter;
 
 public class StringToBigDecimalConverter implements Converter<String, BigDecimal> {
 
+    private static final long serialVersionUID = 1L;
+
     private String formatPattern;
 
     public StringToBigDecimalConverter() {
@@ -20,8 +22,9 @@ public class StringToBigDecimalConverter implements Converter<String, BigDecimal
 
     @Override
     public BigDecimal convertToModel(String value, Locale locale) throws Converter.ConversionException {
-        if (value == null)
+        if (value == null) {
             return null;
+        }
         value = value.replace(",", ".");
         BigDecimal result = new BigDecimal(value);
         return result;
@@ -29,14 +32,15 @@ public class StringToBigDecimalConverter implements Converter<String, BigDecimal
 
     @Override
     public String convertToPresentation(BigDecimal value, Locale locale) throws Converter.ConversionException {
-        if (value == null)
+        if (value == null) {
             return null;
+        }
 
         NumberFormat nf = null;
         if (formatPattern != null) {
             nf = new DecimalFormat(formatPattern);
         } else {
-            nf = DecimalFormat.getInstance(locale);
+            nf = NumberFormat.getInstance(locale);
         }
         return nf.format(value.doubleValue());
     }

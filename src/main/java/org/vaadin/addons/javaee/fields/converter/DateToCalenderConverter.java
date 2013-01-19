@@ -23,6 +23,8 @@ import com.vaadin.data.util.converter.Converter;
 
 public class DateToCalenderConverter implements Converter<Date, Calendar> {
 
+    private static final long serialVersionUID = 1L;
+
     @Override
     public Calendar convertToModel(Date value, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
         if (value == null) {

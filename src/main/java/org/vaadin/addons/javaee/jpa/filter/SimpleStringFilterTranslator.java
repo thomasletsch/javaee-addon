@@ -26,7 +26,6 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 
-
 public class SimpleStringFilterTranslator implements FilterTranslator<SimpleStringFilter> {
 
     @Override
@@ -46,9 +45,8 @@ public class SimpleStringFilterTranslator implements FilterTranslator<SimpleStri
         }
         if (ssf.isOnlyMatchPrefix()) {
             return builder.like(property, value + "%");
-        } else {
-            return builder.like(property, "%" + value + "%");
         }
+        return builder.like(property, "%" + value + "%");
     }
 
 }

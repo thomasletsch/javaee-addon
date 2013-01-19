@@ -53,7 +53,7 @@ public abstract class AbstractFieldCreator<FIELD extends Field<?>> implements Fi
     protected void commonFieldInit(FIELD field) {
         field.setCaption(null);
         field.setBuffered(true);
-//        field.getState().setImmediate(true);
+        // field.getState().setImmediate(true);
         field.setId(container.getEntityClass().getSimpleName() + "." + fieldName);
         ((AbstractComponent) field).setImmediate(true);
     }

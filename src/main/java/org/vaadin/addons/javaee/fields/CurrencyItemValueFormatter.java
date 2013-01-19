@@ -17,7 +17,6 @@ package org.vaadin.addons.javaee.fields;
 
 import java.text.NumberFormat;
 
-
 public class CurrencyItemValueFormatter {
 
     private final String currency;

@@ -38,6 +38,8 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends PortalPagePanel implements CanHandleNewButton,
         CanHandleEditButton, CanHandleDeleteButton {
 
+    private static final long serialVersionUID = 1L;
+
     private static Log log = LogFactory.getLog(BasicCRUDPage.class);
 
     @Inject

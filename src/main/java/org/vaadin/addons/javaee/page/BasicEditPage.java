@@ -30,6 +30,8 @@ import com.vaadin.ui.VerticalLayout;
 
 public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends PortalPagePanel implements CanHandleSaveButton {
 
+    private static final long serialVersionUID = 1L;
+
     @Inject
     protected TranslationService translationService;
 
@@ -53,8 +55,9 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Por
         editPanel.setSpacing(true);
         editPanel.setCaption(translationService.get(getPageName()));
         form = getForm();
-        if (form != null)
+        if (form != null) {
             editPanel.addComponent(form);
+        }
         ButtonBar buttonBar = initButtons();
         editPanel.addComponent(buttonBar);
         addComponent(editPanel);

@@ -23,6 +23,8 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class NewClickHandler implements ClickListener {
 
+    private static final long serialVersionUID = 1L;
+
     private final CanHandleNewButton handle;
 
     private final BasicButton button;

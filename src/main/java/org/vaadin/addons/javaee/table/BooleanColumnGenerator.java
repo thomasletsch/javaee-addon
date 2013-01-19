@@ -22,6 +22,8 @@ import com.vaadin.ui.Table;
 
 public class BooleanColumnGenerator implements Table.ColumnGenerator {
 
+    private static final long serialVersionUID = 1L;
+
     @Override
     public Component generateCell(Table source, Object itemId, Object columnId) {
         Property<?> prop = source.getItem(itemId).getItemProperty(columnId);

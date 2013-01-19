@@ -26,9 +26,9 @@ public class SearchButton extends BasicButton {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public SearchButton(CanHandleSearchButton canHandle, String title) {
+    public SearchButton(CanHandleSearchButton canHandle, String title) {
         super(TranslationKeys.BUTTON_SEARCH, title);
         addClickListener(new SearchClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/find.png"));

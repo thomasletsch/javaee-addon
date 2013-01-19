@@ -23,9 +23,9 @@ public class ButtonClickedHandler implements ClickListener {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
+    @Override
     public void buttonClick(ClickEvent event) {
         if (event.getButton() instanceof BasicButton) {
             BasicButton basicButton = (BasicButton) event.getButton();

@@ -26,9 +26,9 @@ public class PrevButton extends BasicButton {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public PrevButton(CanHandlePrevButton canHandle, String title) {
+    public PrevButton(CanHandlePrevButton canHandle, String title) {
         super(TranslationKeys.BUTTON_PREV, title);
         addClickListener(new PrevClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/resultset_previous.png"));

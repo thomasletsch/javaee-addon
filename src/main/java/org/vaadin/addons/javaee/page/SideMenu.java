@@ -36,9 +36,9 @@ import com.vaadin.ui.Tree;
  */
 public class SideMenu extends Tree {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Inject
+    @Inject
     private Instance<Portal> portal;
 
     @Inject
@@ -58,17 +58,16 @@ public class SideMenu extends Tree {
     private void addDisabledStyleGenerator() {
         setItemStyleGenerator(new ItemStyleGenerator() {
 
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
-			@Override
+            @Override
             public String getStyle(Tree tree, Object itemId) {
                 String pageName = (String) itemId;
                 MenuItem item = panels.get(pageName);
                 if (!item.isEnabled()) {
                     return "disabled";
-                } else {
-                    return null;
                 }
+                return null;
             }
         });
     }
@@ -77,9 +76,9 @@ public class SideMenu extends Tree {
 
         addValueChangeListener(new ValueChangeListener() {
 
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
-			Object previous = null;
+            Object previous = null;
 
             @Override
             public void valueChange(Property.ValueChangeEvent event) {

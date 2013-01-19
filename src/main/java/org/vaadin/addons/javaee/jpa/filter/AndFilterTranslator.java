@@ -27,7 +27,6 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.util.filter.And;
 
-
 public class AndFilterTranslator implements FilterTranslator<And> {
 
     @Override

@@ -30,6 +30,8 @@ import com.vaadin.event.ItemClickEvent.ItemClickListener;
 @Dependent
 public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends BasicForm<ENTITY> {
 
+    private static final long serialVersionUID = 1L;
+
     private static Log log = LogFactory.getLog(BasicSearchForm.class);
 
     public BasicEntityForm(Class<ENTITY> entityClass) {
@@ -63,6 +65,8 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends B
 
     public void connectWith(BasicEntityTable<ENTITY> table) {
         table.addListener(new ItemClickListener() {
+
+            private static final long serialVersionUID = 1L;
 
             @Override
             @SuppressWarnings("unchecked")

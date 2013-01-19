@@ -25,7 +25,6 @@ import javax.persistence.criteria.Root;
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 
-
 public class FilterToQueryTranslator {
 
     private Map<Class<? extends Filter>, FilterTranslator<?>> filters = new HashMap<>();

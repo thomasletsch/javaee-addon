@@ -26,9 +26,9 @@ public class NewButton extends BasicButton {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public NewButton(CanHandleNewButton canHandle, String title) {
+    public NewButton(CanHandleNewButton canHandle, String title) {
         super(TranslationKeys.BUTTON_NEW, title);
         addClickListener(new NewClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/add.png"));

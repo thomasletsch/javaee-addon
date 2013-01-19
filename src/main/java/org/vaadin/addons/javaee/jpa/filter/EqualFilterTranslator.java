@@ -26,7 +26,6 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.util.filter.Compare.Equal;
 
-
 public class EqualFilterTranslator implements FilterTranslator<Equal> {
 
     @Override

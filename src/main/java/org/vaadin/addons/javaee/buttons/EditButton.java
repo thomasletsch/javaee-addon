@@ -26,9 +26,9 @@ public class EditButton extends BasicButton {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public EditButton(CanHandleEditButton canHandle, String title) {
+    public EditButton(CanHandleEditButton canHandle, String title) {
         super(TranslationKeys.BUTTON_EDIT, title);
         addClickListener(new EditClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/application_form_edit.png"));

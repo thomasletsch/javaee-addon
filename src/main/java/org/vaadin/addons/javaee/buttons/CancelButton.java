@@ -26,9 +26,9 @@ public class CancelButton extends BasicButton {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public CancelButton(CanHandleCancelButton canHandle, String title) {
+    public CancelButton(CanHandleCancelButton canHandle, String title) {
         super(TranslationKeys.BUTTON_CANCEL, title);
         addClickListener(new CancelClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/cancel.png"));

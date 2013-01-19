@@ -11,16 +11,16 @@ import com.vaadin.ui.UI;
 
 public class CDIProvider extends DefaultUIProvider {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Inject
-	private Instance<Portal> portal;
+    @Inject
+    private Instance<Portal> portal;
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public UI createInstance(UICreateEvent event) {
-		Class<Portal> uiClass = (Class<Portal>) event.getUIClass();
-		return portal.select(uiClass).get();
-	}
+    @Override
+    @SuppressWarnings("unchecked")
+    public UI createInstance(UICreateEvent event) {
+        Class<Portal> uiClass = (Class<Portal>) event.getUIClass();
+        return portal.select(uiClass).get();
+    }
 
 }

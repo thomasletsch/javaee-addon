@@ -23,6 +23,8 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class SearchClickHandler implements ClickListener {
 
+    private static final long serialVersionUID = 1L;
+
     private final CanHandleSearchButton handle;
 
     private final SearchButton searchButton;

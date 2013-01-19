@@ -28,6 +28,8 @@ import com.vaadin.ui.Table;
 @Singleton
 public class ClassNameColumnGenerator implements Table.ColumnGenerator {
 
+    private static final long serialVersionUID = 1L;
+
     @Inject
     private TranslationService translationService;
 

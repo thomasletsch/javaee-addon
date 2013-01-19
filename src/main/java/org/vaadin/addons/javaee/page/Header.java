@@ -20,6 +20,8 @@ import com.vaadin.ui.Label;
 
 public class Header extends HorizontalLayout {
 
+    private static final long serialVersionUID = 1L;
+
     private Label title;
 
     public Header() {

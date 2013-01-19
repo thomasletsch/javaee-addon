@@ -23,9 +23,9 @@ import com.vaadin.server.ThemeResource;
 
 public class DeleteButton extends BasicButton {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public DeleteButton(CanHandleDeleteButton canHandle, String title) {
+    public DeleteButton(CanHandleDeleteButton canHandle, String title) {
         super(TranslationKeys.BUTTON_DELETE, title);
         addClickListener(new DeleteClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/delete.png"));

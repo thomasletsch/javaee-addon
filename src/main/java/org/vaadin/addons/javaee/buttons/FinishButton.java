@@ -26,9 +26,9 @@ public class FinishButton extends BasicButton {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public FinishButton(CanHandleFinishButton canHandle, String title) {
+    public FinishButton(CanHandleFinishButton canHandle, String title) {
         super(TranslationKeys.BUTTON_FINISH, title);
         addClickListener(new FinishClickHandler(this, canHandle));
         setIcon(new ThemeResource("icons/silk/accept.png"));
