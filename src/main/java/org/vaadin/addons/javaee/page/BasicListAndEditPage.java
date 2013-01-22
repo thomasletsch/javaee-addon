@@ -2,7 +2,6 @@ package org.vaadin.addons.javaee.page;
 
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.TranslationKeys;
@@ -20,7 +19,7 @@ import org.vaadin.addons.javaee.table.BasicEntityTable;
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.ui.Button;
 
-public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> extends PortalPagePanel implements CanHandleSaveButton,
+public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> extends AbstractContentView implements CanHandleSaveButton,
         CanHandleNewButton, CanHandleEditButton {
 
     private static final long serialVersionUID = 1L;
@@ -48,12 +47,12 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
 
     protected abstract BasicEntityForm<ENTITY> getForm();
 
-    @PostConstruct
-    public void init() {
+    @Override
+    protected void initView() {
+        super.initView();
         form = getForm();
         table = getTable();
         form.connectWith(table);
-        removeAllComponents();
         createEditSection();
         createListSection();
     }
@@ -79,15 +78,15 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
     }
 
     protected void initializeSaveButton() {
-        saveButton = new SaveButton(this, translationService.get(TranslationKeys.BUTTON_SAVE));
+        saveButton = new SaveButton(this, translationService.getText(TranslationKeys.BUTTON_SAVE));
     }
 
     protected void initializeNewButton() {
-        newButton = new NewButton(this, translationService.get(TranslationKeys.BUTTON_NEW));
+        newButton = new NewButton(this, translationService.getText(TranslationKeys.BUTTON_NEW));
     }
 
     protected void initializeEditButton() {
-        editButton = new EditButton(this, translationService.get(TranslationKeys.BUTTON_EDIT));
+        editButton = new EditButton(this, translationService.getText(TranslationKeys.BUTTON_EDIT));
         editButton.setEnabled(false);
     }
 

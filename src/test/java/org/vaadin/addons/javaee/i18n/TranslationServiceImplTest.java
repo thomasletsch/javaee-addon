@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.i18n;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
@@ -27,6 +27,9 @@ import javax.enterprise.inject.Instance;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 public class TranslationServiceImplTest {
 
@@ -48,59 +51,62 @@ public class TranslationServiceImplTest {
 
     private static final String KEY2_KEY3 = UNKNOWN_KEY2 + "." + KEY3;
 
+    @InjectMocks
+    private TranslationServiceImpl translation = new TranslationServiceImpl();
+
+    @Mock
+    Instance<TranslationSPI> providers;
+
+    @Mock
     TranslationSPI spi;
+
+    @Mock
+    private SelectedLocale selectedLocale;
 
     private Locale locale = Locale.GERMAN;
 
     List<String> unknownValues = Arrays.asList(UNKNOWN_KEY2, KEY1_KEY, KEY2_KEY3);
 
-    private TranslationServiceImpl translation;
-
     @Before
     @SuppressWarnings("unchecked")
     public void initMock() {
-        spi = mock(TranslationSPI.class);
+        MockitoAnnotations.initMocks(this);
+        when(selectedLocale.getLocale()).thenReturn(locale);
         for (String value : unknownValues) {
             when(spi.get(value, locale)).thenReturn(value);
         }
         when(spi.get(KEY1, locale)).thenReturn(VALUE1);
         when(spi.get(KEY_KEY3, locale)).thenReturn(VALUE_KEY_KEY3);
         when(spi.get(KEY3, locale)).thenReturn(VALUE3);
-        translation = new TranslationServiceImpl();
-        Instance<TranslationSPI> providers = mock(Instance.class);
         Iterator<TranslationSPI> iterator = mock(Iterator.class);
         when(iterator.hasNext()).thenReturn(true).thenReturn(false);
         when(iterator.next()).thenReturn(spi);
         when(providers.iterator()).thenReturn(iterator);
-        translation.providers = providers;
-        translation.setLocale(locale);
     }
 
     @Test
     public void testGetSimple() {
-        assertEquals(VALUE1, translation.get(KEY1));
+        assertEquals(VALUE1, translation.getText(KEY1));
     }
 
     @Test
     public void testGetSimpleNotFound() {
-        assertEquals(UNKNOWN_KEY2, translation.get(UNKNOWN_KEY2));
+        assertEquals(UNKNOWN_KEY2, translation.getText(UNKNOWN_KEY2));
     }
 
     @Test
     public void testGetTwoElements() {
-        assertEquals(VALUE_KEY_KEY3, translation.get(KEY_KEY3));
+        assertEquals(VALUE_KEY_KEY3, translation.getText(KEY_KEY3));
     }
 
     @Test
     @SuppressWarnings("unchecked")
     public void testGetLastOfTwoElements() {
-        Instance<TranslationSPI> providers = mock(Instance.class);
         Iterator<TranslationSPI> iterator = mock(Iterator.class);
         when(iterator.hasNext()).thenReturn(true).thenReturn(false).thenReturn(true).thenReturn(false);
         when(iterator.next()).thenReturn(spi);
         when(providers.iterator()).thenReturn(iterator);
-        translation.providers = providers;
-        assertEquals(VALUE1, translation.get(KEY1_KEY));
+        assertEquals(VALUE1, translation.getText(KEY1_KEY));
     }
 
     @Test

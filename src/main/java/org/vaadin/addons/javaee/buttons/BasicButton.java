@@ -57,7 +57,7 @@ public class BasicButton extends Button {
 
     @PostConstruct
     protected void finishButton() {
-        setCaption(translationService.get(titleKey));
+        setCaption(translationService.getText(titleKey));
     }
 
     public void fireEvent() {

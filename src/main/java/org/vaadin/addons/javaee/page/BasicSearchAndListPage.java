@@ -15,7 +15,6 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.page;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.TranslationKeys;
@@ -31,7 +30,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
-public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> extends PortalPagePanel implements CanHandleSearchButton {
+public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> extends AbstractContentView implements CanHandleSearchButton {
 
     private static final long serialVersionUID = 1L;
 
@@ -62,18 +61,19 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
      * Can be overwritten
      */
     protected ButtonBar initSearchButtons() {
-        Button findItem = new SearchButton(this, translationService.get(TranslationKeys.BUTTON_SEARCH));
+        Button findItem = new SearchButton(this, translationService.getText(TranslationKeys.BUTTON_SEARCH));
         ButtonBar buttonLayout = new ButtonBar();
         buttonLayout.addComponent(findItem);
         return buttonLayout;
     }
 
-    @PostConstruct
-    protected void init() {
+    @Override
+    protected void initView() {
+        super.initView();
         VerticalLayout searchPanel = new VerticalLayout();
         searchPanel.setMargin(true);
         searchPanel.setSpacing(true);
-        searchPanel.setCaption(translationService.get(TranslationKeys.TITLE_SEARCH) + ": " + translationService.get(entityName));
+        searchPanel.setCaption(translationService.getText(TranslationKeys.TITLE_SEARCH) + ": " + translationService.getText(entityName));
         searchForm = getSearchForm();
         if (searchForm != null) {
             searchPanel.addComponent(searchForm);
@@ -81,7 +81,7 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
         ButtonBar buttonBar = initSearchButtons();
         searchPanel.addComponent(buttonBar);
         addComponent(searchPanel);
-        Panel listPanel = new Panel(translationService.get(entityName + "s"));
+        Panel listPanel = new Panel(translationService.getText(entityName + "s"));
         table = getResultTable();
         listPanel.setContent(table);
         addComponent(listPanel);

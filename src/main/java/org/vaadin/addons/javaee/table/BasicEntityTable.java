@@ -89,7 +89,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     }
 
     protected void addColumn(String name, Class<?> type) {
-        addContainerProperty(name, type, null, translationService.get(name), null, null);
+        addContainerProperty(name, type, null, translationService.getText(name), null, null);
     }
 
     protected void addColumn(String name, Converter<String, ?> converter) {
@@ -99,7 +99,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     protected void addColumn(String name, ColumnGenerator columnGenerator) {
         addGeneratedColumn(name, columnGenerator);
-        setColumnHeader(name, translationService.get(name));
+        setColumnHeader(name, translationService.getText(name));
     }
 
     public void enableRefresh() {

@@ -93,7 +93,7 @@ public class JPAEntityProvider {
         CriteriaQuery<Long> query = builder.createQuery(Long.class);
         Root<ENTITY> root = query.from(entityClass);
         query = query.select(builder.count(root));
-        query = (CriteriaQuery<Long>) addFilterCriteria(entityClass, filter, builder, root, query);
+        query = (CriteriaQuery<Long>) addFilterCriteria(filter, builder, root, query);
         Long count = createQuery(query).getSingleResult();
         return count;
     }
@@ -153,12 +153,11 @@ public class JPAEntityProvider {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<ENTITY> query = builder.createQuery(entityClass);
         Root<ENTITY> root = query.from(entityClass);
-        query = (CriteriaQuery<ENTITY>) addFilterCriteria(entityClass, filter, builder, root, query);
+        query = (CriteriaQuery<ENTITY>) addFilterCriteria(filter, builder, root, query);
         return query;
     }
 
-    private <ENTITY> CriteriaQuery<?> addFilterCriteria(Class<ENTITY> entityClass, Filter filter, CriteriaBuilder builder,
-            Root<ENTITY> root, CriteriaQuery<?> query) {
+    private <ENTITY> CriteriaQuery<?> addFilterCriteria(Filter filter, CriteriaBuilder builder, Root<ENTITY> root, CriteriaQuery<?> query) {
         if (filter != null) {
             FilterToQueryTranslator translator = new FilterToQueryTranslator();
             Predicate filterPredicate = translator.translate(filter, builder, root);
@@ -173,9 +172,8 @@ public class JPAEntityProvider {
         Root<ENTITY> root = (Root<ENTITY>) criteriaQuery.getRoots().iterator().next();
         if (asc) {
             return criteriaQuery.orderBy(builder.asc(root.get(PersistentEntity_.id)));
-        } else {
-            return criteriaQuery.orderBy(builder.desc(root.get(PersistentEntity_.id)));
         }
+        return criteriaQuery.orderBy(builder.desc(root.get(PersistentEntity_.id)));
     }
 
     @SuppressWarnings("unchecked")

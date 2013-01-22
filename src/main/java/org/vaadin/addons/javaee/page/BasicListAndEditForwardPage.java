@@ -37,7 +37,7 @@ public abstract class BasicListAndEditForwardPage<ENTITY extends PersistentEntit
     }
 
     protected void initializeNextButton() {
-        nextButton = new NextButton(this, translationService.get(TranslationKeys.BUTTON_NEXT));
+        nextButton = new NextButton(this, translationService.getText(TranslationKeys.BUTTON_NEXT));
     }
 
     @Override

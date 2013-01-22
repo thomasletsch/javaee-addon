@@ -24,6 +24,4 @@ public interface TranslationSPI {
 
     String get(String key, Locale locale);
 
-    String get(String key, Locale locale, Object... params);
-
 }

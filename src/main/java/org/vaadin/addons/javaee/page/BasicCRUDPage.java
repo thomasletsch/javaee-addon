@@ -15,7 +15,6 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.page;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.apache.commons.logging.Log;
@@ -35,7 +34,7 @@ import org.vaadin.addons.javaee.table.BasicEntityTable;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 
-public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends PortalPagePanel implements CanHandleNewButton,
+public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends AbstractContentView implements CanHandleNewButton,
         CanHandleEditButton, CanHandleDeleteButton {
 
     private static final long serialVersionUID = 1L;
@@ -63,7 +62,6 @@ public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends Por
 
     public BasicCRUDPage(final String pageName) {
         super(pageName);
-        setSpacing(true);
     }
 
     public abstract EntityContainer<ENTITY> getContainer();
@@ -72,13 +70,14 @@ public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends Por
 
     protected abstract BasicEntityForm<ENTITY> getForm();
 
-    @PostConstruct
-    public void init() {
+    @Override
+    protected void initView() {
+        super.initView();
         container = getContainer();
         table = getTable();
         form = getForm();
 
-        table.setCaption(translationService.get(container.getEntityClass().getSimpleName() + "s"));
+        table.setCaption(translationService.getText(container.getEntityClass().getSimpleName() + "s"));
         addComponent(table);
         initButtons();
         addComponent(buttons);
@@ -87,11 +86,11 @@ public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends Por
     }
 
     private void initButtons() {
-        addItemButton = new NewButton(this, translationService.get(TranslationKeys.BUTTON_NEW));
+        addItemButton = new NewButton(this, translationService.getText(TranslationKeys.BUTTON_NEW));
         buttons.addComponent(addItemButton);
-        editItemButton = new EditButton(this, translationService.get(TranslationKeys.BUTTON_EDIT));
+        editItemButton = new EditButton(this, translationService.getText(TranslationKeys.BUTTON_EDIT));
         buttons.addComponent(editItemButton);
-        removeItemButton = new DeleteButton(this, translationService.get(TranslationKeys.BUTTON_DELETE));
+        removeItemButton = new DeleteButton(this, translationService.getText(TranslationKeys.BUTTON_DELETE));
         buttons.addComponent(removeItemButton);
     }
 

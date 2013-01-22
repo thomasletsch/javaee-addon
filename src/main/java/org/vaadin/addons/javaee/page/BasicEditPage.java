@@ -15,7 +15,6 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.page;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.TranslationKeys;
@@ -28,7 +27,7 @@ import org.vaadin.addons.javaee.i18n.TranslationService;
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.ui.VerticalLayout;
 
-public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends PortalPagePanel implements CanHandleSaveButton {
+public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends AbstractContentView implements CanHandleSaveButton {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,12 +47,13 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Por
         this.entityName = entityName;
     }
 
-    @PostConstruct
-    public void init() {
+    @Override
+    protected void initView() {
+        super.initView();
         VerticalLayout editPanel = new VerticalLayout();
         editPanel.setMargin(true);
         editPanel.setSpacing(true);
-        editPanel.setCaption(translationService.get(getPageName()));
+        editPanel.setCaption(translationService.getText(getPageName()));
         form = getForm();
         if (form != null) {
             editPanel.addComponent(form);
@@ -67,7 +67,7 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Por
 
     protected ButtonBar initButtons() {
         ButtonBar buttonLayout = new ButtonBar();
-        SaveButton saveButton = new SaveButton(this, translationService.get(TranslationKeys.BUTTON_SAVE));
+        SaveButton saveButton = new SaveButton(this, translationService.getText(TranslationKeys.BUTTON_SAVE));
         buttonLayout.addComponent(saveButton);
         return buttonLayout;
     }

@@ -42,7 +42,7 @@ public class StringToEnumConverter implements Converter<String, Enum> {
         if (value == null) {
             return null;
         }
-        return translationService.get(value.getClass().getSimpleName() + "." + value.name());
+        return translationService.getText(value.getClass().getSimpleName() + "." + value.name());
     }
 
     @Override

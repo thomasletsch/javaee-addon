@@ -15,12 +15,16 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.i18n;
 
+
 public class CommonTranslations extends ResourceBundleTranslations {
 
-    static final String COMMON_BUNDLE_NAME = "Common";
+    private static final long serialVersionUID = 1L;
 
-    public CommonTranslations() {
-        super(COMMON_BUNDLE_NAME);
+    private static final String COMMON_BUNDLE_NAME = "Common";
+
+    @Override
+    protected String getBundleName() {
+        return COMMON_BUNDLE_NAME;
     }
 
 }

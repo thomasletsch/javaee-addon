@@ -15,28 +15,22 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.i18n;
 
-import java.text.MessageFormat;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public abstract class ResourceBundleTranslations implements TranslationSPI {
+import javax.enterprise.context.SessionScoped;
+
+@SessionScoped
+public abstract class ResourceBundleTranslations implements Serializable, TranslationSPI {
+
+    private static final long serialVersionUID = 1L;
 
     private Map<Locale, ResourceBundle> bundles = new HashMap<Locale, ResourceBundle>();
 
-    private final String bundleName;
-
-    public ResourceBundleTranslations(String bundleName) {
-        this.bundleName = bundleName;
-    }
-
-    @Override
-    public String get(String key, Locale locale, Object... params) {
-        String translation = get(key, locale);
-        translation = MessageFormat.format(translation, params);
-        return translation;
-    }
+    protected abstract String getBundleName();
 
     @Override
     public String get(String key, Locale locale) {
@@ -49,7 +43,7 @@ public abstract class ResourceBundleTranslations implements TranslationSPI {
     public ResourceBundle getBundle(Locale locale) {
         ResourceBundle bundle = bundles.get(locale);
         if (bundle == null) {
-            bundle = ResourceBundle.getBundle(bundleName, locale);
+            bundle = ResourceBundle.getBundle(getBundleName(), locale);
             bundles.put(locale, bundle);
         }
         return bundle;

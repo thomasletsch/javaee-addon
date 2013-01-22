@@ -17,34 +17,53 @@ package org.vaadin.addons.javaee.page;
 
 import javax.enterprise.context.Dependent;
 
+import org.vaadin.virkki.cdiutils.mvp.AbstractView;
+
+import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.VerticalLayout;
 
 @Dependent
-public abstract class PortalPagePanel extends VerticalLayout {
+public abstract class AbstractContentView extends AbstractView implements ContentView {
 
     private static final long serialVersionUID = 1L;
 
     private String pageName;
 
-    protected PortalPagePanel() {
+    private VerticalLayout mainPanel;
+
+    protected AbstractContentView() {
     }
 
-    public PortalPagePanel(String pageName) {
+    public AbstractContentView(String pageName) {
         setId(pageName + "Panel");
         this.pageName = pageName;
-        setMargin(true);
-        setSpacing(true);
-        setSizeFull();
     }
 
-    @SuppressWarnings("unused")
+    @Override
+    protected void initView() {
+        setSizeFull();
+
+        mainPanel = new VerticalLayout();
+        mainPanel.setMargin(true);
+        mainPanel.setSpacing(true);
+        mainPanel.setSizeFull();
+        setCompositionRoot(mainPanel);
+    }
+
+    protected void addComponent(AbstractComponent component) {
+        mainPanel.addComponent(component);
+    }
+
+    @Override
     public void onShow(String comingFrom) {
     }
 
+    @Override
     public String getPageName() {
         return pageName;
     }
 
+    @Override
     public void prepareShow() {
     }
 

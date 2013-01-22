@@ -22,10 +22,15 @@ import java.util.HashMap;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
+import org.vaadin.addons.javaee.events.NavigationEvent;
 import org.vaadin.addons.javaee.i18n.TranslationService;
+import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
+import org.vaadin.virkki.cdiutils.componentproducers.Preconfigured;
+import org.vaadin.virkki.cdiutils.mvp.ViewComponent;
 
 import com.vaadin.data.Property;
 import com.vaadin.ui.Tree;
+import com.vaadin.ui.Tree.ItemStyleGenerator;
 
 /*
  * Testing:
@@ -34,29 +39,90 @@ import com.vaadin.ui.Tree;
  *      //div[@id='SideMenu']//div/div[{section}]/div[2]/div[{subSection}]/div/div/span
  * where section = row of first level item starting by 1 and subSection = row of second level item starting by 1
  */
-public class SideMenu extends Tree {
+@UIScoped
+public class SideMenu extends ViewComponent {
 
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private Instance<Portal> portal;
+    @Preconfigured(nullSelectionAllowed = false, immediate = true, id = "SideMunu")
+    private Tree tree;
+
+    @Inject
+    private Instance<PortalViewImpl> portal;
 
     @Inject
     private TranslationService translationService;
 
+    @Inject
+    javax.enterprise.event.Event<NavigationEvent> navigation;
+
     private HashMap<String, MenuItem> panels = new HashMap<>();
 
+    private ValueChangeListenerImplementation listener;
+
     public SideMenu() {
-        setSizeFull();
-        setImmediate(true);
-        setItemCaptionMode(ItemCaptionMode.EXPLICIT);
-        setId("SideMenu");
-        addNavigationListener();
+    }
+
+    public void init() {
+        tree.setSelectable(true);
+        setCompositionRoot(tree);
+        listener = new ValueChangeListenerImplementation();
+        tree.addValueChangeListener(listener);
         addDisabledStyleGenerator();
     }
 
+    public MenuItem getMenuItem(String pageName) {
+        return panels.get(pageName);
+    }
+
+    public void selectMenu(String menuName) {
+        tree.removeValueChangeListener(listener);
+        tree.setValue(menuName);
+        tree.addValueChangeListener(listener);
+    }
+
+    public void addMenu(String pageName, Instance<? extends AbstractContentView> panel) {
+        MenuItem item = new MenuItem(pageName, translationService.getText(MENU_ITEM_PREFIX + pageName), panel);
+        addMenu(item);
+    }
+
+    public void addMenu(String parent, String pageName, Instance<? extends AbstractContentView> panel) {
+        MenuItem item = new MenuItem(parent, pageName, translationService.getText(MENU_ITEM_PREFIX + pageName), panel);
+        addMenu(item);
+    }
+
+    public void addMenu(String pageName, Instance<? extends AbstractContentView> panel, boolean enabled) {
+        MenuItem item = new MenuItem(pageName, translationService.getText(MENU_ITEM_PREFIX + pageName), panel, enabled);
+        addMenu(item);
+    }
+
+    public void addMenu(String parent, String pageName, Instance<? extends AbstractContentView> panel, boolean enabled) {
+        MenuItem item = new MenuItem(parent, pageName, translationService.getText(MENU_ITEM_PREFIX + pageName), panel, enabled);
+        addMenu(item);
+    }
+
+    public void enableAll() {
+        for (MenuItem item : panels.values()) {
+            item.enable();
+        }
+        tree.markAsDirty();
+    }
+
+    private void addMenu(MenuItem item) {
+        panels.put(item.getName(), item);
+        tree.addItem(item.getName());
+        tree.setItemCaption(item.getName(), item.getTitle());
+        if (item.hasParent()) {
+            tree.setChildrenAllowed(item.getParent(), true);
+            tree.setParent(item.getName(), item.getParent());
+            tree.setChildrenAllowed(item.getName(), false);
+            tree.expandItem(item.getParent());
+        }
+    }
+
     private void addDisabledStyleGenerator() {
-        setItemStyleGenerator(new ItemStyleGenerator() {
+        tree.setItemStyleGenerator(new ItemStyleGenerator() {
 
             private static final long serialVersionUID = 1L;
 
@@ -72,76 +138,30 @@ public class SideMenu extends Tree {
         });
     }
 
-    private void addNavigationListener() {
+    private final class ValueChangeListenerImplementation implements Property.ValueChangeListener {
 
-        addValueChangeListener(new ValueChangeListener() {
+        private static final long serialVersionUID = 1L;
 
-            private static final long serialVersionUID = 1L;
+        Object previous = null;
 
-            Object previous = null;
-
-            @Override
-            public void valueChange(Property.ValueChangeEvent event) {
-                if (event.getProperty() == null || event.getProperty().getValue() == null) {
-                    return;
-                }
-                String pageName = (String) event.getProperty().getValue();
-                MenuItem item = panels.get(pageName);
-                navigateToPageIfEnabled(item);
+        @Override
+        public void valueChange(Property.ValueChangeEvent event) {
+            if (event.getProperty() == null || event.getProperty().getValue() == null) {
+                return;
             }
+            String pageName = (String) event.getProperty().getValue();
+            MenuItem item = panels.get(pageName);
+            navigateToPageIfEnabled(item);
+        }
 
-            private void navigateToPageIfEnabled(MenuItem item) {
-                if (item.isEnabled()) {
-                    portal.get().navigateTo(item.getPanel().get());
-                    previous = getValue();
-                } else {
-                    setValue(previous);
-                }
+        private void navigateToPageIfEnabled(MenuItem item) {
+            if (item.isEnabled()) {
+                navigation.fire(new NavigationEvent(item.getName()));
+                previous = tree.getValue();
+            } else {
+                tree.setValue(previous);
             }
-        });
-    }
-
-    public void addMenu(String pageName, Instance<? extends PortalPagePanel> panel) {
-        MenuItem item = new MenuItem(pageName, translationService.get(MENU_ITEM_PREFIX + pageName), panel);
-        addMenu(item);
-    }
-
-    public void addMenu(String parent, String pageName, Instance<? extends PortalPagePanel> panel) {
-        MenuItem item = new MenuItem(parent, pageName, translationService.get(MENU_ITEM_PREFIX + pageName), panel);
-        addMenu(item);
-    }
-
-    public void addMenu(String pageName, Instance<? extends PortalPagePanel> panel, boolean enabled) {
-        MenuItem item = new MenuItem(pageName, translationService.get(MENU_ITEM_PREFIX + pageName), panel, enabled);
-        addMenu(item);
-    }
-
-    public void addMenu(String parent, String pageName, Instance<? extends PortalPagePanel> panel, boolean enabled) {
-        MenuItem item = new MenuItem(parent, pageName, translationService.get(MENU_ITEM_PREFIX + pageName), panel, enabled);
-        addMenu(item);
-    }
-
-    private void addMenu(MenuItem item) {
-        panels.put(item.getName(), item);
-        addItem(item.getName());
-        setItemCaption(item.getName(), item.getTitle());
-        if (item.hasParent()) {
-            setChildrenAllowed(item.getParent(), true);
-            setParent(item.getName(), item.getParent());
-            setChildrenAllowed(item.getName(), false);
-            expandItem(item.getParent());
         }
-    }
-
-    public void enableAll() {
-        for (MenuItem item : panels.values()) {
-            item.enable();
-        }
-        fireValueChange(false);
-    }
-
-    public PortalPagePanel getPanel(String pageName) {
-        return panels.get(pageName).getPanel().get();
     }
 
 }

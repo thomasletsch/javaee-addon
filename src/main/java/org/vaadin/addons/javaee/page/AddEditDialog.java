@@ -53,7 +53,7 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
         this.form = form;
 
         setId(container.getEntityClass().getSimpleName() + "AddEditDialog");
-        setCaption(translationService.get(container.getEntityClass().getSimpleName()));
+        setCaption(translationService.getText(container.getEntityClass().getSimpleName()));
         setWidth(300, Unit.PIXELS);
 
         content = new VerticalLayout();
@@ -64,9 +64,9 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
 
     protected void initButtons() {
         ButtonBar buttons = new ButtonBar();
-        OkButton okButton = new OkButton(this, translationService.get(TranslationKeys.BUTTON_OK));
+        OkButton okButton = new OkButton(this, translationService.getText(TranslationKeys.BUTTON_OK));
         buttons.addComponent(okButton);
-        CancelButton cancelButton = new CancelButton(this, translationService.get(TranslationKeys.BUTTON_CANCEL));
+        CancelButton cancelButton = new CancelButton(this, translationService.getText(TranslationKeys.BUTTON_CANCEL));
         buttons.addComponent(cancelButton);
         content.addComponent(buttons);
     }

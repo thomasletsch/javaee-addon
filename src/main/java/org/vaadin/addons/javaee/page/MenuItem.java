@@ -27,21 +27,21 @@ public class MenuItem {
 
     private boolean enabled;
 
-    private Instance<? extends PortalPagePanel> panel;
+    private Instance<? extends AbstractContentView> panel;
 
-    public MenuItem(String name, String title, Instance<? extends PortalPagePanel> panel) {
+    public MenuItem(String name, String title, Instance<? extends AbstractContentView> panel) {
         this(null, name, title, panel, true);
     }
 
-    public MenuItem(String parent, String name, String title, Instance<? extends PortalPagePanel> panel) {
+    public MenuItem(String parent, String name, String title, Instance<? extends AbstractContentView> panel) {
         this(parent, name, title, panel, true);
     }
 
-    public MenuItem(String name, String title, Instance<? extends PortalPagePanel> panel, boolean enabled) {
+    public MenuItem(String name, String title, Instance<? extends AbstractContentView> panel, boolean enabled) {
         this(null, name, title, panel, enabled);
     }
 
-    public MenuItem(String parent, String name, String title, Instance<? extends PortalPagePanel> panel, boolean enabled) {
+    public MenuItem(String parent, String name, String title, Instance<? extends AbstractContentView> panel, boolean enabled) {
         this.parent = parent;
         this.name = name;
         this.title = title;
@@ -61,8 +61,8 @@ public class MenuItem {
         return enabled;
     }
 
-    public Instance<? extends PortalPagePanel> getPanel() {
-        return panel;
+    public AbstractContentView getPanel() {
+        return panel.get();
     }
 
     public String getParent() {

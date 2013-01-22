@@ -15,20 +15,36 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.page;
 
+import javax.inject.Inject;
+
+import org.vaadin.addons.javaee.TranslationKeys;
+import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
+import org.vaadin.virkki.cdiutils.componentproducers.Preconfigured;
+import org.vaadin.virkki.cdiutils.mvp.ViewComponent;
+
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 
-public class Header extends HorizontalLayout {
+@UIScoped
+public class Header extends ViewComponent {
 
     private static final long serialVersionUID = 1L;
 
+    @Inject
+    @Preconfigured(styleName = "toolbar", spacing = true)
+    private HorizontalLayout layout;
+
+    @Inject
+    @Preconfigured(captionKey = TranslationKeys.TITLE_PORTAL)
     private Label title;
 
     public Header() {
-        setWidth(Portal.HEADER_WIDTH, Unit.PIXELS);
-        setHeight(Portal.HEADER_HEIGHT, Unit.PIXELS);
-        title = new Label();
-        addComponent(title);
+    }
+
+    public void init() {
+        layout.setSizeFull();
+        layout.addComponent(title);
+        setCompositionRoot(layout);
     }
 
     public void setTitle(String newTitle) {

@@ -114,7 +114,7 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
 
     protected void addField(FormSection section, FieldSpecification fieldSpec, Field<?> field) {
         fieldGroup.bind(field, fieldSpec.getName());
-        Label label = new Label(translationService.get(section.getName() + "." + fieldSpec.getName()) + ":");
+        Label label = new Label(translationService.getText(section.getName() + "." + fieldSpec.getName()) + ":");
         label.setStyleName("rightalign");
         section.addField(fieldSpec, label, field);
     }
@@ -146,7 +146,7 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     protected FormSection getFormSection(String name) {
         FormSection section = getFormSectionInternal(name);
         if (section == null) {
-            section = new FormSection(name, translationService.get(name));
+            section = new FormSection(name, translationService.getText(name));
             addFormSection(name, section);
             addComponent(section);
         }
