@@ -19,14 +19,20 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import javax.enterprise.context.SessionScoped;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 @SessionScoped
 public abstract class ResourceBundleTranslations implements Serializable, TranslationSPI {
 
     private static final long serialVersionUID = 1L;
+
+    private static Log log = LogFactory.getLog(ResourceBundleTranslations.class);
 
     private Map<Locale, ResourceBundle> bundles = new HashMap<Locale, ResourceBundle>();
 
@@ -41,12 +47,21 @@ public abstract class ResourceBundleTranslations implements Serializable, Transl
     }
 
     public ResourceBundle getBundle(Locale locale) {
+        if (!bundles.containsKey(locale)) {
+            loadBundle(locale);
+        }
         ResourceBundle bundle = bundles.get(locale);
-        if (bundle == null) {
-            bundle = ResourceBundle.getBundle(getBundleName(), locale);
+        return bundle;
+    }
+
+    protected void loadBundle(Locale locale) {
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle(getBundleName(), locale);
+            bundles.put(locale, bundle);
+        } catch (MissingResourceException e) {
+            ResourceBundle bundle = ResourceBundle.getBundle("/" + getBundleName(), locale);
             bundles.put(locale, bundle);
         }
-        return bundle;
     }
 
 }

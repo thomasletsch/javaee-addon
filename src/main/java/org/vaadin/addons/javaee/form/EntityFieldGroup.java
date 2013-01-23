@@ -52,11 +52,10 @@ public class EntityFieldGroup<ENTITY extends PersistentEntity> extends FieldGrou
     }
 
     private String getStringValue(Field<?> field) {
-        if (field.getValue() != null) {
-            return field.getValue().toString();
-        } else {
+        if (field.getValue() == null) {
             return null;
         }
+        return field.getValue().toString();
     }
 
 }
