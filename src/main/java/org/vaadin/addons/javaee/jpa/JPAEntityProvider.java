@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.vaadin.addons.javaee.jpa.filter.FilterToQueryTranslator;
 
+import com.googlecode.javaeeutils.jpa.JPAConstants;
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.googlecode.javaeeutils.jpa.PersistentEntity_;
 import com.vaadin.data.Container.Filter;
@@ -144,7 +145,7 @@ public class JPAEntityProvider {
 
     private <ENTITY> TypedQuery<ENTITY> createQuery(CriteriaQuery<ENTITY> criteriaQuery) {
         TypedQuery<ENTITY> query = entityManager.createQuery(criteriaQuery);
-        query.setHint("org.hibernate.cacheable", "true");
+        query.setHint(JPAConstants.HINT_HIBERNATE_CACHABLE, JPAConstants.CACHABLE_TRUE);
         return query;
     }
 
