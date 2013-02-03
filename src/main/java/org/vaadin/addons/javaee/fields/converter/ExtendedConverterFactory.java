@@ -21,6 +21,7 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import org.joda.time.LocalDate;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
 import com.vaadin.data.util.converter.Converter;
@@ -51,6 +52,9 @@ public class ExtendedConverterFactory extends DefaultConverterFactory {
     protected Converter<Date, ?> createDateConverter(Class<?> sourceType) {
         if (Calendar.class.isAssignableFrom(sourceType)) {
             return new DateToCalenderConverter();
+        }
+        if (LocalDate.class.isAssignableFrom(sourceType)) {
+            return new DateToLocalDateConverter();
         }
         return super.createDateConverter(sourceType);
     }

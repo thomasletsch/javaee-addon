@@ -4,6 +4,8 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.events.NavigationEvent;
+import org.vaadin.addons.javaee.navigation.MenuItem;
+import org.vaadin.addons.javaee.navigation.SideMenu;
 import org.vaadin.virkki.cdiutils.mvp.AbstractPresenter;
 import org.vaadin.virkki.cdiutils.mvp.AbstractPresenter.ViewInterface;
 

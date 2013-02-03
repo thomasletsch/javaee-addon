@@ -13,9 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.page;
+package org.vaadin.addons.javaee.navigation;
 
 import javax.enterprise.inject.Instance;
+
+import org.vaadin.addons.javaee.page.AbstractContentView;
 
 public class MenuItem {
 

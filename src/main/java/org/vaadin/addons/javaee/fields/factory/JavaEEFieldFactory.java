@@ -22,6 +22,7 @@ import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
+import org.joda.time.LocalDate;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
@@ -58,6 +59,8 @@ public class JavaEEFieldFactory implements FieldFactory {
             return (T) new EnumFieldCreator(translationService, container, fieldName, fieldType).createField();
         } else if (Calendar.class.isAssignableFrom(dataType) || Date.class.isAssignableFrom(dataType)) {
             return (T) new DateFieldCreator(translationService, container, fieldName, fieldType).createField();
+        } else if (LocalDate.class.isAssignableFrom(dataType)) {
+            return (T) new LocalDateFieldCreator(translationService, container, fieldName, fieldType).createField();
         } else {
             return (T) new TextFieldCreator(translationService, container, fieldName, fieldType).createField();
         }

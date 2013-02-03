@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.page;
+package org.vaadin.addons.javaee.navigation;
 
 import static org.vaadin.addons.javaee.TranslationKeys.MENU_ITEM_PREFIX;
 
@@ -24,6 +24,8 @@ import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.events.NavigationEvent;
 import org.vaadin.addons.javaee.i18n.TranslationService;
+import org.vaadin.addons.javaee.page.AbstractContentView;
+import org.vaadin.addons.javaee.page.PortalViewImpl;
 import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
 import org.vaadin.virkki.cdiutils.componentproducers.Preconfigured;
 import org.vaadin.virkki.cdiutils.mvp.ViewComponent;
@@ -44,8 +46,9 @@ public class SideMenu extends ViewComponent {
 
     private static final long serialVersionUID = 1L;
 
+    @SuppressWarnings("cdi-ambiguous-dependency")
     @Inject
-    @Preconfigured(nullSelectionAllowed = false, immediate = true, id = "SideMunu")
+    @Preconfigured(nullSelectionAllowed = false, immediate = true, id = "SideMenu")
     private Tree tree;
 
     @Inject

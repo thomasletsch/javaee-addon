@@ -21,6 +21,7 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.i18n.TranslationService;
+import org.vaadin.addons.javaee.navigation.SideMenu;
 import org.vaadin.virkki.cdiutils.componentproducers.Preconfigured;
 import org.vaadin.virkki.cdiutils.mvp.AbstractView;
 

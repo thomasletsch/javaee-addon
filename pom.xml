@@ -11,8 +11,9 @@
 
 	<properties>
 		<javaeeutils.version>1.0.1-SNAPSHOT</javaeeutils.version>
-		<vaadin.version>7.0.0.rc1</vaadin.version>
+		<vaadin.version>7.0.0.rc2</vaadin.version>
 		<cdiutils.version>2.0.1</cdiutils.version>
+		<vodatime.version>1.0.2-SNAPSHOT</vodatime.version>
 		<gwt.version>2.4.0</gwt.version>
 		<jboss.javaee.version>2.0.0.Final</jboss.javaee.version>
 		<commons-lang.version>2.5</commons-lang.version>
@@ -40,6 +41,17 @@
 			<groupId>org.vaadin.virkki</groupId>
 			<artifactId>cdi-utils</artifactId>
 			<version>${cdiutils.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.vaadin.addon</groupId>
+			<artifactId>vodatime</artifactId>
+			<version>${vodatime.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>vaadin</artifactId>
+					<groupId>com.vaadin</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
