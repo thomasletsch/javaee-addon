@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.page;
 
-import static org.vaadin.addons.javaee.TranslationKeys.TITLE_PORTAL;
+import static org.vaadin.addons.javaee.i18n.TranslationKeys.TITLE_PORTAL;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;

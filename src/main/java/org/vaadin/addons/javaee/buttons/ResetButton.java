@@ -15,9 +15,9 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.buttons;
 
-import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.clickhandler.ResetClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleResetButton;
+import org.vaadin.addons.javaee.i18n.TranslationKeys;
 
 import com.vaadin.server.ThemeResource;
 

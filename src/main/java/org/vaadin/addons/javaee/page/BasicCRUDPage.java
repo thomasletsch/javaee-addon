@@ -19,7 +19,6 @@ import javax.inject.Inject;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
 import org.vaadin.addons.javaee.buttons.DeleteButton;
 import org.vaadin.addons.javaee.buttons.EditButton;
@@ -28,6 +27,7 @@ import org.vaadin.addons.javaee.buttons.handler.CanHandleDeleteButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleEditButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleNewButton;
 import org.vaadin.addons.javaee.form.BasicEntityForm;
+import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 import org.vaadin.addons.javaee.table.BasicEntityTable;

@@ -17,7 +17,7 @@ package org.vaadin.addons.javaee.page;
 
 import javax.inject.Inject;
 
-import org.vaadin.addons.javaee.TranslationKeys;
+import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
 import org.vaadin.virkki.cdiutils.componentproducers.Preconfigured;
 import org.vaadin.virkki.cdiutils.mvp.ViewComponent;

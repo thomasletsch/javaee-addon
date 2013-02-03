@@ -15,9 +15,9 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.buttons;
 
-import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.clickhandler.OkClickHandler;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleOkButton;
+import org.vaadin.addons.javaee.i18n.TranslationKeys;
 
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.ThemeResource;

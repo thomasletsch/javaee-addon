@@ -1,7 +1,7 @@
 The JavaEE Vaadin Addon helps you to build a JavaEE 6 based Vaadin Application fast.
 
 It supports the following features:
-- Root Application is injected by CDI and therefore CDI is available in all custom classes
+- CDI support through CDI-Utils (https://vaadin.com/directory#addon/cdi-utils:vaadin)
 - Fixed standard layout of a web application with left side menu
 - Navigation through pages is done by sending CDI events
 - CRUD support for JPA entities:
@@ -11,8 +11,8 @@ It supports the following features:
 	- Create a edit form by just subsclasses BasicEditForm and set the columns you want to edit
 	- Dependent entities are just accessed through their path (e.g. for the customers street "address.street")
 - Extended formatting
-- Extended Field creation
+- Extended Field creation (automatic field types derived from attribute types)
 
-Tested and used with Hibernate 4 in JBoss 7.1.
+Tested and used with Hibernate 4 in JBoss 7.1. For an example on how to use it, have a look at https://github.com/thomasletsch/javaee-addon-sample.
 
-The JavaEE Addon is compatible to Vaadin 7 Beta 9! No stable version!
+The JavaEE Addon is compatible to Vaadin 7 rc 2! No stable version!

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
 import org.vaadin.addons.javaee.buttons.EditButton;
 import org.vaadin.addons.javaee.buttons.NewButton;
@@ -13,6 +12,7 @@ import org.vaadin.addons.javaee.buttons.handler.CanHandleEditButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleNewButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleSaveButton;
 import org.vaadin.addons.javaee.form.BasicEntityForm;
+import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
 

@@ -2,11 +2,11 @@ package org.vaadin.addons.javaee.page;
 
 import javax.inject.Inject;
 
-import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
 import org.vaadin.addons.javaee.buttons.NextButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleNextButton;
 import org.vaadin.addons.javaee.events.NavigationEvent;
+import org.vaadin.addons.javaee.i18n.TranslationKeys;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 

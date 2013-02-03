@@ -15,13 +15,13 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.page;
 
-import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
 import org.vaadin.addons.javaee.buttons.CancelButton;
 import org.vaadin.addons.javaee.buttons.OkButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleCancelButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleOkButton;
 import org.vaadin.addons.javaee.form.BasicEntityForm;
+import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 import org.vaadin.addons.javaee.jpa.EntityItem;

@@ -17,11 +17,11 @@ package org.vaadin.addons.javaee.page;
 
 import javax.inject.Inject;
 
-import org.vaadin.addons.javaee.TranslationKeys;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
 import org.vaadin.addons.javaee.buttons.SaveButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleSaveButton;
 import org.vaadin.addons.javaee.form.BasicEntityForm;
+import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;

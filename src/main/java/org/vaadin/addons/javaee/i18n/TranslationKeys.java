@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee;
+package org.vaadin.addons.javaee.i18n;
 
 public interface TranslationKeys {
 

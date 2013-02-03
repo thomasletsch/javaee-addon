@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.navigation;
 
-import static org.vaadin.addons.javaee.TranslationKeys.MENU_ITEM_PREFIX;
+import static org.vaadin.addons.javaee.i18n.TranslationKeys.MENU_ITEM_PREFIX;
 
 import java.util.HashMap;
 
