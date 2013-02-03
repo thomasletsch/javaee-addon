@@ -1,4 +1,4 @@
-package org.vaadin.addons.javaee.page;
+package org.vaadin.addons.javaee;
 
 import javax.inject.Inject;
 
@@ -6,6 +6,7 @@ import org.vaadin.addons.javaee.events.NavigationEvent;
 import org.vaadin.addons.javaee.fields.converter.ExtendedConverterFactory;
 import org.vaadin.addons.javaee.i18n.SelectedLocale;
 import org.vaadin.addons.javaee.navigation.SideMenu;
+import org.vaadin.addons.javaee.page.PortalViewImpl;
 import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
 
 import com.vaadin.server.VaadinRequest;
@@ -28,9 +29,12 @@ public abstract class PortalUI extends UI {
     @Inject
     protected javax.enterprise.event.Event<NavigationEvent> navigation;
 
+    @Inject
+    private ExtendedConverterFactory extendedConverterFactory;
+
     @Override
     protected void init(VaadinRequest request) {
-        getSession().setConverterFactory(new ExtendedConverterFactory());
+        getSession().setConverterFactory(extendedConverterFactory);
         setLocale(selectedLocale.getLocale());
         setContent(mainView);
         mainView.openView();

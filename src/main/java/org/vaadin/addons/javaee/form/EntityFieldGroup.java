@@ -3,6 +3,7 @@ package org.vaadin.addons.javaee.form;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.vaadin.addons.javaee.jpa.EntityItem;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
@@ -37,7 +38,7 @@ public class EntityFieldGroup<ENTITY extends PersistentEntity> extends FieldGrou
     public Filter getValuesAsFilter() {
         List<Filter> filters = new ArrayList<>();
         for (Field<?> field : getFields()) {
-            if (field.isModified()) {
+            if (!StringUtils.isBlank(getStringValue(field))) {
                 filters.add(new SimpleStringFilter(getPropertyId(field), getStringValue(field), false, false));
             }
         }
