@@ -18,6 +18,8 @@ public class FieldSpecification {
 
     private Class<? extends Field<?>> fieldType;
 
+    private MultiColumnStyle multiColumnStyle;
+
     public FieldSpecification(String name) {
         this.name = name;
     }
@@ -76,6 +78,14 @@ public class FieldSpecification {
 
     public void setLabelWidth(String labelWidth) {
         this.labelWidth = labelWidth;
+    }
+
+    public MultiColumnStyle getMultiColumnStyle() {
+        return multiColumnStyle;
+    }
+
+    public void setMultiColumnStyle(MultiColumnStyle multiColumnStyle) {
+        this.multiColumnStyle = multiColumnStyle;
     }
 
 }

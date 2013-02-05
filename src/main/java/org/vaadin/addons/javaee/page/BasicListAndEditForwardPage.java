@@ -9,6 +9,7 @@ import org.vaadin.addons.javaee.events.NavigationEvent;
 import org.vaadin.addons.javaee.i18n.TranslationKeys;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
+import com.vaadin.event.ShortcutAction.KeyCode;
 
 public abstract class BasicListAndEditForwardPage<ENTITY extends PersistentEntity> extends BasicListAndEditPage<ENTITY> implements
         CanHandleNextButton {
@@ -38,6 +39,7 @@ public abstract class BasicListAndEditForwardPage<ENTITY extends PersistentEntit
 
     protected void initializeNextButton() {
         nextButton = new NextButton(this, translationService.getText(TranslationKeys.BUTTON_NEXT));
+        nextButton.setClickShortcut(KeyCode.ENTER);
     }
 
     @Override

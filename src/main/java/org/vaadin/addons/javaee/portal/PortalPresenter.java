@@ -1,4 +1,4 @@
-package org.vaadin.addons.javaee.page;
+package org.vaadin.addons.javaee.portal;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;

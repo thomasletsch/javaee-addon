@@ -58,12 +58,13 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
     }
 
     protected void createListSection() {
-        addComponent(table);
+        addComponent(table, 3);
     }
 
     protected void createEditSection() {
-        addComponent(form);
-        addComponent(initButtons());
+        addComponent(form, 6);
+        ButtonBar buttons = initButtons();
+        addComponent(buttons, 1);
     }
 
     protected ButtonBar initButtons() {

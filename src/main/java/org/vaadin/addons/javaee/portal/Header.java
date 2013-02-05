@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.page;
+package org.vaadin.addons.javaee.portal;
 
 import javax.inject.Inject;
 

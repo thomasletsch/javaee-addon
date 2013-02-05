@@ -25,7 +25,6 @@ import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
-import com.vaadin.ui.VerticalLayout;
 
 public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends AbstractContentView implements CanHandleSaveButton {
 
@@ -50,26 +49,19 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Abs
     @Override
     protected void initView() {
         super.initView();
-        VerticalLayout editPanel = new VerticalLayout();
-        editPanel.setMargin(true);
-        editPanel.setSpacing(true);
-        editPanel.setCaption(translationService.getText(getPageName()));
         form = getForm();
-        if (form != null) {
-            editPanel.addComponent(form);
-        }
+        addComponent(form, FORM_RATIO);
         ButtonBar buttonBar = initButtons();
-        editPanel.addComponent(buttonBar);
-        addComponent(editPanel);
+        addComponent(buttonBar, BUTTON_RATIO);
     }
 
     protected abstract BasicEntityForm<ENTITY> getForm();
 
     protected ButtonBar initButtons() {
-        ButtonBar buttonLayout = new ButtonBar();
+        ButtonBar buttonBar = new ButtonBar();
         SaveButton saveButton = new SaveButton(this, translationService.getText(TranslationKeys.BUTTON_SAVE));
-        buttonLayout.addComponent(saveButton);
-        return buttonLayout;
+        buttonBar.addComponent(saveButton);
+        return buttonBar;
     }
 
     @Override

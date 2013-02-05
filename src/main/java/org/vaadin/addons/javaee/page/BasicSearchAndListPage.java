@@ -26,9 +26,8 @@ import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
 
 public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> extends AbstractContentView implements CanHandleSearchButton {
 
@@ -41,27 +40,20 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
 
     private BasicEntityTable<ENTITY> table;
 
-    private final String entityName;
-
-    public BasicSearchAndListPage(String pageName, String entityName) {
+    public BasicSearchAndListPage(String pageName) {
         super(pageName);
-        this.entityName = entityName;
     }
 
     protected abstract BasicEntityTable<ENTITY> getResultTable();
 
-    /**
-     * Can be overwritten
-     */
-    protected BasicSearchForm<ENTITY> getSearchForm() {
-        return null;
-    }
+    protected abstract BasicSearchForm<ENTITY> getSearchForm();
 
     /**
      * Can be overwritten
      */
     protected ButtonBar initSearchButtons() {
         Button findItem = new SearchButton(this, translationService.getText(TranslationKeys.BUTTON_SEARCH));
+        findItem.setClickShortcut(KeyCode.ENTER);
         ButtonBar buttonLayout = new ButtonBar();
         buttonLayout.addComponent(findItem);
         return buttonLayout;
@@ -70,21 +62,20 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
     @Override
     protected void initView() {
         super.initView();
-        VerticalLayout searchPanel = new VerticalLayout();
-        searchPanel.setMargin(true);
-        searchPanel.setSpacing(true);
-        searchPanel.setCaption(translationService.getText(TranslationKeys.TITLE_SEARCH) + ": " + translationService.getText(entityName));
-        searchForm = getSearchForm();
-        if (searchForm != null) {
-            searchPanel.addComponent(searchForm);
-        }
-        ButtonBar buttonBar = initSearchButtons();
-        searchPanel.addComponent(buttonBar);
-        addComponent(searchPanel);
-        Panel listPanel = new Panel(translationService.getText(entityName + "s"));
+        createSearchSection();
+        createListSection();
+    }
+
+    protected void createListSection() {
         table = getResultTable();
-        listPanel.setContent(table);
-        addComponent(listPanel);
+        addComponent(table, 3);
+    }
+
+    protected void createSearchSection() {
+        searchForm = getSearchForm();
+        addComponent(searchForm, 6);
+        ButtonBar buttonBar = initSearchButtons();
+        addComponent(buttonBar, 1);
     }
 
     @Override

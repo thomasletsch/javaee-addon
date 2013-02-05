@@ -34,6 +34,16 @@ public class FieldSpecBuilder {
         return this;
     }
 
+    public FieldSpecBuilder vertical() {
+        spec.setMultiColumnStyle(MultiColumnStyle.VERTICAL);
+        return this;
+    }
+
+    public FieldSpecBuilder horizontal() {
+        spec.setMultiColumnStyle(MultiColumnStyle.HORIZONTAL);
+        return this;
+    }
+
     public FieldSpecBuilder labelWidth(String labelWidth) {
         spec.setLabelWidth(labelWidth);
         return this;

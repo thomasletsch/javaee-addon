@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import org.vaadin.addons.javaee.events.NavigationEvent;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.page.AbstractContentView;
-import org.vaadin.addons.javaee.page.PortalViewImpl;
+import org.vaadin.addons.javaee.portal.PortalViewImpl;
 import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
 import org.vaadin.virkki.cdiutils.componentproducers.Preconfigured;
 import org.vaadin.virkki.cdiutils.mvp.ViewComponent;

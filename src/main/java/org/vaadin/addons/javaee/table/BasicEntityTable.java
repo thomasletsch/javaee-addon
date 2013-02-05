@@ -77,6 +77,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         setSelectable(true);
         setBuffered(true);
         setPageLength(BATCH_SIZE);
+        setCaption(translationService.getText(entityContainer.getEntityClass().getSimpleName() + "s"));
 
         setContainerDataSource(entityContainer);
         setVisibleColumns(new Object[] {});

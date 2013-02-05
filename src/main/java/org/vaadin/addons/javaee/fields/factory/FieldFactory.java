@@ -17,14 +17,13 @@ package org.vaadin.addons.javaee.fields.factory;
 
 import java.io.Serializable;
 
+import org.vaadin.addons.javaee.form.FieldSpecification;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.ui.Field;
 
 public interface FieldFactory extends Serializable {
 
-    <T extends Field<?>> T createField(EntityContainer<?> container, String fieldName);
-
-    <T extends Field<?>> T createField(EntityContainer<?> container, String fieldName, Class<T> fieldType);
+    <T extends Field<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec);
 
 }

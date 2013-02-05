@@ -2,6 +2,8 @@ package org.vaadin.addons.javaee.fields.factory;
 
 import java.util.EnumSet;
 
+import org.vaadin.addons.javaee.form.FieldSpecification;
+import org.vaadin.addons.javaee.form.MultiColumnStyle;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
@@ -13,8 +15,8 @@ public class EnumFieldCreator<FIELD extends AbstractSelect> extends AbstractFiel
 
     public static final Object CAPTION_PROPERTY_ID = "Caption";
 
-    public EnumFieldCreator(TranslationService translationService, EntityContainer<?> container, String fieldName, Class<FIELD> fieldType) {
-        super(translationService, container, fieldName, fieldType);
+    public EnumFieldCreator(TranslationService translationService, EntityContainer<?> container, FieldSpecification fieldSpec) {
+        super(translationService, container, fieldSpec);
     }
 
     @Override
@@ -44,7 +46,7 @@ public class EnumFieldCreator<FIELD extends AbstractSelect> extends AbstractFiel
             String i18nKey = dataType.getSimpleName() + "." + r.toString();
             newItem.getItemProperty(CAPTION_PROPERTY_ID).setValue(translationService.getText(i18nKey));
         }
-        if (enumSet.size() <= 3) {
+        if (MultiColumnStyle.HORIZONTAL.equals(fieldSpec.getMultiColumnStyle()) || (enumSet.size() <= 3)) {
             field.setStyleName("horizontal");
         }
     }

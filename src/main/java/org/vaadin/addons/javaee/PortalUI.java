@@ -6,7 +6,7 @@ import org.vaadin.addons.javaee.events.NavigationEvent;
 import org.vaadin.addons.javaee.fields.converter.ExtendedConverterFactory;
 import org.vaadin.addons.javaee.i18n.SelectedLocale;
 import org.vaadin.addons.javaee.navigation.SideMenu;
-import org.vaadin.addons.javaee.page.PortalViewImpl;
+import org.vaadin.addons.javaee.portal.PortalViewImpl;
 import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
 
 import com.vaadin.server.VaadinRequest;

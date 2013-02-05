@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.page;
+package org.vaadin.addons.javaee.portal;
 
 import static org.vaadin.addons.javaee.i18n.TranslationKeys.TITLE_PORTAL;
 
@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.navigation.SideMenu;
+import org.vaadin.addons.javaee.page.AbstractContentView;
 import org.vaadin.virkki.cdiutils.componentproducers.Preconfigured;
 import org.vaadin.virkki.cdiutils.mvp.AbstractView;
 

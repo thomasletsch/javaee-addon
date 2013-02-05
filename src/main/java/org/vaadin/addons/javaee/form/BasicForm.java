@@ -108,7 +108,7 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     }
 
     protected void addField(FormSection section, FieldSpecification fieldSpec) {
-        Field<?> field = fieldFactory.createField(entityContainer, fieldSpec.getName(), fieldSpec.getFieldType());
+        Field<?> field = fieldFactory.createField(entityContainer, fieldSpec);
         addField(section, fieldSpec, field);
     }
 
