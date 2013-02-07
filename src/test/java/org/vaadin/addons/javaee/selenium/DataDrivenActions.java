@@ -17,8 +17,12 @@ public class DataDrivenActions {
         this.actions = actions;
     }
 
-    public void select(String entityName, String attribute) {
-        actions.select(entityName, attribute, getDefaultValue(entityName, attribute));
+    public void selectDropDown(String entityName, String attribute) {
+        actions.selectDropDown(entityName, attribute, getDefaultValue(entityName, attribute));
+    }
+
+    public void selectRadioButton(String entityName, String attribute) {
+        actions.selectRadioButton(entityName, attribute, getDefaultValue(entityName, attribute));
     }
 
     public void typeText(String entityName, String attribute) {

@@ -12,7 +12,12 @@ public class SeleniumActions {
         this.driver = driver;
     }
 
-    public void select(String entityName, String attribute, String row) {
+    public void selectRadioButton(String entityName, String attribute, String pos) {
+        WebElement element = driver.findElement(By.xpath("//div[@id='" + entityName + "." + attribute + "']/span[" + pos + "]/input"));
+        element.click();
+    }
+
+    public void selectDropDown(String entityName, String attribute, String row) {
         WebElement element = driver.findElement(By.id(entityName + "." + attribute));
         WebElement selectDropDown = element.findElement(By.xpath("//div[@class=\"v-filterselect-button\"]"));
         selectDropDown.click();

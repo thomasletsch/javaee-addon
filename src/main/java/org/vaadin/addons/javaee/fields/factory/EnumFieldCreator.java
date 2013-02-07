@@ -34,17 +34,19 @@ public class EnumFieldCreator<FIELD extends AbstractSelect> extends AbstractFiel
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     protected void populateEnumSelect(FIELD field) {
-        field.removeAllItems();
-        for (Object p : field.getContainerPropertyIds()) {
-            field.removeContainerProperty(p);
-        }
-        field.addContainerProperty(CAPTION_PROPERTY_ID, String.class, "");
+        // field.removeAllItems();
+        // for (Object p : field.getContainerPropertyIds()) {
+        // field.removeContainerProperty(p);
+        // }
+        field.addContainerProperty("id", String.class, null);
+        field.addContainerProperty(CAPTION_PROPERTY_ID, String.class, null);
         field.setItemCaptionPropertyId(CAPTION_PROPERTY_ID);
         EnumSet<?> enumSet = EnumSet.allOf((Class<Enum>) dataType);
         for (Object r : enumSet) {
             Item newItem = field.addItem(r);
             String i18nKey = dataType.getSimpleName() + "." + r.toString();
             newItem.getItemProperty(CAPTION_PROPERTY_ID).setValue(translationService.getText(i18nKey));
+            newItem.getItemProperty("id").setValue(r.toString());
         }
         if (MultiColumnStyle.HORIZONTAL.equals(fieldSpec.getMultiColumnStyle()) || (enumSet.size() <= 3)) {
             field.setStyleName("horizontal");

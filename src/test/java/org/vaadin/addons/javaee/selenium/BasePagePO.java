@@ -12,8 +12,6 @@ public abstract class BasePagePO extends BasePO {
         super(driver);
     }
 
-    protected abstract String getMenuId();
-
     protected List<WebElement> getTableRows(String tableName) {
         return driver.findElements(By.xpath("//div[@id='" + tableName + "']/div[contains(@class, 'v-table-body')]//tr"));
     }
