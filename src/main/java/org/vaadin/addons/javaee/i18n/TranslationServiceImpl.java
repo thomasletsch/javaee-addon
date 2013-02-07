@@ -23,15 +23,15 @@ import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SessionScoped
 public class TranslationServiceImpl implements TranslationService {
 
     private static final long serialVersionUID = 1L;
 
-    private static Log log = LogFactory.getLog(TranslationServiceImpl.class);
+    private static Logger log = LoggerFactory.getLogger(TranslationServiceImpl.class);
 
     @Inject
     private Instance<TranslationSPI> providers;

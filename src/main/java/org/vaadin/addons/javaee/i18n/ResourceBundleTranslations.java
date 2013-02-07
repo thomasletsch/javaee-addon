@@ -24,15 +24,15 @@ import java.util.ResourceBundle;
 
 import javax.enterprise.context.SessionScoped;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SessionScoped
 public abstract class ResourceBundleTranslations implements Serializable, TranslationSPI {
 
     private static final long serialVersionUID = 1L;
 
-    private static Log log = LogFactory.getLog(ResourceBundleTranslations.class);
+    private static Logger log = LoggerFactory.getLogger(ResourceBundleTranslations.class);
 
     private Map<Locale, ResourceBundle> bundles = new HashMap<Locale, ResourceBundle>();
 

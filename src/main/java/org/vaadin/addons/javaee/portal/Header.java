@@ -48,6 +48,6 @@ public class Header extends ViewComponent {
     }
 
     public void setTitle(String newTitle) {
-        title.setValue(newTitle);
+        title.setCaption(newTitle);
     }
 }

@@ -23,8 +23,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -32,7 +32,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ReflectionUtils {
 
-    private static Log log = LogFactory.getLog(ReflectionUtils.class);
+    private static Logger log = LoggerFactory.getLogger(ReflectionUtils.class);
 
     /**
      * Return a list of all fields (whatever access status, and on whatever superclass they were defined) that can be found on this class.

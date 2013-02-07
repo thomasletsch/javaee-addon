@@ -1,7 +1,7 @@
 package org.vaadin.addons.javaee.fields.factory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.form.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
@@ -13,7 +13,7 @@ import com.vaadin.ui.TextField;
 @SuppressWarnings("unchecked")
 public abstract class AbstractFieldCreator<FIELD extends Field<?>> implements FieldCreator<FIELD> {
 
-    private static Log log = LogFactory.getLog(AbstractFieldCreator.class);
+    private static Logger log = LoggerFactory.getLogger(AbstractFieldCreator.class);
 
     protected final EntityContainer<?> container;
 

@@ -39,6 +39,9 @@ public class ExtendedConverterFactory extends DefaultConverterFactory {
         if (Calendar.class.isAssignableFrom(sourceType)) {
             return new StringToCalenderConverter();
         }
+        if (LocalDate.class.isAssignableFrom(sourceType)) {
+            return new StringToLocalDateConverter();
+        }
         if (Enum.class.isAssignableFrom(sourceType)) {
             return new StringToEnumConverter(translationService);
         }

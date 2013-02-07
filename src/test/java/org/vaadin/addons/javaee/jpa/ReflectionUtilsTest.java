@@ -15,17 +15,17 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.jpa;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ReflectionUtilsTest {
 
-    private static Log log = LogFactory.getLog(ReflectionUtilsTest.class);
+    private static Logger log = LoggerFactory.getLogger(ReflectionUtilsTest.class);
 
     @Test
     public void testGetAllFields() {

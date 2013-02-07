@@ -17,8 +17,8 @@ package org.vaadin.addons.javaee.form;
 
 import javax.enterprise.context.Dependent;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.util.BeanItem;
@@ -28,7 +28,7 @@ public abstract class BasicSearchForm<ENTITY extends PersistentEntity> extends B
 
     private static final long serialVersionUID = 1L;
 
-    private static Log log = LogFactory.getLog(BasicSearchForm.class);
+    private static Logger log = LoggerFactory.getLogger(BasicSearchForm.class);
 
     public BasicSearchForm(Class<ENTITY> entityClass) {
         super(entityClass);

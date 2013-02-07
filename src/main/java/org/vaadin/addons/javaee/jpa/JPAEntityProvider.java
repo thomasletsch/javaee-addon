@@ -26,8 +26,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.jpa.filter.FilterToQueryTranslator;
 
 import com.googlecode.javaeeutils.jpa.JPAConstants;
@@ -38,7 +38,7 @@ import com.vaadin.data.Container.Filter;
 @Stateless
 public class JPAEntityProvider {
 
-    private static Log log = LogFactory.getLog(JPAEntityProvider.class);
+    private static Logger log = LoggerFactory.getLogger(JPAEntityProvider.class);
 
     @PersistenceContext
     EntityManager entityManager;

@@ -17,8 +17,8 @@ package org.vaadin.addons.javaee.form;
 
 import javax.enterprise.context.Dependent;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.jpa.EntityItem;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
 
@@ -26,13 +26,14 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.ui.Field;
 
 @Dependent
 public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends BasicForm<ENTITY> {
 
     private static final long serialVersionUID = 1L;
 
-    private static Log log = LogFactory.getLog(BasicSearchForm.class);
+    private static Logger log = LoggerFactory.getLogger(BasicEntityForm.class);
 
     public BasicEntityForm(Class<ENTITY> entityClass) {
         super(entityClass);
@@ -82,5 +83,16 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends B
         } catch (CommitException e) {
             log.error("Could not save " + entityClass.getSimpleName(), e);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public <ENTITY_TYPE extends PersistentEntity> void addHiddenField(String fieldName, ENTITY_TYPE entity) {
+        FieldSpecification fieldSpec = new FieldSpecification(fieldName);
+        Field<ENTITY_TYPE> field = (Field<ENTITY_TYPE>) fieldGroup.getField(fieldName);
+        if (field == null) {
+            field = fieldFactory.createField(entityContainer, fieldSpec);
+            fieldGroup.bind(field, fieldName);
+        }
+        field.setValue(entity);
     }
 }

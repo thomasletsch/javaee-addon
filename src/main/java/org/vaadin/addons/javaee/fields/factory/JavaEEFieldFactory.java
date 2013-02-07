@@ -27,6 +27,7 @@ import org.vaadin.addons.javaee.form.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Field;
 
@@ -59,6 +60,8 @@ public class JavaEEFieldFactory implements FieldFactory {
         } else if (LocalDate.class.isAssignableFrom(dataType)) {
             return (T) new LocalDateFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType())
                     .createField();
+        } else if (PersistentEntity.class.isAssignableFrom(dataType)) {
+            return (T) new RelationFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType()).createField();
         } else {
             return (T) new TextFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType()).createField();
         }

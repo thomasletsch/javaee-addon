@@ -25,9 +25,6 @@ import java.util.Map;
 
 import javax.ejb.EJB;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container;
 import com.vaadin.data.Item;
@@ -39,9 +36,6 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         Container.ItemSetChangeNotifier, Container.PropertySetChangeNotifier {
 
     private static final long serialVersionUID = 1L;
-
-    @SuppressWarnings("unused")
-    private static Log log = LogFactory.getLog(EntityContainer.class);
 
     @EJB
     private JPAEntityProvider jpaEntityProvider;
@@ -268,9 +262,8 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
     private Object getNullOrPk(ENTITY entity) {
         if (entity == null) {
             return null;
-        } else {
-            return entity.getId();
         }
+        return entity.getId();
     }
 
     private void notifyPropertySetChanged() {

@@ -17,8 +17,8 @@ package org.vaadin.addons.javaee.page;
 
 import javax.inject.Inject;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
 import org.vaadin.addons.javaee.buttons.DeleteButton;
 import org.vaadin.addons.javaee.buttons.EditButton;
@@ -39,7 +39,7 @@ public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends Abs
 
     private static final long serialVersionUID = 1L;
 
-    private static Log log = LogFactory.getLog(BasicCRUDPage.class);
+    private static Logger log = LoggerFactory.getLogger(BasicCRUDPage.class);
 
     @Inject
     protected TranslationService translationService;
