@@ -2,15 +2,15 @@ package org.vaadin.addons.javaee.fields.factory;
 
 import javax.validation.constraints.Digits;
 
+import org.vaadin.addons.javaee.fields.NumberField;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.server.Sizeable.Unit;
-import com.vaadin.ui.TextField;
 
-public class NumberFieldCreator<FIELD extends TextField> extends TextFieldCreator<FIELD> {
+public class NumberFieldCreator<FIELD extends NumberField> extends AbstractFieldCreator<FIELD> {
 
-    private static final int DEFAULT_SIZE_EM = 4;
+    static final int DEFAULT_SIZE_EM = 4;
 
     public NumberFieldCreator(TranslationService translationService, EntityContainer<?> container, String fieldName, Class<FIELD> fieldType) {
         super(translationService, container, fieldName, fieldType);
@@ -25,6 +25,13 @@ public class NumberFieldCreator<FIELD extends TextField> extends TextFieldCreato
         } else {
             field.setWidth(DEFAULT_SIZE_EM, Unit.EM);
         }
+        field.setNullRepresentation("");
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    protected Class<FIELD> getDefaultFieldType() {
+        return (Class<FIELD>) NumberField.class;
     };
 
 }

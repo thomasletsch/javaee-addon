@@ -17,8 +17,12 @@ public class DataDrivenAssertions {
         this.assertions = assertions;
     }
 
-    public void assertSelect(String entityName, String attribute) {
-        assertions.assertSelect(entityName, attribute, getDefaultValue(entityName, attribute));
+    public void assertDropDown(String entityName, String attribute) {
+        assertions.assertDropDown(entityName, attribute, getDefaultValue(entityName, attribute));
+    }
+
+    public void assertRadioButton(String entityName, String attribute) {
+        assertions.assertRadioButton(entityName, attribute, getDefaultValue(entityName, attribute));
     }
 
     public void assertText(String entityName, String attribute) {

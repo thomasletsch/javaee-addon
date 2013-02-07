@@ -24,7 +24,7 @@ public class SeleniumAssertions {
         assertEquals(id, text, element.getAttribute("value"));
     }
 
-    public void assertSelect(String entityName, String attribute, String row) {
+    public void assertDropDown(String entityName, String attribute, String row) {
         String id = entityName + "." + attribute;
         WebElement element = driver.findElement(By.id(id));
         WebElement selectDropDown = element.findElement(By.xpath(".//div[@class=\"v-filterselect-button\"]"));
@@ -36,9 +36,16 @@ public class SeleniumAssertions {
         selectDropDown.click();
     }
 
+    public void assertRadioButton(String entityName, String attribute, String pos) {
+        WebElement element = driver.findElement(By.xpath("//div[@id='" + entityName + "." + attribute + "']/span[" + pos + "]/input"));
+        assertNotNull("Radio Button at pos " + pos + " of " + entityName + "." + attribute + " must be checked",
+                element.getAttribute("checked"));
+    }
+
     public void assertDate(String entityName, String attribute, String text) {
         String id = entityName + "." + attribute;
         WebElement element = driver.findElement(By.xpath("//div[@id='" + id + "']/input"));
         assertEquals(id, text, element.getAttribute("value"));
     }
+
 }

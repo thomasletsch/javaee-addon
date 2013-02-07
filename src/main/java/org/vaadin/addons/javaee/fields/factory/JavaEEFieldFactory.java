@@ -46,8 +46,7 @@ public class JavaEEFieldFactory implements FieldFactory {
         if (Boolean.class.isAssignableFrom(dataType)) {
             return (T) new BooleanFieldCreator(translationService, container, fieldSpec.getName(),
                     (Class<CheckBox>) fieldSpec.getFieldType()).createField();
-        } else if (BigDecimal.class.isAssignableFrom(dataType) || Float.class.isAssignableFrom(dataType)
-                || Double.class.isAssignableFrom(dataType)) {
+        } else if (BigDecimal.class.isAssignableFrom(dataType)) {
             return (T) new DecimalFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType()).createField();
         } else if (Number.class.isAssignableFrom(dataType)) {
             return (T) new NumberFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType()).createField();
