@@ -17,33 +17,34 @@ package org.vaadin.addons.javaee.fields.converter;
 
 import java.util.Locale;
 
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import com.vaadin.data.util.converter.Converter;
 
-public class StringToDateTimeConverter implements Converter<String, LocalDate> {
+public class StringToDateTimeConverter implements Converter<String, DateTime> {
 
     private static final long serialVersionUID = 1L;
 
     @Override
-    public LocalDate convertToModel(String value, Locale locale) throws Converter.ConversionException {
+    public DateTime convertToModel(String value, Locale locale) throws Converter.ConversionException {
         if (value == null) {
             return null;
         }
-        return LocalDate.parse(value);
+        return DateTime.parse(value, DateTimeFormat.shortDate().withLocale(locale));
     }
 
     @Override
-    public String convertToPresentation(LocalDate value, Locale locale) throws Converter.ConversionException {
+    public String convertToPresentation(DateTime value, Locale locale) throws Converter.ConversionException {
         if (value == null) {
             return null;
         }
-        return value.toString();
+        return value.toString(DateTimeFormat.shortDate().withLocale(locale));
     }
 
     @Override
-    public Class<LocalDate> getModelType() {
-        return LocalDate.class;
+    public Class<DateTime> getModelType() {
+        return DateTime.class;
     }
 
     @Override

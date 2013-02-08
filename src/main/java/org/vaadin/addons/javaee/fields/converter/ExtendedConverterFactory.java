@@ -21,7 +21,9 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
 import com.vaadin.data.util.converter.Converter;
@@ -41,6 +43,12 @@ public class ExtendedConverterFactory extends DefaultConverterFactory {
         }
         if (LocalDate.class.isAssignableFrom(sourceType)) {
             return new StringToLocalDateConverter();
+        }
+        if (LocalTime.class.isAssignableFrom(sourceType)) {
+            return new StringToLocalTimeConverter();
+        }
+        if (DateTime.class.isAssignableFrom(sourceType)) {
+            return new StringToDateTimeConverter();
         }
         if (Enum.class.isAssignableFrom(sourceType)) {
             return new StringToEnumConverter(translationService);
