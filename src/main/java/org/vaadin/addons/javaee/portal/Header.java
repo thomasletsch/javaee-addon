@@ -18,6 +18,7 @@ package org.vaadin.addons.javaee.portal;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.i18n.TranslationKeys;
+import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
 import org.vaadin.virkki.cdiutils.componentproducers.Preconfigured;
 import org.vaadin.virkki.cdiutils.mvp.ViewComponent;
@@ -31,11 +32,14 @@ public class Header extends ViewComponent {
     private static final long serialVersionUID = 1L;
 
     @Inject
+    protected TranslationService translationService;
+
+    @Inject
     @Preconfigured(styleName = "toolbar", spacing = true)
     private HorizontalLayout layout;
 
     @Inject
-    @Preconfigured(captionKey = TranslationKeys.TITLE_PORTAL)
+    @Preconfigured(styleName = "portal_title")
     private Label title;
 
     public Header() {
@@ -45,9 +49,10 @@ public class Header extends ViewComponent {
         layout.setSizeFull();
         layout.addComponent(title);
         setCompositionRoot(layout);
+        title.setValue(translationService.getText(TranslationKeys.TITLE_PORTAL));
     }
 
     public void setTitle(String newTitle) {
-        title.setCaption(newTitle);
+        title.setValue(newTitle);
     }
 }

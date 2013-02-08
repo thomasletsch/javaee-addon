@@ -34,10 +34,6 @@ public class EnumFieldCreator<FIELD extends AbstractSelect> extends AbstractFiel
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     protected void populateEnumSelect(FIELD field) {
-        // field.removeAllItems();
-        // for (Object p : field.getContainerPropertyIds()) {
-        // field.removeContainerProperty(p);
-        // }
         field.addContainerProperty("id", String.class, null);
         field.addContainerProperty(CAPTION_PROPERTY_ID, String.class, null);
         field.setItemCaptionPropertyId(CAPTION_PROPERTY_ID);

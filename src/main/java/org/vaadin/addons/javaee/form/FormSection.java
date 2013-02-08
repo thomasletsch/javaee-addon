@@ -1,5 +1,7 @@
 package org.vaadin.addons.javaee.form;
 
+import org.vaadin.addons.javaee.page.AbstractContentView;
+
 import com.vaadin.ui.Field;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
@@ -7,6 +9,8 @@ import com.vaadin.ui.Label;
 public class FormSection extends GridLayout {
 
     private static final long serialVersionUID = 1L;
+
+    public static final int WIDTH = AbstractContentView.WIDTH - 50;
 
     private final String name;
 
@@ -17,7 +21,7 @@ public class FormSection extends GridLayout {
         setSpacing(true);
         setMargin(true);
         setStyleName("border smallmargin smallspacing");
-        setWidth(100, Unit.PERCENTAGE);
+        setWidth(WIDTH, Unit.PIXELS);
     }
 
     public String getName() {

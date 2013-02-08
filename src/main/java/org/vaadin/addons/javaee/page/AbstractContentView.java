@@ -27,15 +27,15 @@ import com.vaadin.ui.VerticalLayout;
 @Dependent
 public abstract class AbstractContentView extends AbstractView implements ContentView {
 
-    public static final String HEIGHT = "700px";
+    public static final int HEIGHT = 700;
 
-    public static final String WIDTH = "800px";
+    public static final int WIDTH = 950;
 
-    public static final int FORM_RATIO = 6;
+    public static final int FORM_RATIO = 75;
 
-    public static final int BUTTON_RATIO = 1;
+    public static final int BUTTON_RATIO = 5;
 
-    public static final int TABLE_RATIO = 3;
+    public static final int TABLE_RATIO = 20;
 
     private static final long serialVersionUID = 1L;
 
@@ -56,8 +56,8 @@ public abstract class AbstractContentView extends AbstractView implements Conten
 
     @Override
     protected void initView() {
-        setWidth(WIDTH);
-        setHeight(HEIGHT);
+        setWidth(WIDTH, Unit.PIXELS);
+        setHeight(HEIGHT, Unit.PIXELS);
 
         mainPanel = new VerticalLayout();
         mainPanel.setMargin(true);

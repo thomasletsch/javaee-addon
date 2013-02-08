@@ -25,8 +25,8 @@ public class ButtonBar extends HorizontalLayout {
 
     public ButtonBar() {
         setSpacing(true);
-        setMargin(true);
-        setStyleName("smallmargin smallspacing");
+        setMargin(false);
+        setStyleName("smallspacing");
     }
 
     @Override

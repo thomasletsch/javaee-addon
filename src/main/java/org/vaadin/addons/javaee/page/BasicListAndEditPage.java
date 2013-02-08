@@ -27,10 +27,6 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
     @Inject
     protected TranslationService translationService;
 
-    protected BasicEntityTable<ENTITY> table;
-
-    protected BasicEntityForm<ENTITY> form;
-
     protected Button saveButton;
 
     protected Button newButton;
@@ -50,21 +46,19 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
     @Override
     protected void initView() {
         super.initView();
-        form = getForm();
-        table = getTable();
-        form.connectWith(table);
+        getForm().connectWith(getTable());
         createEditSection();
         createListSection();
     }
 
     protected void createListSection() {
-        addComponent(table, 3);
+        addComponent(getTable(), TABLE_RATIO);
     }
 
     protected void createEditSection() {
-        addComponent(form, 6);
+        addComponent(getForm(), FORM_RATIO);
         ButtonBar buttons = initButtons();
-        addComponent(buttons, 1);
+        addComponent(buttons, BUTTON_RATIO);
     }
 
     protected ButtonBar initButtons() {
@@ -99,25 +93,25 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
 
     @Override
     public void saveClicked() {
-        if (!form.isValid()) {
+        if (!getForm().isValid()) {
             return;
         }
         showReadonly();
-        form.save();
+        getForm().save();
     }
 
     protected void editNewRecord() {
-        form.editNew();
-        table.setValue(null);
+        getForm().editNew();
+        getTable().setValue(null);
         showReadWrite();
     }
 
     protected void editFirstRecordOrNew() {
-        if (table.getItemIds().isEmpty()) {
+        if (getTable().getItemIds().isEmpty()) {
             editNewRecord();
         } else {
-            table.selectFirst();
-            form.edit(table.getSelectedEntityItem());
+            getTable().selectFirst();
+            getForm().edit(getTable().getSelectedEntityItem());
         }
     }
 
@@ -152,11 +146,11 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
     }
 
     protected void enableForm() {
-        form.setEnabled(true);
+        getForm().setEnabled(true);
     }
 
     protected void disableForm() {
-        form.setEnabled(false);
+        getForm().setEnabled(false);
     }
 
 }

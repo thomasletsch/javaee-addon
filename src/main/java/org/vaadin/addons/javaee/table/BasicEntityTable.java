@@ -37,7 +37,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     private static final long serialVersionUID = 1L;
 
-    private static final int BATCH_SIZE = 10;
+    private static final int DEFAULT_PAGE_SIZE = 5;
 
     @Inject
     private TranslationService translationService;
@@ -76,7 +76,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         setMultiSelectMode(MultiSelectMode.DEFAULT);
         setSelectable(true);
         setBuffered(true);
-        setPageLength(BATCH_SIZE);
+        setPageLength(DEFAULT_PAGE_SIZE);
         setCaption(translationService.getText(entityContainer.getEntityClass().getSimpleName() + "s"));
 
         setContainerDataSource(entityContainer);
