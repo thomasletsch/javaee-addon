@@ -3,44 +3,29 @@ package org.vaadin.addons.javaee.selenium;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.vaadin.addons.javaee.selenium.input.InputMethod;
+import org.vaadin.addons.javaee.selenium.input.InputMethodFactory;
 
 public class SeleniumActions {
 
     private WebDriver driver;
 
+    private InputMethodFactory inputMethodFactory;
+
     public SeleniumActions(WebDriver driver) {
         this.driver = driver;
+        inputMethodFactory = new InputMethodFactory(driver);
     }
 
-    public void selectRadioButton(String entityName, String attribute, String pos) {
-        WebElement element = driver.findElement(By.xpath("//div[@id='" + entityName + "." + attribute + "']/span[" + pos + "]/input"));
-        element.click();
+    public void input(String entityName, String attribute, String text) {
+        InputMethod inputMethod = inputMethodFactory.get(entityName, attribute);
+        inputMethod.input(entityName, attribute, text);
     }
 
-    public void selectDropDown(String entityName, String attribute, String row) {
-        WebElement element = driver.findElement(By.id(entityName + "." + attribute));
-        WebElement selectDropDown = element.findElement(By.xpath("//div[@class=\"v-filterselect-button\"]"));
-        selectDropDown.click();
-        WebElement popupElement = driver.findElement(By.id("VAADIN_COMBOBOX_OPTIONLIST"));
-        WebElement entry = popupElement.findElement(By.xpath(".//div[@class=\"v-filterselect-suggestmenu\"]/table/tbody/tr[" + row
-                + "]//span"));
-        entry.click();
-    }
-
-    public void typeText(String entityName, String attribute, String text) {
-        typeText(entityName, null, attribute, text);
-    }
-
-    public void typeText(String entityName, String subEntityName, String attribute, String text) {
-        String id = entityName + "." + ((subEntityName != null) ? subEntityName + "." : "") + attribute;
-        WebElement element = driver.findElement(By.id(id));
-        element.sendKeys(text);
-    }
-
-    public void typeDate(String entityName, String attribute, String text) {
+    public void clearText(String entityName, String attribute) {
         String id = entityName + "." + attribute;
-        WebElement dateInputField = driver.findElement(By.xpath("//div[@id='" + id + "']/input"));
-        dateInputField.sendKeys(text);
+        WebElement element = driver.findElement(By.id(id));
+        element.clear();
     }
 
     public void clickButton(String button_name) {

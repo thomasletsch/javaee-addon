@@ -9,8 +9,8 @@ public class DataDrivenActionsTest {
     private DataDrivenActions underTest = new DataDrivenActions(null);
 
     @Test
-    public void testGetDefaultValue() {
-        assertNotNull("firstName", underTest.getDefaultValue("Customer", "firstName"));
+    public void testLoadProperties() {
+        assertNotNull("firstName", underTest.loadProperties("Customer", null).getProperty("firstName"));
     }
 
 }

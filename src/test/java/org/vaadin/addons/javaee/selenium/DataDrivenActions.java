@@ -1,15 +1,8 @@
 package org.vaadin.addons.javaee.selenium;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public class DataDrivenActions {
-
-    private static Logger log = LoggerFactory.getLogger(DataDrivenActions.class);
+public class DataDrivenActions extends DataDriven {
 
     private SeleniumActions actions;
 
@@ -17,41 +10,21 @@ public class DataDrivenActions {
         this.actions = actions;
     }
 
-    public void selectDropDown(String entityName, String attribute) {
-        actions.selectDropDown(entityName, attribute, getDefaultValue(entityName, attribute));
+    public void setDefaultValues(String entityName) {
+        setDefaultValues(entityName, null);
     }
 
-    public void selectRadioButton(String entityName, String attribute) {
-        actions.selectRadioButton(entityName, attribute, getDefaultValue(entityName, attribute));
-    }
-
-    public void typeText(String entityName, String attribute) {
-        actions.typeText(entityName, attribute, getDefaultValue(entityName, attribute));
-    }
-
-    public void typeText(String entityName, String subEntityName, String attribute) {
-        actions.typeText(entityName, subEntityName, attribute, getDefaultValue(entityName, subEntityName, attribute));
-    }
-
-    public void typeDate(String entityName, String attribute) {
-        actions.typeDate(entityName, attribute, getDefaultValue(entityName, attribute));
-    }
-
-    public String getDefaultValue(String entityName, String attribute) {
-        return getDefaultValue(entityName, null, attribute);
-    }
-
-    String getDefaultValue(String entityName, String subEntityName, String attribute) {
-        Properties properties = new Properties();
-        try {
-            InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(entityName + ".properties");
-            properties.load(resourceAsStream);
-        } catch (IOException e) {
-            log.error("Could not load " + entityName + ".properties", e);
-            throw new RuntimeException(e);
+    public void setDefaultValues(String entityName, String extension) {
+        Properties properties = loadProperties(entityName, extension);
+        for (Object obj : properties.keySet()) {
+            String attribute = (String) obj;
+            actions.input(entityName, attribute, properties.getProperty(attribute));
         }
-        String value = (String) properties.get(((subEntityName != null) ? subEntityName + "." : "") + attribute);
-        return value;
+    }
+
+    public void setDefaultValues(String entityName, String extension, String attribute) {
+        Properties properties = loadProperties(entityName, extension);
+        actions.input(entityName, attribute, properties.getProperty(attribute));
     }
 
 }
