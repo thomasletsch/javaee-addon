@@ -16,6 +16,8 @@
 package org.vaadin.addons.javaee.i18n;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 import org.vaadin.virkki.cdiutils.TextBundle;
 
@@ -27,5 +29,7 @@ import org.vaadin.virkki.cdiutils.TextBundle;
  * 
  */
 public interface TranslationService extends TextBundle, Serializable {
+
+    Map<String, String> get(String prefix, List<String> values);
 
 }

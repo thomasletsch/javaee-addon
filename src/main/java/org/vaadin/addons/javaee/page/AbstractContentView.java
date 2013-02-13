@@ -19,6 +19,7 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.i18n.TranslationService;
+import org.vaadin.addons.javaee.portal.PortalView;
 import org.vaadin.virkki.cdiutils.mvp.AbstractView;
 
 import com.vaadin.ui.AbstractComponent;
@@ -26,10 +27,6 @@ import com.vaadin.ui.VerticalLayout;
 
 @Dependent
 public abstract class AbstractContentView extends AbstractView implements ContentView {
-
-    public static final int HEIGHT = 700;
-
-    public static final int WIDTH = 950;
 
     public static final int FORM_RATIO = 75;
 
@@ -56,12 +53,12 @@ public abstract class AbstractContentView extends AbstractView implements Conten
 
     @Override
     protected void initView() {
-        setWidth(WIDTH, Unit.PIXELS);
-        setHeight(HEIGHT, Unit.PIXELS);
+        setWidth(PortalView.CONTENT_WIDTH, Unit.PIXELS);
+        setHeight(PortalView.CONTENT_HEIGHT, Unit.PIXELS);
 
         mainPanel = new VerticalLayout();
-        mainPanel.setMargin(true);
-        mainPanel.setSpacing(true);
+        mainPanel.setMargin(false);
+        mainPanel.setSpacing(false);
         mainPanel.setSizeFull();
         mainPanel.setCaption(translationService.getText(getPageName()));
         setCompositionRoot(mainPanel);

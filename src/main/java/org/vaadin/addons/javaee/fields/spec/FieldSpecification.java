@@ -1,4 +1,6 @@
-package org.vaadin.addons.javaee.form;
+package org.vaadin.addons.javaee.fields.spec;
+
+import org.vaadin.addons.javaee.form.MultiColumnStyle;
 
 import com.vaadin.ui.Field;
 

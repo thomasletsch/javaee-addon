@@ -11,7 +11,7 @@ public class BaseSideMenuPOTest {
         BaseSideMenuPO po = new BaseSideMenuPO() {
         };
         String xpath = po.buildXPath(1, 2, 3);
-        assertEquals("//div[@id='SideMenu']/div/div/div/div[2]/div[2]/div/div[3]/div/div/div/span", xpath);
+        assertEquals("//div[@id='SideMenu']/div/div[1]/div[2]/div[2]/div[2]/div[3]/div[1]", xpath);
     }
 
 }

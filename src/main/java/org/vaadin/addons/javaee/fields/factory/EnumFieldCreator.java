@@ -2,7 +2,7 @@ package org.vaadin.addons.javaee.fields.factory;
 
 import java.util.EnumSet;
 
-import org.vaadin.addons.javaee.form.FieldSpecification;
+import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.form.MultiColumnStyle;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;

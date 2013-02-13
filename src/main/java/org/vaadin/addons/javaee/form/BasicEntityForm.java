@@ -19,6 +19,7 @@ import javax.enterprise.context.Dependent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.jpa.EntityItem;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
 

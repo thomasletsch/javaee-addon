@@ -68,14 +68,14 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
 
     protected void createListSection() {
         table = getResultTable();
-        addComponent(table, 3);
+        addComponent(table, TABLE_RATIO);
     }
 
     protected void createSearchSection() {
         searchForm = getSearchForm();
-        addComponent(searchForm, 6);
+        addComponent(searchForm, FORM_RATIO);
         ButtonBar buttonBar = initSearchButtons();
-        addComponent(buttonBar, 1);
+        addComponent(buttonBar, BUTTON_RATIO);
     }
 
     @Override

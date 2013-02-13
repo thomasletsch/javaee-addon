@@ -19,13 +19,13 @@ import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 
-public class GenericEntityTable<ENTITY extends PersistentEntity> extends BasicEntityTable<ENTITY> {
+public class EntityTable<ENTITY extends PersistentEntity> extends BasicEntityTable<ENTITY> {
 
     private static final long serialVersionUID = 1L;
 
     private EntityContainer<ENTITY> entityContainer;
 
-    public GenericEntityTable(Class<ENTITY> entityClass) {
+    public EntityTable(Class<ENTITY> entityClass) {
         super(entityClass);
     }
 

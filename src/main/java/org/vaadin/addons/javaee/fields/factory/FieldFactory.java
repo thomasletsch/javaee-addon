@@ -17,7 +17,7 @@ package org.vaadin.addons.javaee.fields.factory;
 
 import java.io.Serializable;
 
-import org.vaadin.addons.javaee.form.FieldSpecification;
+import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.ui.Field;

@@ -9,11 +9,13 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.fields.factory.FieldFactory;
+import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -117,6 +119,12 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
         Label label = new Label(translationService.getText(section.getName() + "." + fieldSpec.getName()) + ":");
         label.setStyleName("rightalign");
         section.addField(fieldSpec, label, field);
+    }
+
+    protected void addComponent(FormSection section, FieldSpecification fieldSpec, Component component) {
+        Label label = new Label(translationService.getText(section.getName() + "." + fieldSpec.getName()) + ":");
+        label.setStyleName("rightalign");
+        section.addComponent(fieldSpec, label, component);
     }
 
     @Override

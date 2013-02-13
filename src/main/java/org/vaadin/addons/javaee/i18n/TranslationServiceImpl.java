@@ -17,7 +17,9 @@ package org.vaadin.addons.javaee.i18n;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Instance;
@@ -41,6 +43,15 @@ public class TranslationServiceImpl implements TranslationService {
 
     public TranslationServiceImpl() {
         log.debug("Cosntructor called");
+    }
+
+    @Override
+    public Map<String, String> get(String prefix, List<String> values) {
+        Map<String, String> map = new LinkedHashMap<>(values.size());
+        for (String value : values) {
+            map.put(value, getText(prefix + "." + value));
+        }
+        return map;
     }
 
     @Override

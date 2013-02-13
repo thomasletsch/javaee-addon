@@ -23,7 +23,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 import org.joda.time.LocalDate;
-import org.vaadin.addons.javaee.form.FieldSpecification;
+import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 

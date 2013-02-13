@@ -35,16 +35,6 @@ public class PortalViewImpl extends AbstractView implements PortalView {
 
     private static final long serialVersionUID = 6788886405321379139L;
 
-    public static final int DEFAULT_MARGIN = 5;
-
-    public static final int SMALL_MARGIN = 2;
-
-    public static final int DEFAULT_BORDER_WIDTH = 1;
-
-    public static final int HEADER_HEIGHT = 30;
-
-    public static final int MENU_WIDTH = 185;
-
     @Inject
     @Preconfigured
     private HorizontalSplitPanel horizontalSplit;
@@ -64,7 +54,8 @@ public class PortalViewImpl extends AbstractView implements PortalView {
 
     @Override
     protected void initView() {
-        setSizeFull();
+        setWidth(WIDTH, Unit.PIXELS);
+        setHeight(HEIGHT, Unit.PIXELS);
 
         final VerticalSplitPanel mainLayout = new VerticalSplitPanel();
         setCompositionRoot(mainLayout);
@@ -73,10 +64,12 @@ public class PortalViewImpl extends AbstractView implements PortalView {
         mainLayout.setFirstComponent(header.get());
         mainLayout.setSplitPosition(HEADER_HEIGHT, Unit.PIXELS);
         mainLayout.setSecondComponent(horizontalSplit);
+        mainLayout.setLocked(true);
 
         menu.get().init();
         horizontalSplit.setFirstComponent(menu.get());
         horizontalSplit.setSplitPosition(MENU_WIDTH, Unit.PIXELS);
+        horizontalSplit.setLocked(true);
 
         Page.getCurrent().setTitle(translationService.getText(TITLE_PORTAL));
     }
