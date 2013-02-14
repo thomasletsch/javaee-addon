@@ -6,7 +6,6 @@ import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
-import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.TextField;
 
@@ -71,7 +70,6 @@ public abstract class AbstractFieldCreator<FIELD extends Field<?>> implements Fi
         field.setCaption(null);
         field.setBuffered(true);
         field.setId(container.getEntityClass().getSimpleName() + "." + fieldName);
-        ((AbstractComponent) field).setImmediate(true);
     }
 
     protected FIELD instanciateField() {

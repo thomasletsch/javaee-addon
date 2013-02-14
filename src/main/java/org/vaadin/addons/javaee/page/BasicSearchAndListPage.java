@@ -82,7 +82,6 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
     public void searchClicked() {
         table.removeAllContainerFilters();
         table.addContainerFilter(searchForm.getValuesAsFilter());
-        table.enableRefresh();
     }
 
 }

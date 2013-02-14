@@ -19,6 +19,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,16 +51,13 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
 
     protected Class<ENTITY> entityClass;
 
-    private boolean enabled = true;
+    private boolean needsFiltering = false;
+
+    private boolean filterSet = false;
 
     public EntityContainer(Class<ENTITY> entityClass) {
         this.entityClass = entityClass;
         initProperties(entityClass);
-    }
-
-    public EntityContainer(Class<ENTITY> entityClass, boolean enabled) {
-        this(entityClass);
-        this.enabled = enabled;
     }
 
     public Class<ENTITY> getEntityClass() {
@@ -69,11 +67,6 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
     public void updateItem(EntityItem<ENTITY> item) {
         assert (item.getEntity().getId() != null);
         jpaEntityProvider.updateEntity(item.getEntity());
-    }
-
-    public void enable() {
-        this.enabled = true;
-        notifyItemSetChanged();
     }
 
     private void initProperties(Class<ENTITY> entityClass) {
@@ -95,6 +88,9 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
 
     @Override
     public Collection<?> getItemIds() {
+        if (!needProcess()) {
+            return Collections.EMPTY_LIST;
+        }
         List<ENTITY> entitys = jpaEntityProvider.find(entityClass, getContainerFilter());
         List<Long> ids = new ArrayList<Long>(entitys.size());
         for (ENTITY entity : entitys) {
@@ -105,7 +101,7 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
 
     @Override
     public int size() {
-        if (!enabled) {
+        if (!needProcess()) {
             return 0;
         }
         int size = jpaEntityProvider.size(entityClass, getContainerFilter()).intValue();
@@ -199,24 +195,36 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
 
     @Override
     public Object firstItemId() {
+        if (!needProcess()) {
+            return null;
+        }
         ENTITY entity = jpaEntityProvider.getFirst(entityClass, getContainerFilter());
         return getNullOrPk(entity);
     }
 
     @Override
     public Object lastItemId() {
+        if (!needProcess()) {
+            return null;
+        }
         ENTITY entity = jpaEntityProvider.getLast(entityClass, getContainerFilter());
         return getNullOrPk(entity);
     }
 
     @Override
     public Object nextItemId(Object itemId) {
+        if (!needProcess()) {
+            return null;
+        }
         ENTITY entity = jpaEntityProvider.getNext(entityClass, (Long) itemId, getContainerFilter());
         return getNullOrPk(entity);
     }
 
     @Override
     public Object prevItemId(Object itemId) {
+        if (!needProcess()) {
+            return null;
+        }
         ENTITY entity = jpaEntityProvider.getPrev(entityClass, (Long) itemId, getContainerFilter());
         return getNullOrPk(entity);
     }
@@ -243,6 +251,7 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
 
     @Override
     public void addContainerFilter(Filter filter) throws UnsupportedFilterException {
+        filterSet = true;
         this.filters.add(filter);
         notifyItemSetChanged();
     }
@@ -335,4 +344,11 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         return ReflectionUtils.getAnnotation(entityClass, fieldName, annotationClass);
     }
 
+    private boolean needProcess() {
+        return !needsFiltering || filterSet;
+    }
+
+    public void needsFiltering() {
+        needsFiltering = true;
+    }
 }

@@ -48,7 +48,7 @@ public class SideMenu extends ViewComponent {
 
     @SuppressWarnings("cdi-ambiguous-dependency")
     @Inject
-    @Preconfigured(nullSelectionAllowed = false, immediate = true, id = "SideMenu")
+    @Preconfigured(nullSelectionAllowed = false, immediate = false, id = "SideMenu")
     private Tree tree;
 
     @Inject
@@ -69,6 +69,7 @@ public class SideMenu extends ViewComponent {
 
     public void init() {
         tree.setSelectable(true);
+        tree.setImmediate(true);
         setCompositionRoot(tree);
         listener = new ValueChangeListenerImplementation();
         tree.addValueChangeListener(listener);

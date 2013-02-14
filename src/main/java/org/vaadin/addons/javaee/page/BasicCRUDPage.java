@@ -96,7 +96,6 @@ public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends Abs
 
     @Override
     public void onShow(String comingFrom) {
-        table.enableRefresh();
     }
 
     @Override

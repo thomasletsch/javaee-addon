@@ -44,6 +44,11 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     private EntityContainer<ENTITY> entityContainer;
 
+    /**
+     * Only query container if a filter is set
+     */
+    protected boolean needsFilter = true;
+
     public BasicEntityTable(Class<ENTITY> entityClass) {
         setId(entityClass.getSimpleName() + "Table");
     }
@@ -69,8 +74,10 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     @PostConstruct
     protected void init() {
-        this.entityContainer = getContainer();
-        setImmediate(true);
+        entityContainer = getContainer();
+        if (needsFilter) {
+            entityContainer.needsFiltering();
+        }
         setEditable(false);
         setMultiSelect(false);
         setMultiSelectMode(MultiSelectMode.DEFAULT);
@@ -101,10 +108,6 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     protected void addColumn(String name, ColumnGenerator columnGenerator) {
         addGeneratedColumn(name, columnGenerator);
         setColumnHeader(name, translationService.getText(name));
-    }
-
-    public void enableRefresh() {
-        entityContainer.enable();
     }
 
     @Override
