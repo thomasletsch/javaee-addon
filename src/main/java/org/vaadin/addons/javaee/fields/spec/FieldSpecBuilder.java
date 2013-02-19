@@ -1,5 +1,8 @@
 package org.vaadin.addons.javaee.fields.spec;
 
+import java.util.Collection;
+import java.util.Map;
+
 import org.vaadin.addons.javaee.form.MultiColumnStyle;
 
 import com.vaadin.ui.Field;
@@ -53,6 +56,16 @@ public class FieldSpecBuilder {
 
     public FieldSpecBuilder fieldWidth(String fieldWidth) {
         spec.setFieldWidth(fieldWidth);
+        return this;
+    }
+
+    public FieldSpecBuilder values(Collection<String> values) {
+        spec.setValues(values);
+        return this;
+    }
+
+    public FieldSpecBuilder values(Map<String, String> values) {
+        spec.setValues(values);
         return this;
     }
 

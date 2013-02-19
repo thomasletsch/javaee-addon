@@ -1,5 +1,8 @@
 package org.vaadin.addons.javaee.fields.spec;
 
+import java.util.Collection;
+import java.util.Map;
+
 import org.vaadin.addons.javaee.form.MultiColumnStyle;
 
 import com.vaadin.ui.Field;
@@ -21,6 +24,16 @@ public class FieldSpecification {
     private Class<? extends Field<?>> fieldType;
 
     private MultiColumnStyle multiColumnStyle;
+
+    /**
+     * For Lists which have predefined values
+     */
+    private Collection<String> values;
+
+    /**
+     * For Lists which have predefined and translated values
+     */
+    private Map<String, String> valueMap;
 
     public FieldSpecification(String name) {
         this.name = name;
@@ -88,6 +101,26 @@ public class FieldSpecification {
 
     public void setMultiColumnStyle(MultiColumnStyle multiColumnStyle) {
         this.multiColumnStyle = multiColumnStyle;
+    }
+
+    public Collection<String> getValues() {
+        return values;
+    }
+
+    public void setValues(Collection<String> values) {
+        this.values = values;
+    }
+
+    public void setValues(Map<String, String> valueMap) {
+        this.setValueMap(valueMap);
+    }
+
+    public Map<String, String> getValueMap() {
+        return valueMap;
+    }
+
+    public void setValueMap(Map<String, String> valueMap) {
+        this.valueMap = valueMap;
     }
 
 }

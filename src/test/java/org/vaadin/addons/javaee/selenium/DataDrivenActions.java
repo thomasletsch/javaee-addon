@@ -2,6 +2,8 @@ package org.vaadin.addons.javaee.selenium;
 
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
+
 public class DataDrivenActions extends DataDriven {
 
     private SeleniumActions actions;
@@ -18,7 +20,10 @@ public class DataDrivenActions extends DataDriven {
         Properties properties = loadProperties(entityName, extension);
         for (Object obj : properties.keySet()) {
             String attribute = (String) obj;
-            actions.input(entityName, attribute, properties.getProperty(attribute));
+            String property = properties.getProperty(attribute);
+            if (!StringUtils.isBlank(property)) {
+                actions.input(entityName, attribute, property);
+            }
         }
     }
 

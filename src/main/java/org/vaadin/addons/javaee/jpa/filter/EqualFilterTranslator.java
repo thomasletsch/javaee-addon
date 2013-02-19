@@ -19,8 +19,11 @@ import java.util.Map;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
@@ -36,8 +39,17 @@ public class EqualFilterTranslator implements FilterTranslator<Equal> {
     @Override
     public <ENTITY extends PersistentEntity> Predicate translate(Equal filter, CriteriaBuilder builder, Root<ENTITY> root,
             Map<Class<? extends Filter>, FilterTranslator<?>> filters) {
-        Expression<String> property = root.get((String) filter.getPropertyId());
+        String propertyId = (String) filter.getPropertyId();
+        Expression<String> property = navigateThroughPath(root, propertyId);
         return builder.equal(property, filter.getValue());
+    }
+
+    protected <ENTITY extends PersistentEntity> Path<String> navigateThroughPath(Root<ENTITY> root, String propertyId) {
+        Path<?> path = root;
+        for (String pathElement : StringUtils.split(propertyId, ".")) {
+            path = path.get(pathElement);
+        }
+        return (Path<String>) path;
     }
 
 }

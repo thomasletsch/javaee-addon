@@ -43,7 +43,9 @@ public class JavaEEFieldFactory implements FieldFactory {
     @Override
     public <T extends Field<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec) {
         Class<?> dataType = container.getType(fieldSpec.getName());
-        if (Boolean.class.isAssignableFrom(dataType)) {
+        if (fieldSpec.getValues() != null || fieldSpec.getValueMap() != null) {
+            return (T) new ListValueFieldCreator(translationService, container, fieldSpec).createField();
+        } else if (Boolean.class.isAssignableFrom(dataType)) {
             return (T) new BooleanFieldCreator(translationService, container, fieldSpec.getName(),
                     (Class<CheckBox>) fieldSpec.getFieldType()).createField();
         } else if (BigDecimal.class.isAssignableFrom(dataType)) {

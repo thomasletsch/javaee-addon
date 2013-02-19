@@ -15,6 +15,9 @@ public class ComboBoxTranslated extends ComboBox {
     @Inject
     private TranslationService translationService;
 
+    public ComboBoxTranslated() {
+    }
+
     /**
      * @param caption
      *            The internationalized caption
@@ -29,6 +32,19 @@ public class ComboBoxTranslated extends ComboBox {
         }
         setNullSelectionAllowed(false);
         setTextInputAllowed(false);
+    }
+
+    public void setValues(Map<String, String> values) {
+        for (String value : values.keySet()) {
+            addItem(value);
+            setItemCaption(value, values.get(value));
+        }
+    }
+
+    @Override
+    public void addValueChangeListener(com.vaadin.data.Property.ValueChangeListener listener) {
+        super.addValueChangeListener(listener);
+        setImmediate(true);
     }
 
 }

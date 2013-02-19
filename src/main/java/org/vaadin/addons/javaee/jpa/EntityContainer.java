@@ -55,9 +55,18 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
 
     private boolean filterSet = false;
 
+    public EntityContainer(Class<ENTITY> entityClass, JPAEntityProvider jpaEntityProvider) {
+        this(entityClass);
+        this.jpaEntityProvider = jpaEntityProvider;
+    }
+
     public EntityContainer(Class<ENTITY> entityClass) {
         this.entityClass = entityClass;
         initProperties(entityClass);
+    }
+
+    public <SUB_ENTITY extends PersistentEntity> EntityContainer<SUB_ENTITY> getSubContainer(Class<SUB_ENTITY> entityClass) {
+        return new EntityContainer<>(entityClass, jpaEntityProvider);
     }
 
     public Class<ENTITY> getEntityClass() {
