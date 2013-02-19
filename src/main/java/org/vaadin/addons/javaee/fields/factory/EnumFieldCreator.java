@@ -11,12 +11,12 @@ import com.vaadin.data.Item;
 import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.ComboBox;
 
-public class EnumFieldCreator<FIELD extends AbstractSelect> extends AbstractFieldCreator<FIELD> {
+public class EnumFieldCreator<FIELD extends AbstractSelect> extends LocalizableFieldCreator<FIELD> {
 
     public static final Object CAPTION_PROPERTY_ID = "Caption";
 
-    public EnumFieldCreator(TranslationService translationService, EntityContainer<?> container, FieldSpecification fieldSpec) {
-        super(translationService, container, fieldSpec);
+    public EnumFieldCreator(EntityContainer<?> container, FieldSpecification fieldSpec, TranslationService translationService) {
+        super(container, fieldSpec, translationService);
     }
 
     @Override

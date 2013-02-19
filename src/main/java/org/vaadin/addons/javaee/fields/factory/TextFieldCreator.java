@@ -1,6 +1,6 @@
 package org.vaadin.addons.javaee.fields.factory;
 
-import org.vaadin.addons.javaee.i18n.TranslationService;
+import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.ui.AbstractTextField;
@@ -8,8 +8,8 @@ import com.vaadin.ui.TextField;
 
 public class TextFieldCreator<FIELD extends AbstractTextField> extends AbstractFieldCreator<FIELD> {
 
-    public TextFieldCreator(TranslationService translationService, EntityContainer<?> container, String fieldName, Class<FIELD> fieldType) {
-        super(translationService, container, fieldName, fieldType);
+    public TextFieldCreator(EntityContainer<?> container, FieldSpecification fieldSpec) {
+        super(container, fieldSpec);
     }
 
     @Override

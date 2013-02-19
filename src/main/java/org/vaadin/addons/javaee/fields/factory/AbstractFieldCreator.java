@@ -3,7 +3,6 @@ package org.vaadin.addons.javaee.fields.factory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
-import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.ui.Field;
@@ -20,27 +19,11 @@ public abstract class AbstractFieldCreator<FIELD extends Field<?>> implements Fi
 
     protected final Class<FIELD> fieldType;
 
-    protected final TranslationService translationService;
-
     protected Class<?> dataType;
 
     protected FieldSpecification fieldSpec;
 
-    public AbstractFieldCreator(TranslationService translationService, EntityContainer<?> container, String fieldName,
-            Class<FIELD> fieldType) {
-        this.translationService = translationService;
-        this.container = container;
-        this.fieldName = fieldName;
-        if (fieldType != null) {
-            this.fieldType = fieldType;
-        } else {
-            this.fieldType = getDefaultFieldType();
-        }
-        dataType = container.getType(fieldName);
-    }
-
-    public AbstractFieldCreator(TranslationService translationService, EntityContainer<?> container, FieldSpecification fieldSpec) {
-        this.translationService = translationService;
+    public AbstractFieldCreator(EntityContainer<?> container, FieldSpecification fieldSpec) {
         this.container = container;
         this.fieldSpec = fieldSpec;
         this.fieldName = fieldSpec.getName();

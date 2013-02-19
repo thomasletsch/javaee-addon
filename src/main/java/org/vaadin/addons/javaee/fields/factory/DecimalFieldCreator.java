@@ -5,13 +5,13 @@ import javax.validation.constraints.Digits;
 import org.apache.commons.lang.StringUtils;
 import org.vaadin.addons.javaee.fields.NumberField;
 import org.vaadin.addons.javaee.fields.converter.StringToBigDecimalConverter;
-import org.vaadin.addons.javaee.i18n.TranslationService;
+import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 public class DecimalFieldCreator<FIELD extends NumberField> extends NumberFieldCreator<FIELD> {
 
-    public DecimalFieldCreator(TranslationService translationService, EntityContainer<?> container, String fieldName, Class<FIELD> fieldType) {
-        super(translationService, container, fieldName, fieldType);
+    public DecimalFieldCreator(EntityContainer<?> container, FieldSpecification fieldSpec) {
+        super(container, fieldSpec);
     }
 
     @Override

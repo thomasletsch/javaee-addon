@@ -10,10 +10,10 @@ import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.ui.AbstractSelect;
 
-public class ListValueFieldCreator<FIELD extends AbstractSelect> extends AbstractFieldCreator<FIELD> {
+public class ListValueFieldCreator<FIELD extends AbstractSelect> extends LocalizableFieldCreator<FIELD> {
 
-    public ListValueFieldCreator(TranslationService translationService, EntityContainer<?> container, FieldSpecification fieldSpec) {
-        super(translationService, container, fieldSpec);
+    public ListValueFieldCreator(EntityContainer<?> container, FieldSpecification fieldSpec, TranslationService translationService) {
+        super(container, fieldSpec, translationService);
     }
 
     @Override

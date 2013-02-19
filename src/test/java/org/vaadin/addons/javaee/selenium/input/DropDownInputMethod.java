@@ -15,7 +15,7 @@ public class DropDownInputMethod extends AbstractInputMethod {
     @Override
     public void input(String entityName, String attribute, String text) {
         WebElement element = driver.findElement(By.id(entityName + "." + attribute));
-        WebElement selectDropDown = element.findElement(By.xpath("//div[@class=\"v-filterselect-button\"]"));
+        WebElement selectDropDown = element.findElement(By.xpath(".//div[@class=\"v-filterselect-button\"]"));
         selectDropDown.click();
         WebElement popupElement = driver.findElement(By.id("VAADIN_COMBOBOX_OPTIONLIST"));
         WebElement entry = popupElement.findElement(By.xpath(".//div[@class=\"v-filterselect-suggestmenu\"]/table/tbody/tr[" + text

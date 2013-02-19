@@ -28,7 +28,6 @@ import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
-import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Field;
 
 @SessionScoped
@@ -44,27 +43,25 @@ public class JavaEEFieldFactory implements FieldFactory {
     public <T extends Field<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec) {
         Class<?> dataType = container.getType(fieldSpec.getName());
         if (fieldSpec.getValues() != null || fieldSpec.getValueMap() != null) {
-            return (T) new ListValueFieldCreator(translationService, container, fieldSpec).createField();
+            return (T) new ListValueFieldCreator(container, fieldSpec, translationService).createField();
         } else if (Boolean.class.isAssignableFrom(dataType)) {
-            return (T) new BooleanFieldCreator(translationService, container, fieldSpec.getName(),
-                    (Class<CheckBox>) fieldSpec.getFieldType()).createField();
+            return (T) new BooleanFieldCreator(container, fieldSpec).createField();
         } else if (BigDecimal.class.isAssignableFrom(dataType)) {
-            return (T) new DecimalFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType()).createField();
+            return (T) new DecimalFieldCreator(container, fieldSpec).createField();
         } else if (Number.class.isAssignableFrom(dataType)) {
-            return (T) new NumberFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType()).createField();
+            return (T) new NumberFieldCreator(container, fieldSpec).createField();
         } else if (String.class.isAssignableFrom(dataType)) {
-            return (T) new TextFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType()).createField();
+            return (T) new TextFieldCreator(container, fieldSpec).createField();
         } else if (Enum.class.isAssignableFrom(dataType)) {
-            return (T) new EnumFieldCreator(translationService, container, fieldSpec).createField();
+            return (T) new EnumFieldCreator(container, fieldSpec, translationService).createField();
         } else if (Calendar.class.isAssignableFrom(dataType) || Date.class.isAssignableFrom(dataType)) {
-            return (T) new DateFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType()).createField();
+            return (T) new DateFieldCreator(container, fieldSpec).createField();
         } else if (LocalDate.class.isAssignableFrom(dataType)) {
-            return (T) new LocalDateFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType())
-                    .createField();
+            return (T) new LocalDateFieldCreator(container, fieldSpec).createField();
         } else if (PersistentEntity.class.isAssignableFrom(dataType)) {
-            return (T) new RelationFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType()).createField();
+            return (T) new RelationFieldCreator(container, fieldSpec).createField();
         } else {
-            return (T) new TextFieldCreator(translationService, container, fieldSpec.getName(), fieldSpec.getFieldType()).createField();
+            return (T) new TextFieldCreator(container, fieldSpec).createField();
         }
     }
 

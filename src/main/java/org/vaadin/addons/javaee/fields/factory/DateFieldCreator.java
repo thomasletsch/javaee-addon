@@ -3,7 +3,7 @@ package org.vaadin.addons.javaee.fields.factory;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.vaadin.addons.javaee.i18n.TranslationService;
+import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.shared.ui.datefield.Resolution;
@@ -11,8 +11,8 @@ import com.vaadin.ui.DateField;
 
 public class DateFieldCreator<FIELD extends DateField> extends AbstractFieldCreator<FIELD> {
 
-    public DateFieldCreator(TranslationService translationService, EntityContainer<?> container, String fieldName, Class<FIELD> fieldType) {
-        super(translationService, container, fieldName, fieldType);
+    public DateFieldCreator(EntityContainer<?> container, FieldSpecification fieldSpec) {
+        super(container, fieldSpec);
     }
 
     @Override
