@@ -15,9 +15,7 @@ import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.Field;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 public abstract class BasicForm<ENTITY extends PersistentEntity> extends VerticalLayout {
@@ -32,7 +30,8 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     @Inject
     protected TranslationService translationService;
 
-    protected EntityContainer<ENTITY> entityContainer;
+    @Inject
+    private LabelCreator labelCreator;
 
     protected Class<ENTITY> entityClass;
 
@@ -54,7 +53,6 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
 
     @PostConstruct
     protected void init() {
-        entityContainer = getContainer();
         removeAllComponents();
         sections.clear();
         fieldGroup = new EntityFieldGroup<ENTITY>();
@@ -65,7 +63,7 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
      * Can be overwritten
      */
     protected void initFields() {
-        List<String> fieldNames = entityContainer.getPropertyNames();
+        List<String> fieldNames = getContainer().getPropertyNames();
         initFields(fieldNames);
     }
 
@@ -90,7 +88,7 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
      */
     protected void initFieldsWithSpec(FormSection section, List<FieldSpecification> fieldSpecs) {
         for (FieldSpecification fieldSpec : fieldSpecs) {
-            addField(section, fieldSpec);
+            section.addField(fieldSpec);
         }
         focusFirstField();
     }
@@ -100,31 +98,9 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
      */
     protected void initFields(FormSection section, List<String> fieldNames) {
         for (String fieldName : fieldNames) {
-            addField(section, fieldName);
+            section.addField(fieldName);
         }
         focusFirstField();
-    }
-
-    protected void addField(FormSection section, String fieldName) {
-        addField(section, new FieldSpecification(fieldName));
-    }
-
-    protected void addField(FormSection section, FieldSpecification fieldSpec) {
-        Field<?> field = fieldFactory.createField(entityContainer, fieldSpec);
-        addField(section, fieldSpec, field);
-    }
-
-    protected void addField(FormSection section, FieldSpecification fieldSpec, Field<?> field) {
-        fieldGroup.bind(field, fieldSpec.getName());
-        Label label = new Label(translationService.getText(section.getName() + "." + fieldSpec.getName()) + ":");
-        label.setStyleName("rightalign");
-        section.addField(fieldSpec, label, field);
-    }
-
-    protected void addComponent(FormSection section, FieldSpecification fieldSpec, Component component) {
-        Label label = new Label(translationService.getText(section.getName() + "." + fieldSpec.getName()) + ":");
-        label.setStyleName("rightalign");
-        section.addComponent(fieldSpec, label, component);
     }
 
     @Override
@@ -148,21 +124,32 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     }
 
     protected FormSection getDefaultSection() {
-        return sections.entrySet().iterator().next().getValue();
+        return getFormSection(entityClass.getSimpleName());
     }
 
     protected FormSection getFormSection(String name) {
         FormSection section = getFormSectionInternal(name);
         if (section == null) {
-            section = new FormSection(name, translationService.getText(name));
-            addFormSection(name, section);
-            addComponent(section);
+            section = new FormSection(name);
+            initFormSection(section);
         }
         return section;
     }
 
-    protected void addFormSection(String name, FormSection section) {
-        sections.put(name, section);
+    protected void initFormSection(FormSection section) {
+        section.setCaption(translationService.getText(section.getName()));
+        section.setFieldCreator(createFieldCreator());
+        section.init();
+        addFormSection(section);
+    }
+
+    protected FieldCreator createFieldCreator() {
+        return new FieldCreator(translationService, fieldFactory, getContainer(), fieldGroup);
+    }
+
+    protected void addFormSection(FormSection section) {
+        sections.put(section.getName(), section);
+        addComponent(section);
     }
 
     protected FormSection getFormSectionInternal(String name) {

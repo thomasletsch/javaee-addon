@@ -16,9 +16,15 @@ public class FormSection extends GridLayout {
 
     private final String name;
 
+    private FieldCreator fieldCreator;
+
     public FormSection(String name, String title) {
-        this.name = name;
+        this(name);
         setCaption(title);
+    }
+
+    public FormSection(String name) {
+        this.name = name;
         setColumns(3);
         setSpacing(true);
         setMargin(true);
@@ -26,12 +32,36 @@ public class FormSection extends GridLayout {
         setWidth("100%");
     }
 
+    /**
+     * To be overwritten
+     */
+    public void init() {
+    }
+
     public String getName() {
         return name;
     }
 
+    public void addField(String fieldName) {
+        addField(new FieldSpecification(fieldName));
+    }
+
+    public void addField(FieldSpecification fieldSpec) {
+        addComponent(fieldSpec, fieldCreator.createLabel(this, fieldSpec), fieldCreator.createField(fieldSpec));
+    }
+
+    public void addField(FieldSpecification fieldSpec, Field<?> field) {
+        fieldCreator.bindField(fieldSpec, field);
+        addComponent(fieldSpec, fieldCreator.createLabel(this, fieldSpec), field);
+    }
+
     public void addField(FieldSpecification fieldSpec, Label label, Field<?> field) {
+        fieldCreator.bindField(fieldSpec, field);
         addComponent(fieldSpec, label, field);
+    }
+
+    public void addComponent(FieldSpecification fieldSpec, Component field) {
+        addComponent(fieldSpec, fieldCreator.createLabel(this, fieldSpec), field);
     }
 
     public void addComponent(FieldSpecification fieldSpec, Label label, Component field) {
@@ -62,4 +92,9 @@ public class FormSection extends GridLayout {
     public void setColumns(int columns) {
         super.setColumns(columns * 2);
     }
+
+    public void setFieldCreator(FieldCreator fieldCreator) {
+        this.fieldCreator = fieldCreator;
+    }
+
 }

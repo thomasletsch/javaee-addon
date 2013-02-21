@@ -104,24 +104,36 @@ public class ReflectionUtils {
         }
     }
 
+    public static Object getValue(Object object, String propertyName) {
+        if (object == null) {
+            return null;
+        }
+        Field field;
+        try {
+            field = getField(object.getClass(), propertyName);
+            return field.get(object);
+        } catch (SecurityException | NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
+            log.error("Could not retrieve value of " + propertyName + " from object " + object + " of type " + object.getClass(), e);
+        }
+        return null;
+    }
+
     static Field getField(Class<?> enclosingType, String propertyName) throws SecurityException, NoSuchFieldException {
         if (propertyName.contains(".")) {
             String[] parts = propertyName.split("\\.", 2);
             Field innerField = getField(enclosingType, parts[0]);
             return getField(innerField.getType(), parts[1]);
-        } else {
-            try {
-                Field field = enclosingType.getDeclaredField(propertyName);
-                return field;
-            } catch (NoSuchFieldError e) {
-                // Try super classes until we reach Object
-                Class<?> superClass = enclosingType.getSuperclass();
-                if (superClass != Object.class) {
-                    return getField(superClass, propertyName);
-                } else {
-                    throw e;
-                }
+        }
+        try {
+            Field field = enclosingType.getDeclaredField(propertyName);
+            return field;
+        } catch (NoSuchFieldError | NoSuchFieldException e) {
+            // Try super classes until we reach Object
+            Class<?> superClass = enclosingType.getSuperclass();
+            if (superClass == Object.class) {
+                throw e;
             }
+            return getField(superClass, propertyName);
         }
     }
 

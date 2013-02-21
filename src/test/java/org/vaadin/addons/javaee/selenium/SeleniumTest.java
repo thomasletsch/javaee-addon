@@ -33,7 +33,7 @@ public abstract class SeleniumTest {
     }
 
     @After
-    public void tearDownSelnium() {
+    public void tearDownSelenium() {
         driver.quit();
     }
 

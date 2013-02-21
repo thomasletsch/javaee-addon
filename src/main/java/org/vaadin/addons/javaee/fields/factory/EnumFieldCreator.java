@@ -9,7 +9,7 @@ import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.data.Item;
 import com.vaadin.ui.AbstractSelect;
-import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.OptionGroup;
 
 public class EnumFieldCreator<FIELD extends AbstractSelect> extends LocalizableFieldCreator<FIELD> {
 
@@ -22,7 +22,7 @@ public class EnumFieldCreator<FIELD extends AbstractSelect> extends LocalizableF
     @Override
     @SuppressWarnings("unchecked")
     protected Class<FIELD> getDefaultFieldType() {
-        return (Class<FIELD>) ComboBox.class;
+        return (Class<FIELD>) OptionGroup.class;
     }
 
     @Override

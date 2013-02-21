@@ -172,10 +172,9 @@ public class EntityItem<ENTITY extends PersistentEntity> extends PropertysetItem
             propertyDescriptors.addAll(Arrays.asList(info.getPropertyDescriptors()));
 
             return propertyDescriptors;
-        } else {
-            BeanInfo info = Introspector.getBeanInfo(beanClass);
-            return Arrays.asList(info.getPropertyDescriptors());
         }
+        BeanInfo info = Introspector.getBeanInfo(beanClass);
+        return Arrays.asList(info.getPropertyDescriptors());
     }
 
     public ENTITY getEntity() {

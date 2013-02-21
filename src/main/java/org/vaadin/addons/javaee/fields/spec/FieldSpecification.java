@@ -26,6 +26,11 @@ public class FieldSpecification {
     private MultiColumnStyle multiColumnStyle;
 
     /**
+     * For select fields like ComboBox, the caption property
+     */
+    private String visibleProperty;
+
+    /**
      * For Lists which have predefined values
      */
     private Collection<String> values;
@@ -121,6 +126,14 @@ public class FieldSpecification {
 
     public void setValueMap(Map<String, String> valueMap) {
         this.valueMap = valueMap;
+    }
+
+    public String getVisibleProperty() {
+        return visibleProperty;
+    }
+
+    public void setVisibleProperty(String visibleProperty) {
+        this.visibleProperty = visibleProperty;
     }
 
 }

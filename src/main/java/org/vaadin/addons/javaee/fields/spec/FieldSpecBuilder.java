@@ -69,4 +69,9 @@ public class FieldSpecBuilder {
         return this;
     }
 
+    public FieldSpecBuilder visibleProperty(String visibleProperty) {
+        spec.setVisibleProperty(visibleProperty);
+        return this;
+    }
+
 }

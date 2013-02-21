@@ -1,18 +1,24 @@
 package org.vaadin.addons.javaee.fields;
 
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
+import com.vaadin.data.Property;
 import com.vaadin.ui.ComboBox;
 
-public class ManyToOneRelationField extends ComboBox {
+public class ManyToOneRelationField<ENTITY extends PersistentEntity> extends ComboBox {
 
     private static final long serialVersionUID = 1L;
 
     public ManyToOneRelationField() {
-        super();
     }
 
     @Override
-    public String getItemCaption(Object itemId) {
-        return super.getItemCaption(itemId);
+    protected void setValue(Object newValue, boolean repaintIsNotNeeded) throws Property.ReadOnlyException {
+        if (newValue instanceof PersistentEntity) {
+            PersistentEntity persistentEntity = (PersistentEntity) newValue;
+            super.setValue(persistentEntity.getId(), repaintIsNotNeeded);
+        } else {
+            super.setValue(newValue, repaintIsNotNeeded);
+        }
     }
 
 }

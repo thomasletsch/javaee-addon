@@ -21,13 +21,15 @@ import java.util.Date;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.joda.time.LocalDate;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
-import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.ui.Field;
 
 @SessionScoped
@@ -58,8 +60,12 @@ public class JavaEEFieldFactory implements FieldFactory {
             return (T) new DateFieldCreator(container, fieldSpec).createField();
         } else if (LocalDate.class.isAssignableFrom(dataType)) {
             return (T) new LocalDateFieldCreator(container, fieldSpec).createField();
-        } else if (PersistentEntity.class.isAssignableFrom(dataType)) {
-            return (T) new RelationFieldCreator(container, fieldSpec).createField();
+        } else if (container.getAnnotation(fieldSpec.getName(), OneToOne.class) != null) {
+            return (T) new OneToOneRelationFieldCreator(container, fieldSpec).createField();
+        } else if (container.getAnnotation(fieldSpec.getName(), OneToMany.class) != null) {
+            return (T) new OneToManyRelationFieldCreator(container, fieldSpec).createField();
+        } else if (container.getAnnotation(fieldSpec.getName(), ManyToOne.class) != null) {
+            return (T) new ManyToOneRelationFieldCreator(container, fieldSpec).createField();
         } else {
             return (T) new TextFieldCreator(container, fieldSpec).createField();
         }

@@ -91,7 +91,7 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends B
         FieldSpecification fieldSpec = new FieldSpecification(fieldName);
         Field<ENTITY_TYPE> field = (Field<ENTITY_TYPE>) fieldGroup.getField(fieldName);
         if (field == null) {
-            field = fieldFactory.createField(entityContainer, fieldSpec);
+            field = fieldFactory.createField(getContainer(), fieldSpec);
             fieldGroup.bind(field, fieldName);
         }
         field.setValue(entity);
