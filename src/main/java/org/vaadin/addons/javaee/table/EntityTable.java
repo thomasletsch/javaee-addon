@@ -25,6 +25,9 @@ public class EntityTable<ENTITY extends PersistentEntity> extends BasicEntityTab
 
     private EntityContainer<ENTITY> entityContainer;
 
+    public EntityTable() {
+    }
+
     public EntityTable(Class<ENTITY> entityClass) {
         super(entityClass);
     }

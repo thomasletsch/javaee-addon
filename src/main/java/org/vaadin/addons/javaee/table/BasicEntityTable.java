@@ -42,12 +42,13 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     @Inject
     private TranslationService translationService;
 
-    private EntityContainer<ENTITY> entityContainer;
-
     /**
      * Only query container if a filter is set
      */
     protected boolean needsFilter = true;
+
+    public BasicEntityTable() {
+    }
 
     public BasicEntityTable(Class<ENTITY> entityClass) {
         setId(entityClass.getSimpleName() + "Table");
@@ -59,7 +60,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
      * Can be overwritten
      */
     protected void initColumns() {
-        List<String> columnNames = entityContainer.getPropertyNames();
+        List<String> columnNames = getContainer().getPropertyNames();
         initColumns(columnNames);
     }
 
@@ -74,9 +75,8 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     @PostConstruct
     protected void init() {
-        entityContainer = getContainer();
         if (needsFilter) {
-            entityContainer.needsFiltering();
+            getContainer().needsFiltering();
         }
         setEditable(false);
         setMultiSelect(false);
@@ -84,28 +84,28 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         setSelectable(true);
         setBuffered(true);
         setPageLength(DEFAULT_PAGE_SIZE);
-        setCaption(translationService.getText(entityContainer.getEntityClass().getSimpleName() + "s"));
+        setCaption(translationService.getText(getContainer().getEntityClass().getSimpleName() + "s"));
 
-        setContainerDataSource(entityContainer);
+        setContainerDataSource(getContainer());
         setVisibleColumns(new Object[] {});
         initColumns();
     }
 
-    protected void addColumn(String name) {
-        Class<?> type = entityContainer.getType(name);
+    public void addColumn(String name) {
+        Class<?> type = getContainer().getType(name);
         addColumn(name, type);
     }
 
-    protected void addColumn(String name, Class<?> type) {
+    public void addColumn(String name, Class<?> type) {
         addContainerProperty(name, type, null, translationService.getText(name), null, null);
     }
 
-    protected void addColumn(String name, Converter<String, ?> converter) {
+    public void addColumn(String name, Converter<String, ?> converter) {
         addColumn(name);
         setConverter(name, converter);
     }
 
-    protected void addColumn(String name, ColumnGenerator columnGenerator) {
+    public void addColumn(String name, ColumnGenerator columnGenerator) {
         addGeneratedColumn(name, columnGenerator);
         setColumnHeader(name, translationService.getText(name));
     }
@@ -117,17 +117,17 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     @Override
     public void addContainerFilter(Filter filter) throws UnsupportedFilterException {
-        entityContainer.addContainerFilter(filter);
+        getContainer().addContainerFilter(filter);
     }
 
     @Override
     public void removeContainerFilter(Filter filter) {
-        entityContainer.removeContainerFilter(filter);
+        getContainer().removeContainerFilter(filter);
     }
 
     @Override
     public void removeAllContainerFilters() {
-        entityContainer.removeAllContainerFilters();
+        getContainer().removeAllContainerFilters();
     }
 
     public boolean isAnySelected() {
@@ -149,10 +149,18 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     public void removeSelectedItem() {
         Long id = getValue();
-        entityContainer.removeItem(id);
+        getContainer().removeItem(id);
     }
 
     public void selectFirst() {
         select(firstItemId());
+    }
+
+    public TranslationService getTranslationService() {
+        return translationService;
+    }
+
+    public void setTranslationService(TranslationService translationService) {
+        this.translationService = translationService;
     }
 }

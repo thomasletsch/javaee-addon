@@ -97,4 +97,8 @@ public class FormSection extends GridLayout {
         this.fieldCreator = fieldCreator;
     }
 
+    public FieldCreator getFieldCreator() {
+        return fieldCreator;
+    }
+
 }

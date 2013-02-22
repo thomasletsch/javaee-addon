@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.vaadin.addons.javaee.form.MultiColumnStyle;
 
+import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.ui.Field;
 
 public class FieldSpecBuilder {
@@ -71,6 +72,11 @@ public class FieldSpecBuilder {
 
     public FieldSpecBuilder visibleProperty(String visibleProperty) {
         spec.setVisibleProperty(visibleProperty);
+        return this;
+    }
+
+    public FieldSpecBuilder propertyType(Class<? extends PersistentEntity> propertyType) {
+        spec.setPropertyType(propertyType);
         return this;
     }
 

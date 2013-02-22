@@ -32,7 +32,7 @@ public abstract class AbstractFieldCreator<FIELD extends Field<?>> implements Fi
         } else {
             this.fieldType = getDefaultFieldType();
         }
-        dataType = container.getType(fieldName);
+        dataType = container.getType(fieldSpec.getName());
     }
 
     protected abstract Class<FIELD> getDefaultFieldType();
@@ -52,7 +52,7 @@ public abstract class AbstractFieldCreator<FIELD extends Field<?>> implements Fi
     protected void commonFieldInit(FIELD field) {
         field.setCaption(null);
         field.setBuffered(true);
-        field.setId(container.getEntityClass().getSimpleName() + "." + fieldName);
+        field.setId(container.getEntityClass().getSimpleName() + "." + fieldSpec.getName());
     }
 
     protected FIELD instanciateField() {

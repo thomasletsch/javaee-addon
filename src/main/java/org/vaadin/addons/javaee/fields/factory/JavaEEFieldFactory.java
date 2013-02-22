@@ -63,7 +63,7 @@ public class JavaEEFieldFactory implements FieldFactory {
         } else if (container.getAnnotation(fieldSpec.getName(), OneToOne.class) != null) {
             return (T) new OneToOneRelationFieldCreator(container, fieldSpec).createField();
         } else if (container.getAnnotation(fieldSpec.getName(), OneToMany.class) != null) {
-            return (T) new OneToManyRelationFieldCreator(container, fieldSpec).createField();
+            return (T) new OneToManyRelationFieldCreator(container, translationService, fieldSpec).createField();
         } else if (container.getAnnotation(fieldSpec.getName(), ManyToOne.class) != null) {
             return (T) new ManyToOneRelationFieldCreator(container, fieldSpec).createField();
         } else {

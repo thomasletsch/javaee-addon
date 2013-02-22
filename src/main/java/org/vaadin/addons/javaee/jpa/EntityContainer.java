@@ -202,6 +202,10 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         return type;
     }
 
+    public Class<?> getCollectionType(String propertyId) {
+        return jpaEntityProvider.getType(entityClass, propertyId);
+    }
+
     @Override
     public Object firstItemId() {
         if (!needProcess()) {

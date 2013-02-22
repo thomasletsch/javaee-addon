@@ -31,7 +31,7 @@ public class SelectEntityConverter<ENTITY extends PersistentEntity> implements C
         if (!(value instanceof Long)) {
             return null;
         }
-        return ((EntityItem<ENTITY>) container.getItem(select.getValue())).getEntity();
+        return ((EntityItem<ENTITY>) container.getItem(value)).getEntity();
     }
 
     @Override

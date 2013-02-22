@@ -15,16 +15,25 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.jpa;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
+import javax.persistence.metamodel.PluralAttribute;
+import javax.persistence.metamodel.Type;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +51,11 @@ public class JPAEntityProvider {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @PersistenceUnit
+    EntityManagerFactory entityManagerFactory;
+
+    private Map<Class<?>, EntityType<?>> entityTypeCache;
 
     public <ENTITY extends PersistentEntity> ENTITY get(Class<ENTITY> entityClass, Long id) {
         return entityManager.find(entityClass, id);
@@ -211,6 +225,41 @@ public class JPAEntityProvider {
             return null;
         }
         return resultList.get(0);
+    }
+
+    public Class<?> getType(Class<?> entityClass, String propertyId) {
+        if (entityTypeCache == null) {
+            initializeEntityTypeCache();
+        }
+        Class<?> result = getClassOfProperty(propertyId, entityTypeCache.get(entityClass));
+        return result;
+    }
+
+    private Class<?> getClassOfProperty(String propertyId, EntityType<?> entityType) {
+        if (propertyId.contains(".")) {
+            String[] parts = propertyId.split("\\.", 2);
+            Attribute<?, ?> attribute = entityType.getAttribute(parts[0]);
+            Class<?> javaType = attribute.getJavaType();
+            return getType(javaType, parts[1]);
+        }
+        Class<?> result;
+        Attribute<?, ?> attribute = entityType.getAttribute(propertyId);
+        if (attribute instanceof PluralAttribute) {
+            PluralAttribute<?, ?, ?> pAttribute = (PluralAttribute<?, ?, ?>) attribute;
+            Type<?> elementType = pAttribute.getElementType();
+            result = elementType.getJavaType();
+        } else {
+            result = attribute.getJavaType();
+        }
+        return result;
+    }
+
+    private void initializeEntityTypeCache() {
+        Metamodel metamodel = entityManager.getMetamodel();
+        entityTypeCache = new HashMap<Class<?>, EntityType<?>>();
+        for (EntityType<?> entityType : metamodel.getEntities()) {
+            entityTypeCache.put(entityType.getJavaType(), entityType);
+        }
     }
 
 }
