@@ -77,7 +77,8 @@ public class FormSection extends GridLayout {
         }
         addComponent(field, getCursorX(), getCursorY(), getCursorX() + fieldSpec.getColumns() - 1, getCursorY() + fieldSpec.getRows() - 1);
         if (fieldSpec.isEndRow()) {
-            newLine();
+            setCursorX(0);
+            setCursorY(getCursorY() + fieldSpec.getRows());
         }
     }
 

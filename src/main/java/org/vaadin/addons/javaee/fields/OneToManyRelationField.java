@@ -37,7 +37,9 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
 
     @Override
     protected void setInternalValue(Collection<ENTITY> newValue) {
+        tableDataSource.removeAllItems();
         tableDataSource.addAll(newValue);
+        items = newValue;
     }
 
     public void setConverter(String propertyId, Converter<String, ?> converter) {
@@ -80,4 +82,7 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
         this.translationService = translationService;
     }
 
+    public void setRows(int rows) {
+        table.setPageLength(rows);
+    }
 }
