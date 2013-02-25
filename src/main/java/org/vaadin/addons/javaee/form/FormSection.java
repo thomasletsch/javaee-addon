@@ -14,14 +14,9 @@ public class FormSection extends GridLayout {
 
     public static final int WIDTH = PortalView.CONTENT_WIDTH - (PortalView.DEFAULT_MARGIN * 2);
 
-    private final String name;
+    private String name;
 
     private FieldCreator fieldCreator;
-
-    public FormSection(String name, String title) {
-        this(name);
-        setCaption(title);
-    }
 
     public FormSection(String name) {
         this.name = name;

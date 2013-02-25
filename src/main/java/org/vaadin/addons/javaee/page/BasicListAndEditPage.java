@@ -24,6 +24,10 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
 
     private static final long serialVersionUID = 1L;
 
+    public static final int FORM_RATIO = 80;
+
+    public static final int TABLE_RATIO = 15;
+
     @Inject
     protected TranslationService translationService;
 

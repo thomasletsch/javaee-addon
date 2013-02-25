@@ -28,11 +28,7 @@ import com.vaadin.ui.VerticalLayout;
 @Dependent
 public abstract class AbstractContentView extends AbstractView implements ContentView {
 
-    public static final int FORM_RATIO = 80;
-
     public static final int BUTTON_RATIO = 5;
-
-    public static final int TABLE_RATIO = 15;
 
     private static final long serialVersionUID = 1L;
 

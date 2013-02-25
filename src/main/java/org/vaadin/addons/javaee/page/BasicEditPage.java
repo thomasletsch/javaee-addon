@@ -30,6 +30,10 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Abs
 
     private static final long serialVersionUID = 1L;
 
+    public static final int EDIT_FORM_RATIO = 40;
+
+    public static final int REST_RATIO = 55;
+
     @Inject
     protected TranslationService translationService;
 
@@ -50,7 +54,7 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Abs
     protected void initView() {
         super.initView();
         form = getForm();
-        addComponent(form, FORM_RATIO);
+        addComponent(form, EDIT_FORM_RATIO);
         ButtonBar buttonBar = initButtons();
         addComponent(buttonBar, BUTTON_RATIO);
     }

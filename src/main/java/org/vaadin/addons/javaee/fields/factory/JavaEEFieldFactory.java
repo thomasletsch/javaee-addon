@@ -30,16 +30,22 @@ import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 
+import com.vaadin.data.Container;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
+import com.vaadin.ui.TableFieldFactory;
 
 @SessionScoped
 @SuppressWarnings({ "rawtypes", "unchecked" })
-public class JavaEEFieldFactory implements FieldFactory {
+public class JavaEEFieldFactory implements FieldFactory, TableFieldFactory {
 
     private static final long serialVersionUID = 1L;
 
     @Inject
     private TranslationService translationService;
+
+    private TableFieldFactory defaultTableFieldFactory = DefaultFieldFactory.get();
 
     @Override
     public <T extends Field<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec) {
@@ -69,6 +75,16 @@ public class JavaEEFieldFactory implements FieldFactory {
         } else {
             return (T) new TextFieldCreator(container, fieldSpec).createField();
         }
+    }
+
+    @Override
+    public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
+        if (container instanceof EntityContainer<?>) {
+            EntityContainer<?> entityContainer = (EntityContainer<?>) container;
+            FieldSpecification fieldSpec = new FieldSpecification((String) propertyId);
+            return createField(entityContainer, fieldSpec);
+        }
+        return defaultTableFieldFactory.createField(container, itemId, propertyId, uiContext);
     }
 
 }

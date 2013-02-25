@@ -31,6 +31,7 @@ import com.vaadin.data.util.converter.Converter;
 import com.vaadin.data.util.filter.UnsupportedFilterException;
 import com.vaadin.shared.ui.MultiSelectMode;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.TableFieldFactory;
 
 @Dependent
 public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends Table implements Container.Filterable {
@@ -41,6 +42,9 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     @Inject
     private TranslationService translationService;
+
+    @Inject
+    private TableFieldFactory tableFieldFactory;
 
     /**
      * Only query container if a filter is set
@@ -86,6 +90,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         setPageLength(DEFAULT_PAGE_SIZE);
         setCaption(translationService.getText(getContainer().getEntityClass().getSimpleName() + "s"));
 
+        setTableFieldFactory(tableFieldFactory);
         setContainerDataSource(getContainer());
         setVisibleColumns(new Object[] {});
         initColumns();

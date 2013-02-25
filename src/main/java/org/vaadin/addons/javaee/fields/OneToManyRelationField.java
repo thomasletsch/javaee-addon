@@ -28,6 +28,8 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
     public OneToManyRelationField() {
         table = new Table();
         table.setPageLength(5);
+        table.setSelectable(false);
+        table.setEditable(true);
     }
 
     @Override

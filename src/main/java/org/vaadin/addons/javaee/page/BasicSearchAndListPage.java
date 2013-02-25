@@ -33,6 +33,10 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
 
     private static final long serialVersionUID = 1L;
 
+    public static final int SEARCH_FORM_RATIO = 40;
+
+    public static final int SEARCH_RESULT_TABLE_RATIO = 55;
+
     @Inject
     protected TranslationService translationService;
 
@@ -68,12 +72,12 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
 
     protected void createListSection() {
         table = getResultTable();
-        addComponent(table, TABLE_RATIO);
+        addComponent(table, SEARCH_RESULT_TABLE_RATIO);
     }
 
     protected void createSearchSection() {
         searchForm = getSearchForm();
-        addComponent(searchForm, FORM_RATIO);
+        addComponent(searchForm, SEARCH_FORM_RATIO);
         ButtonBar buttonBar = initSearchButtons();
         addComponent(buttonBar, BUTTON_RATIO);
     }
