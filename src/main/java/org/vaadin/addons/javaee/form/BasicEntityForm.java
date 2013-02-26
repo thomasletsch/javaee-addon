@@ -15,8 +15,6 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.form;
 
-import javax.enterprise.context.Dependent;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
@@ -29,7 +27,6 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Field;
 
-@Dependent
 public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends BasicForm<ENTITY> {
 
     private static final long serialVersionUID = 1L;

@@ -1,6 +1,10 @@
 package org.vaadin.addons.javaee.form;
 
+import javax.inject.Inject;
+
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
+import org.vaadin.addons.javaee.i18n.TranslationService;
+import org.vaadin.addons.javaee.jpa.EntityContainer;
 import org.vaadin.addons.javaee.portal.PortalView;
 
 import com.vaadin.ui.Component;
@@ -16,10 +20,20 @@ public class FormSection extends GridLayout {
 
     private String name;
 
-    private FieldCreator fieldCreator;
+    @Inject
+    protected TranslationService translationService;
 
-    public FormSection(String name) {
-        this.name = name;
+    @Inject
+    protected FieldCreator fieldCreator;
+
+    @Inject
+    protected LabelCreator labelCreator;
+
+    protected EntityContainer<?> container;
+
+    protected EntityFieldGroup<?> fieldGroup;
+
+    public FormSection() {
         setColumns(3);
         setSpacing(true);
         setMargin(true);
@@ -28,35 +42,44 @@ public class FormSection extends GridLayout {
     }
 
     /**
-     * To be overwritten
+     * Can be overwritten. Will be called after initialization.
      */
     public void init() {
+        setCaption();
+    }
+
+    protected void setCaption() {
+        if (translationService != null && name != null) {
+            setCaption(translationService.getText(name));
+        }
     }
 
     public String getName() {
         return name;
     }
 
-    public void addField(String fieldName) {
-        addField(new FieldSpecification(fieldName));
+    public Field<?> addField(String fieldName) {
+        return addField(new FieldSpecification(fieldName));
     }
 
-    public void addField(FieldSpecification fieldSpec) {
-        addComponent(fieldSpec, fieldCreator.createLabel(this, fieldSpec), fieldCreator.createField(fieldSpec));
+    public Field<?> addField(FieldSpecification fieldSpec) {
+        Field<?> field = fieldCreator.createField(container, fieldGroup, fieldSpec);
+        addComponent(fieldSpec, labelCreator.createLabel(this, fieldSpec), field);
+        return field;
     }
 
     public void addField(FieldSpecification fieldSpec, Field<?> field) {
-        fieldCreator.bindField(fieldSpec, field);
-        addComponent(fieldSpec, fieldCreator.createLabel(this, fieldSpec), field);
+        fieldCreator.bindField(fieldGroup, fieldSpec, field);
+        addComponent(fieldSpec, labelCreator.createLabel(this, fieldSpec), field);
     }
 
     public void addField(FieldSpecification fieldSpec, Label label, Field<?> field) {
-        fieldCreator.bindField(fieldSpec, field);
+        fieldCreator.bindField(fieldGroup, fieldSpec, field);
         addComponent(fieldSpec, label, field);
     }
 
     public void addComponent(FieldSpecification fieldSpec, Component field) {
-        addComponent(fieldSpec, fieldCreator.createLabel(this, fieldSpec), field);
+        addComponent(fieldSpec, labelCreator.createLabel(this, fieldSpec), field);
     }
 
     public void addComponent(FieldSpecification fieldSpec, Label label, Component field) {
@@ -89,12 +112,25 @@ public class FormSection extends GridLayout {
         super.setColumns(columns * 2);
     }
 
-    public void setFieldCreator(FieldCreator fieldCreator) {
-        this.fieldCreator = fieldCreator;
+    public EntityContainer<?> getContainer() {
+        return container;
     }
 
-    public FieldCreator getFieldCreator() {
-        return fieldCreator;
+    public void setContainer(EntityContainer<?> container) {
+        this.container = container;
+    }
+
+    public EntityFieldGroup<?> getFieldGroup() {
+        return fieldGroup;
+    }
+
+    public void setFieldGroup(EntityFieldGroup<?> fieldGroup) {
+        this.fieldGroup = fieldGroup;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        setCaption();
     }
 
 }

@@ -12,6 +12,7 @@ import org.vaadin.addons.javaee.fields.factory.FieldFactory;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
+import org.wamblee.inject.InjectorBuilder;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
@@ -29,9 +30,6 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
 
     @Inject
     protected TranslationService translationService;
-
-    @Inject
-    private LabelCreator labelCreator;
 
     protected Class<ENTITY> entityClass;
 
@@ -130,21 +128,19 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     protected FormSection getFormSection(String name) {
         FormSection section = getFormSectionInternal(name);
         if (section == null) {
-            section = new FormSection(name);
+            section = new FormSection();
+            section.setName(name);
+            InjectorBuilder.getInjector().inject(section);
             initFormSection(section);
         }
         return section;
     }
 
     protected void initFormSection(FormSection section) {
-        section.setCaption(translationService.getText(section.getName()));
-        section.setFieldCreator(createFieldCreator());
+        section.setContainer(getContainer());
+        section.setFieldGroup(fieldGroup);
         section.init();
         addFormSection(section);
-    }
-
-    protected FieldCreator createFieldCreator() {
-        return new FieldCreator(translationService, fieldFactory, getContainer(), fieldGroup);
     }
 
     protected void addFormSection(FormSection section) {
