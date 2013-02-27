@@ -17,6 +17,8 @@ package org.vaadin.addons.javaee.portal;
 
 import static org.vaadin.addons.javaee.i18n.TranslationKeys.TITLE_PORTAL;
 
+import java.util.Map;
+
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
@@ -75,10 +77,10 @@ public class PortalViewImpl extends AbstractView implements PortalView {
     }
 
     @Override
-    public void navigateTo(AbstractContentView portalPagePanel) {
+    public void navigateTo(AbstractContentView portalPagePanel, Map<String, Object> parameters) {
         horizontalSplit.setSecondComponent(portalPagePanel);
         portalPagePanel.openView();
-        portalPagePanel.onShow(oldPageName);
+        portalPagePanel.onShow(oldPageName, parameters);
         oldPageName = portalPagePanel.getPageName();
     }
 }

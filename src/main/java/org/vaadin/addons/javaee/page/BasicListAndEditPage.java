@@ -90,7 +90,7 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
     }
 
     @Override
-    public void onShow(String comingFrom) {
+    public void onShow(String comingFrom, Map<String, Object> parameters) {
         showReadWrite();
         editFirstRecordOrNew();
     }

@@ -20,15 +20,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.joda.time.LocalDate;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
-import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
+import org.wamblee.inject.InjectorBuilder;
 
 import com.vaadin.data.Container;
 import com.vaadin.ui.Component;
@@ -42,39 +41,41 @@ public class JavaEEFieldFactory implements FieldFactory, TableFieldFactory {
 
     private static final long serialVersionUID = 1L;
 
-    @Inject
-    private TranslationService translationService;
-
     private TableFieldFactory defaultTableFieldFactory = DefaultFieldFactory.get();
 
     @Override
     public <T extends Field<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec) {
         Class<?> dataType = container.getType(fieldSpec.getName());
+        AbstractFieldCreator<?> fieldCreator;
         if (fieldSpec.getValues() != null || fieldSpec.getValueMap() != null) {
-            return (T) new ListValueFieldCreator(container, fieldSpec, translationService).createField();
+            fieldCreator = new ListValueFieldCreator();
         } else if (Boolean.class.isAssignableFrom(dataType)) {
-            return (T) new BooleanFieldCreator(container, fieldSpec).createField();
+            fieldCreator = new BooleanFieldCreator();
         } else if (BigDecimal.class.isAssignableFrom(dataType)) {
-            return (T) new DecimalFieldCreator(container, fieldSpec).createField();
+            fieldCreator = new DecimalFieldCreator();
         } else if (Number.class.isAssignableFrom(dataType)) {
-            return (T) new NumberFieldCreator(container, fieldSpec).createField();
+            fieldCreator = new NumberFieldCreator();
         } else if (String.class.isAssignableFrom(dataType)) {
-            return (T) new TextFieldCreator(container, fieldSpec).createField();
+            fieldCreator = new TextFieldCreator();
         } else if (Enum.class.isAssignableFrom(dataType)) {
-            return (T) new EnumFieldCreator(container, fieldSpec, translationService).createField();
+            fieldCreator = new EnumFieldCreator();
         } else if (Calendar.class.isAssignableFrom(dataType) || Date.class.isAssignableFrom(dataType)) {
-            return (T) new DateFieldCreator(container, fieldSpec).createField();
+            fieldCreator = new DateFieldCreator();
         } else if (LocalDate.class.isAssignableFrom(dataType)) {
-            return (T) new LocalDateFieldCreator(container, fieldSpec).createField();
+            fieldCreator = new LocalDateFieldCreator();
         } else if (container.getAnnotation(fieldSpec.getName(), OneToOne.class) != null) {
-            return (T) new OneToOneRelationFieldCreator(container, fieldSpec).createField();
+            fieldCreator = new OneToOneRelationFieldCreator();
         } else if (container.getAnnotation(fieldSpec.getName(), OneToMany.class) != null) {
-            return (T) new OneToManyRelationFieldCreator(container, translationService, fieldSpec).createField();
+            fieldCreator = new OneToManyRelationFieldCreator();
         } else if (container.getAnnotation(fieldSpec.getName(), ManyToOne.class) != null) {
-            return (T) new ManyToOneRelationFieldCreator(container, fieldSpec).createField();
+            fieldCreator = new ManyToOneRelationFieldCreator();
         } else {
-            return (T) new TextFieldCreator(container, fieldSpec).createField();
+            fieldCreator = new TextFieldCreator();
         }
+        fieldCreator.setContainer(container);
+        fieldCreator.setFieldSpec(fieldSpec);
+        InjectorBuilder.getInjector().inject(fieldCreator);
+        return (T) fieldCreator.createField();
     }
 
     @Override

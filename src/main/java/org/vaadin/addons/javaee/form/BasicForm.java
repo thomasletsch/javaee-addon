@@ -45,8 +45,12 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
         return fieldGroup.getValuesAsFilter();
     }
 
-    protected ENTITY getDefaultValue() throws InstantiationException, IllegalAccessException {
-        return entityClass.newInstance();
+    protected ENTITY getDefaultValue() {
+        try {
+            return entityClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostConstruct

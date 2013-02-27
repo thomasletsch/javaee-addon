@@ -15,15 +15,42 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.events;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class NavigationEvent {
 
     private String pageName;
+
+    private Map<String, Object> parameters = new HashMap<String, Object>();
 
     public NavigationEvent(String pageName) {
         this.pageName = pageName;
     }
 
+    public NavigationEvent(String pageName, Map<String, Object> parameters) {
+        this.pageName = pageName;
+        this.parameters = parameters;
+    }
+
     public String getPageName() {
         return pageName;
     }
+
+    public Object getParam(String key) {
+        return parameters.get(key);
+    }
+
+    public Map<String, Object> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Map<String, Object> parameters) {
+        this.parameters = parameters;
+    }
+
+    public void addParameter(String key, Object value) {
+        parameters.put(key, value);
+    }
+
 }

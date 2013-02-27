@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.page;
 
+import java.util.Map;
+
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
@@ -69,8 +71,11 @@ public abstract class AbstractContentView extends AbstractView implements Conten
         mainPanel.setExpandRatio(component, expandRatio);
     }
 
+    /**
+     * Can be overwritten
+     */
     @Override
-    public void onShow(String comingFrom) {
+    public void onShow(String comingFrom, Map<String, Object> parameters) {
     }
 
     @Override

@@ -3,22 +3,15 @@ package org.vaadin.addons.javaee.fields.factory;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
-import org.vaadin.addons.javaee.jpa.EntityContainer;
-
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.DateField;
 
 public class DateFieldCreator<FIELD extends DateField> extends AbstractFieldCreator<FIELD> {
 
-    public DateFieldCreator(EntityContainer<?> container, FieldSpecification fieldSpec) {
-        super(container, fieldSpec);
-    }
-
     @Override
     protected void initializeField(FIELD field) {
         super.initializeField(field);
-        Temporal temporal = container.getAnnotation(fieldName, Temporal.class);
+        Temporal temporal = container.getAnnotation(fieldSpec.getName(), Temporal.class);
         TemporalType type = TemporalType.DATE;
         if (temporal != null) {
             type = temporal.value();

@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.ejb.EJB;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
+import com.googlecode.javaeeutils.reflection.ReflectionUtils;
 import com.vaadin.data.Container;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;

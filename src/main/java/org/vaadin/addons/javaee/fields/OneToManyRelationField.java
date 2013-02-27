@@ -2,6 +2,8 @@ package org.vaadin.addons.javaee.fields;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
@@ -10,6 +12,7 @@ import com.vaadin.data.util.converter.Converter;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.TableFieldFactory;
 
 public class OneToManyRelationField<ENTITY extends PersistentEntity> extends CustomField<Collection<ENTITY>> {
 
@@ -21,6 +24,7 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
 
     private Class<ENTITY> entityClass;
 
+    @Inject
     private TranslationService translationService;
 
     private BeanItemContainer<ENTITY> tableDataSource;
@@ -87,4 +91,9 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
     public void setRows(int rows) {
         table.setPageLength(rows);
     }
+
+    public void setFieldFactory(TableFieldFactory tableFieldFactory) {
+        table.setTableFieldFactory(tableFieldFactory);
+    }
+
 }

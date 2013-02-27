@@ -2,22 +2,21 @@ package org.vaadin.addons.javaee.fields.factory;
 
 import java.util.EnumSet;
 
-import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
+import javax.inject.Inject;
+
 import org.vaadin.addons.javaee.form.MultiColumnStyle;
 import org.vaadin.addons.javaee.i18n.TranslationService;
-import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.data.Item;
 import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.OptionGroup;
 
-public class EnumFieldCreator<FIELD extends AbstractSelect> extends LocalizableFieldCreator<FIELD> {
+public class EnumFieldCreator<FIELD extends AbstractSelect> extends AbstractFieldCreator<FIELD> {
 
     public static final Object CAPTION_PROPERTY_ID = "Caption";
 
-    public EnumFieldCreator(EntityContainer<?> container, FieldSpecification fieldSpec, TranslationService translationService) {
-        super(container, fieldSpec, translationService);
-    }
+    @Inject
+    private TranslationService translationService;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -37,7 +36,8 @@ public class EnumFieldCreator<FIELD extends AbstractSelect> extends LocalizableF
         field.addContainerProperty("id", String.class, null);
         field.addContainerProperty(CAPTION_PROPERTY_ID, String.class, null);
         field.setItemCaptionPropertyId(CAPTION_PROPERTY_ID);
-        EnumSet<?> enumSet = EnumSet.allOf((Class<Enum>) dataType);
+        Class<Enum> dataType = (Class<Enum>) container.getType(fieldSpec.getName());
+        EnumSet<?> enumSet = EnumSet.allOf(dataType);
         for (Object r : enumSet) {
             Item newItem = field.addItem(r);
             String i18nKey = dataType.getSimpleName() + "." + r.toString();

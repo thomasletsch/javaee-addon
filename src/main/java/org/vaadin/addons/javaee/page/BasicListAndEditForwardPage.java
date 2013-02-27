@@ -19,7 +19,7 @@ public abstract class BasicListAndEditForwardPage<ENTITY extends PersistentEntit
     protected NextButton nextButton;
 
     @Inject
-    javax.enterprise.event.Event<NavigationEvent> navigation;
+    protected javax.enterprise.event.Event<NavigationEvent> navigation;
 
     public BasicListAndEditForwardPage(String pageName) {
         super(pageName);
@@ -49,14 +49,21 @@ public abstract class BasicListAndEditForwardPage<ENTITY extends PersistentEntit
         if (getNextPage() != null) {
             navigateToNextPage();
         } else {
+            getTable().refreshRowCache();
             getTable().selectFirst();
         }
     }
 
+    /**
+     * Should be overwritten to enable automatic navigation.
+     */
     protected String getNextPage() {
         return null;
     }
 
+    /**
+     * Can be overwritten for e.g. adding parameters to navigation event
+     */
     protected void navigateToNextPage() {
         navigation.fire(new NavigationEvent(getNextPage()));
     }

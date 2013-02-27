@@ -2,19 +2,18 @@ package org.vaadin.addons.javaee.fields.factory;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.vaadin.addons.javaee.fields.ComboBoxTranslated;
-import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.form.MultiColumnStyle;
 import org.vaadin.addons.javaee.i18n.TranslationService;
-import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.ui.AbstractSelect;
 
-public class ListValueFieldCreator<FIELD extends AbstractSelect> extends LocalizableFieldCreator<FIELD> {
+public class ListValueFieldCreator<FIELD extends AbstractSelect> extends AbstractFieldCreator<FIELD> {
 
-    public ListValueFieldCreator(EntityContainer<?> container, FieldSpecification fieldSpec, TranslationService translationService) {
-        super(container, fieldSpec, translationService);
-    }
+    @Inject
+    private TranslationService translationService;
 
     @Override
     @SuppressWarnings("unchecked")

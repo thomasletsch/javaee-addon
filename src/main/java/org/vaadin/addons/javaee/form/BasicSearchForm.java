@@ -17,9 +17,6 @@ package org.vaadin.addons.javaee.form;
 
 import javax.enterprise.context.Dependent;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.util.BeanItem;
 
@@ -28,20 +25,14 @@ public abstract class BasicSearchForm<ENTITY extends PersistentEntity> extends B
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = LoggerFactory.getLogger(BasicSearchForm.class);
-
     public BasicSearchForm(Class<ENTITY> entityClass) {
         super(entityClass);
     }
 
     @Override
     protected void initFields() {
-        try {
-            BeanItem<ENTITY> itemDataSource = new BeanItem<ENTITY>(getDefaultValue());
-            fieldGroup.setItemDataSource(itemDataSource);
-        } catch (InstantiationException | IllegalAccessException e) {
-            log.error("Could not instanciate " + entityClass, e);
-        }
+        BeanItem<ENTITY> itemDataSource = new BeanItem<ENTITY>(getDefaultValue());
+        fieldGroup.setItemDataSource(itemDataSource);
         super.initFields();
     }
 

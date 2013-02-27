@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.page;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -95,7 +97,7 @@ public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends Abs
     }
 
     @Override
-    public void onShow(String comingFrom) {
+    public void onShow(String comingFrom, Map<String, Object> parameters) {
     }
 
     @Override

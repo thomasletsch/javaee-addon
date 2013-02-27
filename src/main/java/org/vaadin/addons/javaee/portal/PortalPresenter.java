@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import org.vaadin.addons.javaee.events.NavigationEvent;
 import org.vaadin.addons.javaee.navigation.MenuItem;
 import org.vaadin.addons.javaee.navigation.SideMenu;
+import org.vaadin.addons.javaee.page.AbstractContentView;
 import org.vaadin.virkki.cdiutils.mvp.AbstractPresenter;
 import org.vaadin.virkki.cdiutils.mvp.AbstractPresenter.ViewInterface;
 
@@ -27,7 +28,9 @@ public class PortalPresenter extends AbstractPresenter<PortalView> {
 
     public void handleNavigation(@Observes NavigationEvent navigationEvent) {
         MenuItem menuItem = sideMenu.getMenuItem(navigationEvent.getPageName());
-        view.navigateTo(menuItem.getPanel());
+        AbstractContentView panel = menuItem.getPanel();
+        panel.prepareShow();
+        view.navigateTo(panel, navigationEvent.getParameters());
         sideMenu.selectMenu(menuItem.getName());
     }
 }

@@ -1,8 +1,8 @@
 package org.vaadin.addons.javaee.fields;
 
-import org.vaadin.addons.javaee.jpa.ReflectionUtils;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
+import com.googlecode.javaeeutils.reflection.ReflectionUtils;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
 import com.vaadin.ui.Label;

@@ -161,11 +161,8 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         select(firstItemId());
     }
 
-    public TranslationService getTranslationService() {
-        return translationService;
-    }
-
-    public void setTranslationService(TranslationService translationService) {
-        this.translationService = translationService;
+    @Override
+    public void refreshRowCache() {
+        super.refreshRowCache();
     }
 }

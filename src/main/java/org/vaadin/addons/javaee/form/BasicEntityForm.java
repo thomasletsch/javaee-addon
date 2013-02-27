@@ -42,12 +42,8 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends B
     }
 
     public void editNew() {
-        try {
-            EntityItem<ENTITY> item = new EntityItem<ENTITY>(getContainer(), getDefaultValue());
-            fieldGroup.setItem(item);
-        } catch (InstantiationException | IllegalAccessException e) {
-            log.error("Could not instanciate " + entityClass, e);
-        }
+        EntityItem<ENTITY> item = new EntityItem<ENTITY>(getContainer(), getDefaultValue());
+        fieldGroup.setItem(item);
     }
 
     /**

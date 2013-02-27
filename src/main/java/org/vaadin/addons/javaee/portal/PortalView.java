@@ -1,5 +1,7 @@
 package org.vaadin.addons.javaee.portal;
 
+import java.util.Map;
+
 import org.vaadin.addons.javaee.page.AbstractContentView;
 import org.vaadin.virkki.cdiutils.mvp.View;
 
@@ -23,6 +25,6 @@ public interface PortalView extends View {
 
     public static final int CONTENT_WIDTH = WIDTH - MENU_WIDTH - 7;
 
-    void navigateTo(AbstractContentView portalPagePanel);
+    void navigateTo(AbstractContentView portalPagePanel, Map<String, Object> parameters);
 
 }

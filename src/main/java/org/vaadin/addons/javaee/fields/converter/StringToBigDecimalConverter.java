@@ -38,6 +38,9 @@ public class StringToBigDecimalConverter implements Converter<String, BigDecimal
             return null;
         }
 
+        if (locale == null) {
+            locale = Locale.getDefault();
+        }
         NumberFormat nf = null;
         if (formatPattern != null) {
             nf = new DecimalFormat(formatPattern);
