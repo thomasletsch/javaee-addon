@@ -38,6 +38,7 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends B
     }
 
     public void edit(EntityItem<ENTITY> item) {
+        getContainer().loadItemWithRelations(item);
         fieldGroup.setItem(item);
     }
 
@@ -66,7 +67,8 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends B
             @Override
             @SuppressWarnings("unchecked")
             public void itemClick(ItemClickEvent event) {
-                edit((EntityItem<ENTITY>) event.getItem());
+                EntityItem<ENTITY> item = (EntityItem<ENTITY>) event.getItem();
+                edit(item);
             }
         });
     }

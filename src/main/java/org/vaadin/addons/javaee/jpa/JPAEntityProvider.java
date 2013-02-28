@@ -59,7 +59,14 @@ public class JPAEntityProvider {
     private Map<Class<?>, EntityType<?>> entityTypeCache;
 
     public <ENTITY extends PersistentEntity> ENTITY get(Class<ENTITY> entityClass, Long id) {
-        return entityManager.find(entityClass, id);
+        ENTITY entity = entityManager.find(entityClass, id);
+        return entity;
+    }
+
+    public <ENTITY extends PersistentEntity> ENTITY loadEntityWithRelations(ENTITY entity) {
+        ENTITY mergedEntity = entityManager.merge(entity);
+        mergedEntity.loadNeededRelations();
+        return mergedEntity;
     }
 
     public <ENTITY extends PersistentEntity> List<ENTITY> find(Class<ENTITY> entityClass, Filter filter,

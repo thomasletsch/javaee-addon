@@ -82,6 +82,11 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         jpaEntityProvider.updateEntity(item.getEntity());
     }
 
+    public void loadItemWithRelations(EntityItem<ENTITY> item) {
+        ENTITY loadedEntity = jpaEntityProvider.loadEntityWithRelations(item.getEntity());
+        item.setEntity(loadedEntity);
+    }
+
     private void initProperties(Class<ENTITY> entityClass) {
         for (Field field : ReflectionUtils.getAllFields(entityClass)) {
             if (!Modifier.isStatic(field.getModifiers())) {
