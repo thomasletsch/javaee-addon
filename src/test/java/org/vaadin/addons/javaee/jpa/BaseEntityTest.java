@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.jpa;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -28,12 +28,18 @@ import com.googlecode.javaeeutils.jpa.manager.EntityManagerHelper;
 
 public class BaseEntityTest {
 
+    protected static final String TEST_PROPERTY = "testString";
+
+    protected static final String UPDATED_TEST_STRING = "updated";
+
+    protected static final String ORIGINAL_TEST_STRING = "test";
+
     private EntityManagerFactory emFactory;
 
     protected EntityManager em;
 
     protected TestEntity createTestEntity() {
-        TestEntity testEntity = new TestEntity("test");
+        TestEntity testEntity = new TestEntity(ORIGINAL_TEST_STRING);
         em.persist(testEntity);
         em.flush();
         TestEntity savedEntity = testEntity.getSavedEntity(testEntity);

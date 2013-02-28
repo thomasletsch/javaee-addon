@@ -17,6 +17,7 @@ package org.vaadin.addons.javaee.jpa;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,7 +36,7 @@ import com.vaadin.data.util.filter.And;
 import com.vaadin.data.util.filter.UnsupportedFilterException;
 
 public class EntityContainer<ENTITY extends PersistentEntity> implements Container, Container.Ordered, Container.Filterable,
-        Container.ItemSetChangeNotifier, Container.PropertySetChangeNotifier {
+        Container.Sortable, Container.ItemSetChangeNotifier, Container.PropertySetChangeNotifier {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,6 +48,8 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
     private List<Container.PropertySetChangeListener> propertySetChangeListeners = new ArrayList<>();
 
     private List<Filter> filters = new ArrayList<>();
+
+    private List<SortDefinition> sortDefinitions = new ArrayList<>();
 
     protected Map<String, Class<?>> properties = new HashMap<>();
 
@@ -81,7 +84,9 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
 
     private void initProperties(Class<ENTITY> entityClass) {
         for (Field field : ReflectionUtils.getAllFields(entityClass)) {
-            properties.put(field.getName(), field.getType());
+            if (!Modifier.isStatic(field.getModifiers())) {
+                properties.put(field.getName(), field.getType());
+            }
         }
     }
 
@@ -101,7 +106,7 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         if (!needProcess()) {
             return Collections.EMPTY_LIST;
         }
-        List<ENTITY> entitys = jpaEntityProvider.find(entityClass, getContainerFilter());
+        List<ENTITY> entitys = findAllEntities();
         List<Long> ids = new ArrayList<Long>(entitys.size());
         for (ENTITY entity : entitys) {
             ids.add(entity.getId());
@@ -133,7 +138,7 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
 
     @Override
     public boolean removeAllItems() throws UnsupportedOperationException {
-        boolean result = jpaEntityProvider.removeAll(entityClass, getContainerFilter());
+        boolean result = jpaEntityProvider.removeAll(entityClass, getContainerFilter(), sortDefinitions);
         notifyItemSetChanged();
         return result;
     }
@@ -212,8 +217,11 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         if (!needProcess()) {
             return null;
         }
-        ENTITY entity = jpaEntityProvider.getFirst(entityClass, getContainerFilter());
-        return getNullOrPk(entity);
+        List<ENTITY> entities = findAllEntities();
+        if (entities.isEmpty()) {
+            return null;
+        }
+        return entities.get(0).getId();
     }
 
     @Override
@@ -221,8 +229,11 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         if (!needProcess()) {
             return null;
         }
-        ENTITY entity = jpaEntityProvider.getLast(entityClass, getContainerFilter());
-        return getNullOrPk(entity);
+        List<ENTITY> entities = findAllEntities();
+        if (entities.isEmpty()) {
+            return null;
+        }
+        return entities.get(entities.size() - 1).getId();
     }
 
     @Override
@@ -230,8 +241,15 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         if (!needProcess()) {
             return null;
         }
-        ENTITY entity = jpaEntityProvider.getNext(entityClass, (Long) itemId, getContainerFilter());
-        return getNullOrPk(entity);
+        List<ENTITY> entities = findAllEntities();
+        if (entities.isEmpty()) {
+            return null;
+        }
+        int index = entities.indexOf(jpaEntityProvider.get(entityClass, (Long) itemId));
+        if (index == -1 || index >= entities.size() - 1) {
+            return null;
+        }
+        return entities.get(index + 1).getId();
     }
 
     @Override
@@ -239,8 +257,15 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         if (!needProcess()) {
             return null;
         }
-        ENTITY entity = jpaEntityProvider.getPrev(entityClass, (Long) itemId, getContainerFilter());
-        return getNullOrPk(entity);
+        List<ENTITY> entities = findAllEntities();
+        if (entities.isEmpty()) {
+            return null;
+        }
+        int index = entities.indexOf(jpaEntityProvider.get(entityClass, (Long) itemId));
+        if (index <= 0) {
+            return null;
+        }
+        return entities.get(index - 1).getId();
     }
 
     @Override
@@ -248,7 +273,15 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         if (itemId == null) {
             return false;
         }
-        return itemId.equals(firstItemId());
+        if (!needProcess()) {
+            return false;
+        }
+        List<ENTITY> entities = findAllEntities();
+        if (entities.isEmpty()) {
+            return false;
+        }
+        int index = entities.indexOf(jpaEntityProvider.get(entityClass, (Long) itemId));
+        return index == 0;
     }
 
     @Override
@@ -256,7 +289,15 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         if (itemId == null) {
             return false;
         }
-        return itemId.equals(lastItemId());
+        if (!needProcess()) {
+            return false;
+        }
+        List<ENTITY> entities = findAllEntities();
+        if (entities.isEmpty()) {
+            return false;
+        }
+        int index = entities.indexOf(jpaEntityProvider.get(entityClass, (Long) itemId));
+        return index == entities.size() - 1;
     }
 
     public List<String> getPropertyNames() {
@@ -279,14 +320,22 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
     @Override
     public void removeAllContainerFilters() {
         this.filters.clear();
+        filterSet = false;
         notifyItemSetChanged();
     }
 
-    private Object getNullOrPk(ENTITY entity) {
-        if (entity == null) {
-            return null;
+    @Override
+    public void sort(Object[] propertyId, boolean[] ascending) {
+        sortDefinitions.clear();
+        for (int i = 0; i < propertyId.length; i++) {
+            sortDefinitions.add(new SortDefinition(propertyId[i].toString(), (ascending.length > i) ? ascending[i] : true));
         }
-        return entity.getId();
+        notifyItemSetChanged();
+    }
+
+    @Override
+    public Collection<?> getSortableContainerPropertyIds() {
+        return getPropertyNames();
     }
 
     private void notifyPropertySetChanged() {
@@ -364,5 +413,9 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
 
     public void needsFiltering() {
         needsFiltering = true;
+    }
+
+    private List<ENTITY> findAllEntities() {
+        return jpaEntityProvider.find(entityClass, getContainerFilter(), sortDefinitions);
     }
 }

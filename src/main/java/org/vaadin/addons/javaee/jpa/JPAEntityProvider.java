@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.jpa;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
@@ -41,7 +43,6 @@ import org.vaadin.addons.javaee.jpa.filter.FilterToQueryTranslator;
 
 import com.googlecode.javaeeutils.jpa.JPAConstants;
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
-import com.googlecode.javaeeutils.jpa.PersistentEntity_;
 import com.vaadin.data.Container.Filter;
 
 @Stateless
@@ -61,45 +62,12 @@ public class JPAEntityProvider {
         return entityManager.find(entityClass, id);
     }
 
-    public <ENTITY extends PersistentEntity> List<ENTITY> find(Class<ENTITY> entityClass, Filter filter) {
-        CriteriaQuery<ENTITY> criteriaQuery = createCriteriaQuery(entityClass, filter);
+    public <ENTITY extends PersistentEntity> List<ENTITY> find(Class<ENTITY> entityClass, Filter filter,
+            List<SortDefinition> sortDefinitions) {
+        CriteriaQuery<ENTITY> criteriaQuery = createCriteriaQuery(entityClass, filter, sortDefinitions);
         TypedQuery<ENTITY> query = createQuery(criteriaQuery);
         List<ENTITY> resultList = query.getResultList();
         return resultList;
-    }
-
-    public <ENTITY extends PersistentEntity> ENTITY getFirst(Class<ENTITY> entityClass, Filter filter) {
-        CriteriaQuery<ENTITY> criteriaQuery = createCriteriaQuery(entityClass, filter);
-        criteriaQuery = orderByPk(criteriaQuery, true);
-        TypedQuery<ENTITY> query = createQuery(criteriaQuery);
-        query.setMaxResults(1);
-        return getSingleResultOrNull(query);
-    }
-
-    public <ENTITY extends PersistentEntity> ENTITY getLast(Class<ENTITY> entityClass, Filter filter) {
-        CriteriaQuery<ENTITY> criteriaQuery = createCriteriaQuery(entityClass, filter);
-        criteriaQuery = orderByPk(criteriaQuery, false);
-        TypedQuery<ENTITY> query = createQuery(criteriaQuery);
-        query.setMaxResults(1);
-        return getSingleResultOrNull(query);
-    }
-
-    public <ENTITY extends PersistentEntity> ENTITY getNext(Class<ENTITY> entityClass, Long id, Filter filter) {
-        CriteriaQuery<ENTITY> criteriaQuery = createCriteriaQuery(entityClass, filter);
-        criteriaQuery = orderByPk(criteriaQuery, true);
-        criteriaQuery = greaterThan(criteriaQuery, id);
-        TypedQuery<ENTITY> query = createQuery(criteriaQuery);
-        query.setMaxResults(1);
-        return getSingleResultOrNull(query);
-    }
-
-    public <ENTITY extends PersistentEntity> ENTITY getPrev(Class<ENTITY> entityClass, Long id, Filter filter) {
-        CriteriaQuery<ENTITY> criteriaQuery = createCriteriaQuery(entityClass, filter);
-        criteriaQuery = orderByPk(criteriaQuery, false);
-        criteriaQuery = lessThan(criteriaQuery, id);
-        TypedQuery<ENTITY> query = createQuery(criteriaQuery);
-        query.setMaxResults(1);
-        return getSingleResultOrNull(query);
     }
 
     @SuppressWarnings("unchecked")
@@ -126,8 +94,9 @@ public class JPAEntityProvider {
         return true;
     }
 
-    public <ENTITY extends PersistentEntity> boolean removeAll(Class<ENTITY> entityClass, Filter filter) {
-        List<ENTITY> list = find(entityClass, filter);
+    public <ENTITY extends PersistentEntity> boolean removeAll(Class<ENTITY> entityClass, Filter filter,
+            List<SortDefinition> sortDefinitions) {
+        List<ENTITY> list = find(entityClass, filter, sortDefinitions);
         for (ENTITY entity : list) {
             entityManager.remove(entity);
         }
@@ -164,12 +133,31 @@ public class JPAEntityProvider {
     }
 
     @SuppressWarnings("unchecked")
-    private <ENTITY> CriteriaQuery<ENTITY> createCriteriaQuery(Class<ENTITY> entityClass, Filter filter) {
+    private <ENTITY> CriteriaQuery<ENTITY> createCriteriaQuery(Class<ENTITY> entityClass, Filter filter,
+            List<SortDefinition> sortDefinitions) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<ENTITY> query = builder.createQuery(entityClass);
         Root<ENTITY> root = query.from(entityClass);
         query = (CriteriaQuery<ENTITY>) addFilterCriteria(filter, builder, root, query);
+        query = (CriteriaQuery<ENTITY>) addSortCriteria(sortDefinitions, builder, root, query);
         return query;
+    }
+
+    private <ENTITY> CriteriaQuery<?> addSortCriteria(List<SortDefinition> sortDefinitions, CriteriaBuilder builder, Root<ENTITY> root,
+            CriteriaQuery<?> query) {
+        List<Order> orders = new ArrayList<>();
+        for (SortDefinition sortDefinition : sortDefinitions) {
+            Order order;
+            if (sortDefinition.isAscending()) {
+                order = builder.asc(root.get(sortDefinition.getKey()));
+            } else {
+                order = builder.desc(root.get(sortDefinition.getKey()));
+            }
+            orders.add(order);
+        }
+        query.orderBy(orders);
+        return query;
+
     }
 
     private <ENTITY> CriteriaQuery<?> addFilterCriteria(Filter filter, CriteriaBuilder builder, Root<ENTITY> root, CriteriaQuery<?> query) {
@@ -179,52 +167,6 @@ public class JPAEntityProvider {
             query = query.where(filterPredicate);
         }
         return query;
-    }
-
-    @SuppressWarnings("unchecked")
-    private <ENTITY extends PersistentEntity> CriteriaQuery<ENTITY> orderByPk(CriteriaQuery<ENTITY> criteriaQuery, boolean asc) {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        Root<ENTITY> root = (Root<ENTITY>) criteriaQuery.getRoots().iterator().next();
-        if (asc) {
-            return criteriaQuery.orderBy(builder.asc(root.get(PersistentEntity_.id)));
-        }
-        return criteriaQuery.orderBy(builder.desc(root.get(PersistentEntity_.id)));
-    }
-
-    @SuppressWarnings("unchecked")
-    private <ENTITY extends PersistentEntity> CriteriaQuery<ENTITY> greaterThan(CriteriaQuery<ENTITY> criteriaQuery, Long id) {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        Root<ENTITY> root = (Root<ENTITY>) criteriaQuery.getRoots().iterator().next();
-        Predicate gt = builder.greaterThan(root.get(PersistentEntity_.id), id);
-        Predicate newWhere = null;
-        if (criteriaQuery.getRestriction() == null) {
-            newWhere = gt;
-        } else {
-            newWhere = builder.and(criteriaQuery.getRestriction(), gt);
-        }
-        return criteriaQuery.where(newWhere);
-    }
-
-    @SuppressWarnings("unchecked")
-    private <ENTITY extends PersistentEntity> CriteriaQuery<ENTITY> lessThan(CriteriaQuery<ENTITY> criteriaQuery, Long id) {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        Root<ENTITY> root = (Root<ENTITY>) criteriaQuery.getRoots().iterator().next();
-        Predicate lt = builder.lessThan(root.get(PersistentEntity_.id), id);
-        Predicate newWhere = null;
-        if (criteriaQuery.getRestriction() == null) {
-            newWhere = lt;
-        } else {
-            newWhere = builder.and(criteriaQuery.getRestriction(), lt);
-        }
-        return criteriaQuery.where(newWhere);
-    }
-
-    private <ENTITY> ENTITY getSingleResultOrNull(TypedQuery<ENTITY> query) {
-        List<ENTITY> resultList = query.getResultList();
-        if (resultList.isEmpty()) {
-            return null;
-        }
-        return resultList.get(0);
     }
 
     public Class<?> getType(Class<?> entityClass, String propertyId) {

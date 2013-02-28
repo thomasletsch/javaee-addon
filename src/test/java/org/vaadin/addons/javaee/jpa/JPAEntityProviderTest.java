@@ -17,6 +17,7 @@ package org.vaadin.addons.javaee.jpa;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -24,6 +25,8 @@ import org.junit.Test;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 
 public class JPAEntityProviderTest extends BaseEntityTest {
+
+    private ArrayList<SortDefinition> sortDefinitions = new ArrayList<SortDefinition>();
 
     @Test
     public void testGet() {
@@ -39,7 +42,7 @@ public class JPAEntityProviderTest extends BaseEntityTest {
         createTestEntity();
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        List<TestEntity> list = provider.find(TestEntity.class, null);
+        List<TestEntity> list = provider.find(TestEntity.class, null, sortDefinitions);
         assertNotNull(list);
         assertEquals(1, list.size());
     }
@@ -50,7 +53,8 @@ public class JPAEntityProviderTest extends BaseEntityTest {
         first.setTestString("First");
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        List<TestEntity> list = provider.find(TestEntity.class, new SimpleStringFilter("testString", "First", false, true));
+        List<TestEntity> list = provider
+                .find(TestEntity.class, new SimpleStringFilter("testString", "First", false, true), sortDefinitions);
         assertEquals(1, list.size());
     }
 
@@ -60,118 +64,9 @@ public class JPAEntityProviderTest extends BaseEntityTest {
         first.setTestString("Last");
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        List<TestEntity> list = provider.find(TestEntity.class, new SimpleStringFilter("testString", "First", false, true));
+        List<TestEntity> list = provider
+                .find(TestEntity.class, new SimpleStringFilter("testString", "First", false, true), sortDefinitions);
         assertEquals(0, list.size());
-    }
-
-    @Test
-    public void testGetFirst() {
-        TestEntity first = createTestEntity();
-        first.setTestString("First");
-        TestEntity last = createTestEntity();
-        last.setTestString("Last");
-        JPAEntityProvider provider = new JPAEntityProvider();
-        provider.entityManager = em;
-        TestEntity entity = provider.getFirst(TestEntity.class, null);
-        assertNotNull(entity);
-        assertEquals(first, entity);
-    }
-
-    @Test
-    public void testGetLast() {
-        TestEntity first = createTestEntity();
-        first.setTestString("First");
-        TestEntity last = createTestEntity();
-        last.setTestString("Last");
-        JPAEntityProvider provider = new JPAEntityProvider();
-        provider.entityManager = em;
-        TestEntity entity = provider.getLast(TestEntity.class, null);
-        assertNotNull(entity);
-        assertEquals(last, entity);
-    }
-
-    @Test
-    public void testGetNext() {
-        TestEntity first = createTestEntity();
-        first.setTestString("First");
-        TestEntity middle = createTestEntity();
-        middle.setTestString("Middle");
-        TestEntity last = createTestEntity();
-        last.setTestString("Last");
-        JPAEntityProvider provider = new JPAEntityProvider();
-        provider.entityManager = em;
-        TestEntity entity = provider.getNext(TestEntity.class, first.getId(), null);
-        assertNotNull(entity);
-        assertEquals(middle, entity);
-    }
-
-    @Test
-    public void testGetNextFiltered() {
-        TestEntity first = createTestEntity();
-        first.setTestString("First");
-        TestEntity middle = createTestEntity();
-        middle.setTestString("Middle");
-        TestEntity last = createTestEntity();
-        last.setTestString("First");
-        JPAEntityProvider provider = new JPAEntityProvider();
-        provider.entityManager = em;
-        TestEntity entity = provider.getNext(TestEntity.class, first.getId(), new SimpleStringFilter("testString", "First", false, true));
-        assertNotNull(entity);
-        assertEquals(last, entity);
-    }
-
-    @Test
-    public void testGetNextFromLast() {
-        TestEntity first = createTestEntity();
-        first.setTestString("First");
-        TestEntity last = createTestEntity();
-        last.setTestString("Last");
-        JPAEntityProvider provider = new JPAEntityProvider();
-        provider.entityManager = em;
-        TestEntity entity = provider.getNext(TestEntity.class, last.getId(), null);
-        assertNull(entity);
-    }
-
-    @Test
-    public void testGetPrev() {
-        TestEntity first = createTestEntity();
-        first.setTestString("First");
-        TestEntity middle = createTestEntity();
-        middle.setTestString("Middle");
-        TestEntity last = createTestEntity();
-        last.setTestString("First");
-        JPAEntityProvider provider = new JPAEntityProvider();
-        provider.entityManager = em;
-        TestEntity entity = provider.getPrev(TestEntity.class, last.getId(), new SimpleStringFilter("testString", "First", false, true));
-        assertNotNull(entity);
-        assertEquals(first, entity);
-    }
-
-    @Test
-    public void testGetPrevFiltered() {
-        TestEntity first = createTestEntity();
-        first.setTestString("First");
-        TestEntity middle = createTestEntity();
-        middle.setTestString("Middle");
-        TestEntity last = createTestEntity();
-        last.setTestString("Last");
-        JPAEntityProvider provider = new JPAEntityProvider();
-        provider.entityManager = em;
-        TestEntity entity = provider.getPrev(TestEntity.class, last.getId(), null);
-        assertNotNull(entity);
-        assertEquals(middle, entity);
-    }
-
-    @Test
-    public void testGetPrevFromFirst() {
-        TestEntity first = createTestEntity();
-        first.setTestString("First");
-        TestEntity last = createTestEntity();
-        last.setTestString("Last");
-        JPAEntityProvider provider = new JPAEntityProvider();
-        provider.entityManager = em;
-        TestEntity entity = provider.getPrev(TestEntity.class, first.getId(), null);
-        assertNull(entity);
     }
 
     @Test

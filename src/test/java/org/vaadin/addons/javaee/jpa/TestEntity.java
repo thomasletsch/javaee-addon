@@ -15,14 +15,15 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.jpa;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import com.googlecode.javaeeutils.jpa.AuditableEntity;
 
-
 @Entity
 public class TestEntity extends AuditableEntity {
 
+    @Column(name = "TEST_STRING")
     private String testString;
 
     public TestEntity() {
