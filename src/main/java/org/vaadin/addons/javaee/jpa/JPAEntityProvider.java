@@ -133,6 +133,10 @@ public class JPAEntityProvider {
         return entityManager.merge(entity);
     }
 
+    public void refreshEntity(PersistentEntity entity) {
+        entityManager.refresh(entity);
+    }
+
     private <ENTITY> TypedQuery<ENTITY> createQuery(CriteriaQuery<ENTITY> criteriaQuery) {
         TypedQuery<ENTITY> query = entityManager.createQuery(criteriaQuery);
         query.setHint(JPAConstants.HINT_HIBERNATE_CACHABLE, JPAConstants.CACHABLE_TRUE);

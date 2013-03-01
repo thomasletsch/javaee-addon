@@ -82,6 +82,11 @@ public class EntityContainer<ENTITY extends PersistentEntity> implements Contain
         jpaEntityProvider.updateEntity(item.getEntity());
     }
 
+    public void refreshItem(EntityItem<ENTITY> item) {
+        assert (item.getEntity().getId() != null);
+        jpaEntityProvider.refreshEntity(item.getEntity());
+    }
+
     public void loadItemWithRelations(EntityItem<ENTITY> item) {
         ENTITY loadedEntity = jpaEntityProvider.loadEntityWithRelations(item.getEntity());
         item.setEntity(loadedEntity);

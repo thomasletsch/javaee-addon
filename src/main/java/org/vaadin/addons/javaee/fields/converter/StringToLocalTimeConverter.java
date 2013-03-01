@@ -18,6 +18,7 @@ package org.vaadin.addons.javaee.fields.converter;
 import java.util.Locale;
 
 import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
 
 import com.vaadin.data.util.converter.Converter;
 
@@ -38,7 +39,7 @@ public class StringToLocalTimeConverter implements Converter<String, LocalTime> 
         if (value == null) {
             return null;
         }
-        return value.toString();
+        return DateTimeFormat.shortTime().print(value);
     }
 
     @Override

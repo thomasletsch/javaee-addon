@@ -13,10 +13,10 @@ public class EntityContainerUpdateTest extends BasicEntityContainerTest {
     public void testUpdateItem() {
         TestEntity entity = createTestEntity();
         EntityItem<TestEntity> item = container.getItem(entity.getId());
-        Property<String> itemProperty = (Property<String>) item.getItemProperty(TEST_PROPERTY);
-        itemProperty.setValue(UPDATED_TEST_STRING);
+        Property<String> itemProperty = (Property<String>) item.getItemProperty(TestEntity.TEST_PROPERTY);
+        itemProperty.setValue(TestEntity.UPDATED_TEST_STRING);
         container.updateItem(item);
-        assertEquals(TEST_PROPERTY, UPDATED_TEST_STRING, entity.getTestString());
+        assertEquals(TestEntity.TEST_PROPERTY, TestEntity.UPDATED_TEST_STRING, entity.getTestString());
     }
 
     @Test

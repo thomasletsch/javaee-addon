@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
 import org.wamblee.inject.InjectorBuilder;
@@ -63,6 +64,8 @@ public class JavaEEFieldFactory implements FieldFactory, TableFieldFactory {
             fieldCreator = new DateFieldCreator();
         } else if (LocalDate.class.isAssignableFrom(dataType)) {
             fieldCreator = new LocalDateFieldCreator();
+        } else if (LocalTime.class.isAssignableFrom(dataType)) {
+            fieldCreator = new LocalTimeFieldCreator();
         } else if (container.getAnnotation(fieldSpec.getName(), OneToOne.class) != null) {
             fieldCreator = new OneToOneRelationFieldCreator();
         } else if (container.getAnnotation(fieldSpec.getName(), OneToMany.class) != null) {

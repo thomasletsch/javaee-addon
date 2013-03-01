@@ -31,7 +31,6 @@ import com.vaadin.data.Buffered;
 import com.vaadin.data.Property;
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.util.MethodPropertyDescriptor;
-import com.vaadin.data.util.NestedMethodProperty;
 import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.data.util.VaadinPropertyDescriptor;
 
@@ -67,7 +66,7 @@ public class EntityItem<ENTITY extends PersistentEntity> extends PropertysetItem
      *            field in the object referenced to by field1
      */
     public void addNestedProperty(String nestedPropertyId) {
-        addItemProperty(nestedPropertyId, new NestedMethodProperty<Object>(getEntity(), nestedPropertyId));
+        addItemProperty(nestedPropertyId, new EntityProperty<Object>(getEntity(), nestedPropertyId));
     }
 
     private void addNestedItem(Object id) {
@@ -91,7 +90,7 @@ public class EntityItem<ENTITY extends PersistentEntity> extends PropertysetItem
 
     @Override
     public void discard() throws SourceException {
-        // TODO: implement!
+        entityContainer.refreshItem(this);
     }
 
     @Override

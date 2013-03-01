@@ -36,20 +36,20 @@ public class EntityContainerPropertiesTest extends BasicEntityContainerTest {
     @SuppressWarnings("unchecked")
     public void testGetContainerProperty() {
         TestEntity entity = createTestEntity();
-        Property<String> containerProperty = (Property<String>) container.getContainerProperty(entity.getId(), TEST_PROPERTY);
+        Property<String> containerProperty = (Property<String>) container.getContainerProperty(entity.getId(), TestEntity.TEST_PROPERTY);
         assertEquals("content", entity.getTestString(), containerProperty.getValue());
     }
 
     @Test
     public void testRemoveContainerProperty() {
-        container.removeContainerProperty(TEST_PROPERTY);
+        container.removeContainerProperty(TestEntity.TEST_PROPERTY);
         Collection<?> propertyIds = container.getContainerPropertyIds();
         assertEquals("size", PROPERTIES_AMOUNT - 1, propertyIds.size());
     }
 
     @Test
     public void testGetType() {
-        assertEquals("type", String.class, container.getType(TEST_PROPERTY));
+        assertEquals("type", String.class, container.getType(TestEntity.TEST_PROPERTY));
     }
 
     @Test
@@ -90,7 +90,7 @@ public class EntityContainerPropertiesTest extends BasicEntityContainerTest {
 
     @Test
     public void testGetAnnotation() {
-        assertNotNull("Column", container.getAnnotation(TEST_PROPERTY, Column.class));
+        assertNotNull("Column", container.getAnnotation(TestEntity.TEST_PROPERTY, Column.class));
     }
 
 }

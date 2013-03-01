@@ -99,13 +99,13 @@ public class EntityContainerFilterTest extends BasicEntityContainerTest {
 
     @Test
     public void testAddContainerFilter() {
-        container.addContainerFilter(new Equal(TEST_PROPERTY, UPDATED_TEST_STRING));
+        container.addContainerFilter(new Equal(TestEntity.TEST_PROPERTY, TestEntity.UPDATED_TEST_STRING));
         assertEquals("size", 0, container.size());
     }
 
     @Test
     public void testRemoveContainerFilter() {
-        Equal filter = new Equal(TEST_PROPERTY, UPDATED_TEST_STRING);
+        Equal filter = new Equal(TestEntity.TEST_PROPERTY, TestEntity.UPDATED_TEST_STRING);
         container.addContainerFilter(filter);
         assertEquals("size", 0, container.size());
         container.removeContainerFilter(filter);
@@ -128,8 +128,8 @@ public class EntityContainerFilterTest extends BasicEntityContainerTest {
     public void createEntities() {
         entity1 = createTestEntity();
         entity2 = createTestEntity();
-        entity2.setTestString(UPDATED_TEST_STRING);
+        entity2.setTestString(TestEntity.UPDATED_TEST_STRING);
         entity3 = createTestEntity();
-        container.addContainerFilter(new Equal(TEST_PROPERTY, ORIGINAL_TEST_STRING));
+        container.addContainerFilter(new Equal(TestEntity.TEST_PROPERTY, TestEntity.ORIGINAL_TEST_STRING));
     }
 }

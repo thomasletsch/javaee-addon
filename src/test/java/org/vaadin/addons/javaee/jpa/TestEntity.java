@@ -25,6 +25,9 @@ public class TestEntity extends AuditableEntity {
 
     @Column(name = "TEST_STRING")
     private String testString;
+    protected static final String ORIGINAL_TEST_STRING = "test";
+    protected static final String UPDATED_TEST_STRING = "updated";
+    protected static final String TEST_PROPERTY = "testString";
 
     public TestEntity() {
     }
