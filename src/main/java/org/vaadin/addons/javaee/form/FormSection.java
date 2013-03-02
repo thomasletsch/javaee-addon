@@ -63,33 +63,28 @@ public class FormSection extends GridLayout {
     }
 
     public Field<?> addField(FieldSpecification fieldSpec) {
-        Field<?> field = fieldCreator.createField(container, fieldGroup, fieldSpec);
-        addComponent(fieldSpec, labelCreator.createLabel(this, fieldSpec), field);
+        Field<?> field = fieldCreator.createField(container, fieldSpec);
+        fieldGroup.bind(field, fieldSpec.getName());
+        addComponent(fieldSpec, labelCreator.createLabel(getName(), fieldSpec), field);
         return field;
     }
 
     public void addField(FieldSpecification fieldSpec, Field<?> field) {
-        fieldCreator.bindField(fieldGroup, fieldSpec, field);
-        addComponent(fieldSpec, labelCreator.createLabel(this, fieldSpec), field);
+        fieldGroup.bind(field, fieldSpec.getName());
+        addComponent(fieldSpec, labelCreator.createLabel(getName(), fieldSpec), field);
     }
 
     public void addField(FieldSpecification fieldSpec, Label label, Field<?> field) {
-        fieldCreator.bindField(fieldGroup, fieldSpec, field);
+        fieldGroup.bind(field, fieldSpec.getName());
         addComponent(fieldSpec, label, field);
     }
 
     public void addComponent(FieldSpecification fieldSpec, Component field) {
-        addComponent(fieldSpec, labelCreator.createLabel(this, fieldSpec), field);
+        addComponent(fieldSpec, labelCreator.createLabel(getName(), fieldSpec), field);
     }
 
     public void addComponent(FieldSpecification fieldSpec, Label label, Component field) {
-        if (fieldSpec.getLabelWidth() != null) {
-            label.setWidth(fieldSpec.getLabelWidth());
-        }
         addComponent(label);
-        if (fieldSpec.getFieldWidth() != null) {
-            field.setWidth(fieldSpec.getFieldWidth());
-        }
         if (fieldSpec.getRows() > 1) {
             setRows(getRows() + fieldSpec.getRows());
         }
