@@ -15,7 +15,7 @@ public class ManyToOneRelationField<ENTITY extends PersistentEntity> extends Com
     protected void setValue(Object newValue, boolean repaintIsNotNeeded) throws Property.ReadOnlyException {
         if (newValue instanceof PersistentEntity) {
             PersistentEntity persistentEntity = (PersistentEntity) newValue;
-            super.setValue(persistentEntity.getId(), repaintIsNotNeeded);
+            super.setValue(persistentEntity, repaintIsNotNeeded);
         } else {
             super.setValue(newValue, repaintIsNotNeeded);
         }

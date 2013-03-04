@@ -44,6 +44,7 @@ public class EqualFilterTranslator implements FilterTranslator<Equal> {
         return builder.equal(property, filter.getValue());
     }
 
+    @SuppressWarnings("unchecked")
     protected <ENTITY extends PersistentEntity> Path<String> navigateThroughPath(Root<ENTITY> root, String propertyId) {
         Path<?> path = root;
         for (String pathElement : StringUtils.split(propertyId, ".")) {

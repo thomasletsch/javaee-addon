@@ -10,7 +10,9 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.filter.And;
+import com.vaadin.data.util.filter.Compare;
 import com.vaadin.data.util.filter.SimpleStringFilter;
+import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.Field;
 
 public class EntityFieldGroup<ENTITY extends PersistentEntity> extends FieldGroup {
@@ -38,7 +40,10 @@ public class EntityFieldGroup<ENTITY extends PersistentEntity> extends FieldGrou
     public Filter getValuesAsFilter() {
         List<Filter> filters = new ArrayList<>();
         for (Field<?> field : getFields()) {
-            if (!StringUtils.isBlank(getStringValue(field))) {
+            if (field instanceof AbstractSelect) {
+                AbstractSelect abstractSelect = (AbstractSelect) field;
+                filters.add(new Compare.Equal(getPropertyId(field), abstractSelect.getValue()));
+            } else if (!StringUtils.isBlank(getStringValue(field))) {
                 filters.add(new SimpleStringFilter(getPropertyId(field), getStringValue(field), false, false));
             }
         }
