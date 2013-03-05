@@ -28,10 +28,10 @@ import org.vaadin.addons.javaee.buttons.NewButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleDeleteButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleEditButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleNewButton;
+import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.form.BasicEntityForm;
 import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.addons.javaee.i18n.TranslationService;
-import org.vaadin.addons.javaee.jpa.EntityContainer;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;

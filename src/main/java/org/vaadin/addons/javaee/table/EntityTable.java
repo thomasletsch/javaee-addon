@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.table;
 
-import org.vaadin.addons.javaee.jpa.EntityContainer;
+import org.vaadin.addons.javaee.container.EntityContainer;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 

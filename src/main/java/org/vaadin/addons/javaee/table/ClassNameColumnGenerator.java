@@ -18,8 +18,8 @@ package org.vaadin.addons.javaee.table;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.vaadin.addons.javaee.container.EntityItem;
 import org.vaadin.addons.javaee.i18n.TranslationService;
-import org.vaadin.addons.javaee.jpa.EntityItem;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;

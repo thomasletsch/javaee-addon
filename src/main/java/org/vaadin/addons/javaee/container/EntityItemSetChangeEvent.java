@@ -13,19 +13,19 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.jpa;
+package org.vaadin.addons.javaee.container;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container;
 import com.vaadin.data.Container.ItemSetChangeEvent;
 
-public class JPAItemSetChangeEvent<ENTITY extends PersistentEntity> implements ItemSetChangeEvent {
+public class EntityItemSetChangeEvent<ENTITY extends PersistentEntity> implements ItemSetChangeEvent {
 
     private static final long serialVersionUID = 1L;
 
-    private final AbstractEntityContainer<ENTITY> entityContainer;
+    private final EntityContainer<ENTITY> entityContainer;
 
-    public JPAItemSetChangeEvent(AbstractEntityContainer<ENTITY> entityContainer) {
+    public EntityItemSetChangeEvent(EntityContainer<ENTITY> entityContainer) {
         this.entityContainer = entityContainer;
     }
 

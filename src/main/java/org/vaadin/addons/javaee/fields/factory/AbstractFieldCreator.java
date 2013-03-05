@@ -2,8 +2,8 @@ package org.vaadin.addons.javaee.fields.factory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
-import org.vaadin.addons.javaee.jpa.EntityContainer;
 import org.wamblee.inject.InjectorBuilder;
 
 import com.vaadin.ui.Field;

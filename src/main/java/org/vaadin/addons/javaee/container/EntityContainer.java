@@ -1,4 +1,4 @@
-package org.vaadin.addons.javaee.jpa;
+package org.vaadin.addons.javaee.container;
 
 import java.lang.annotation.Annotation;
 import java.util.List;

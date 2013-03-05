@@ -22,6 +22,10 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
+import org.vaadin.addons.javaee.container.AbstractEntityContainer;
+import org.vaadin.addons.javaee.container.EntityContainer;
+import org.vaadin.addons.javaee.container.EntityItem;
+
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Item;
 

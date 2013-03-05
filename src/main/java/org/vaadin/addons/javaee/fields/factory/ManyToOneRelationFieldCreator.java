@@ -1,8 +1,8 @@
 package org.vaadin.addons.javaee.fields.factory;
 
+import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.ManyToOneRelationField;
 import org.vaadin.addons.javaee.fields.converter.SelectEntityConverter;
-import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.ui.AbstractSelect;

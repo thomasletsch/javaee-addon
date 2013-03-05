@@ -17,7 +17,7 @@ package org.vaadin.addons.javaee.form;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vaadin.addons.javaee.jpa.EntityItem;
+import org.vaadin.addons.javaee.container.EntityItem;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;

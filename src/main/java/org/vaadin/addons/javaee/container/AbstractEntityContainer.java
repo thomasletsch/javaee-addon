@@ -1,4 +1,4 @@
-package org.vaadin.addons.javaee.jpa;
+package org.vaadin.addons.javaee.container;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -103,14 +103,14 @@ public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> i
     }
 
     private void notifyPropertySetChanged() {
-        PropertySetChangeEvent event = new JPAPropertySetChangeEvent<ENTITY>(this);
+        PropertySetChangeEvent event = new EntityPropertySetChangeEvent<ENTITY>(this);
         for (Container.PropertySetChangeListener listener : this.propertySetChangeListeners) {
             listener.containerPropertySetChange(event);
         }
     }
 
     protected void notifyItemSetChanged() {
-        ItemSetChangeEvent event = new JPAItemSetChangeEvent<ENTITY>(this);
+        ItemSetChangeEvent event = new EntityItemSetChangeEvent<ENTITY>(this);
         for (Container.ItemSetChangeListener listener : this.itemSetChangeListeners) {
             listener.containerItemSetChange(event);
         }

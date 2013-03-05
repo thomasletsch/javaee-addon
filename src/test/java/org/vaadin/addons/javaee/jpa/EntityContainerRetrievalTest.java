@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.vaadin.addons.javaee.container.EntityItem;
 
 public class EntityContainerRetrievalTest extends BasicEntityContainerTest {
 

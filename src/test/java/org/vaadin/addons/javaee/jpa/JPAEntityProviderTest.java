@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.vaadin.addons.javaee.container.SortDefinition;
 
 import com.vaadin.data.util.filter.SimpleStringFilter;
 

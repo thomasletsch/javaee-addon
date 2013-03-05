@@ -2,10 +2,10 @@ package org.vaadin.addons.javaee.form;
 
 import javax.inject.Inject;
 
+import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.factory.FieldFactory;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
-import org.vaadin.addons.javaee.jpa.EntityContainer;
 
 import com.vaadin.ui.Field;
 

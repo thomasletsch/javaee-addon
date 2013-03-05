@@ -8,10 +8,10 @@ import java.util.Map.Entry;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.factory.FieldFactory;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
-import org.vaadin.addons.javaee.jpa.EntityContainer;
 import org.wamblee.inject.InjectorBuilder;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;

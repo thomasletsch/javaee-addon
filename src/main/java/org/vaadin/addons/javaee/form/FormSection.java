@@ -2,9 +2,9 @@ package org.vaadin.addons.javaee.form;
 
 import javax.inject.Inject;
 
+import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
-import org.vaadin.addons.javaee.jpa.EntityContainer;
 import org.vaadin.addons.javaee.portal.PortalView;
 
 import com.vaadin.ui.Component;

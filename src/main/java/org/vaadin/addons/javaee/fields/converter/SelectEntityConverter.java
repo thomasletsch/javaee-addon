@@ -2,8 +2,8 @@ package org.vaadin.addons.javaee.fields.converter;
 
 import java.util.Locale;
 
-import org.vaadin.addons.javaee.jpa.EntityContainer;
-import org.vaadin.addons.javaee.jpa.EntityItem;
+import org.vaadin.addons.javaee.container.EntityContainer;
+import org.vaadin.addons.javaee.container.EntityItem;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.util.converter.Converter;

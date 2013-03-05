@@ -26,8 +26,8 @@ import javax.persistence.OneToOne;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
-import org.vaadin.addons.javaee.jpa.EntityContainer;
 import org.vaadin.addons.javaee.jpa.JPAEntityContainer;
 import org.wamblee.inject.InjectorBuilder;
 

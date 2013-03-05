@@ -3,7 +3,7 @@ package org.vaadin.addons.javaee.fields.converter;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
-import org.vaadin.addons.javaee.jpa.EntityContainer;
+import org.vaadin.addons.javaee.container.EntityContainer;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.util.converter.Converter;

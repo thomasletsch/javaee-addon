@@ -3,6 +3,7 @@ package org.vaadin.addons.javaee.jpa;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.vaadin.addons.javaee.container.EntityItem;
 
 import com.vaadin.data.Property;
 

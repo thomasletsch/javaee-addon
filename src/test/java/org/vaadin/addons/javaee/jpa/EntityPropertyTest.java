@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.vaadin.addons.javaee.container.EntityProperty;
 
 public class EntityPropertyTest {
 

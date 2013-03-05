@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.vaadin.addons.javaee.container.EntityItem;
 import org.vaadin.addons.javaee.fields.NumberField;
-import org.vaadin.addons.javaee.jpa.EntityItem;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;

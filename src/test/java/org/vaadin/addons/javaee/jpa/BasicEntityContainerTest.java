@@ -1,6 +1,7 @@
 package org.vaadin.addons.javaee.jpa;
 
 import org.junit.Before;
+import org.vaadin.addons.javaee.container.AbstractEntityContainer;
 
 public class BasicEntityContainerTest extends BaseEntityTest {
 
