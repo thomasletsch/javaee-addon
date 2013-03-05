@@ -28,6 +28,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.jpa.EntityContainer;
+import org.vaadin.addons.javaee.jpa.JPAEntityContainer;
 import org.wamblee.inject.InjectorBuilder;
 
 import com.vaadin.data.Container;
@@ -84,7 +85,7 @@ public class JavaEEFieldFactory implements FieldFactory, TableFieldFactory {
     @Override
     public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
         if (container instanceof EntityContainer<?>) {
-            EntityContainer<?> entityContainer = (EntityContainer<?>) container;
+            JPAEntityContainer<?> entityContainer = (JPAEntityContainer<?>) container;
             FieldSpecification fieldSpec = new FieldSpecification((String) propertyId);
             return createField(entityContainer, fieldSpec);
         }

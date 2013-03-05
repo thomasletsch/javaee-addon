@@ -6,13 +6,13 @@ public class BasicEntityContainerTest extends BaseEntityTest {
 
     protected static final int PROPERTIES_AMOUNT = 7;
 
-    protected EntityContainer<TestEntity> container;
+    protected AbstractEntityContainer<TestEntity> container;
 
     @Before
     public void startUp() {
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        container = new EntityContainer<>(TestEntity.class, provider);
+        container = new JPAEntityContainer<>(TestEntity.class, provider);
     }
 
 }

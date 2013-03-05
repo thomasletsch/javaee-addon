@@ -111,8 +111,8 @@ public class FormSection extends GridLayout {
         return container;
     }
 
-    public void setContainer(EntityContainer<?> container) {
-        this.container = container;
+    public void setContainer(EntityContainer<?> entityContainer) {
+        this.container = entityContainer;
     }
 
     public EntityFieldGroup<?> getFieldGroup() {

@@ -23,9 +23,9 @@ public class JPAItemSetChangeEvent<ENTITY extends PersistentEntity> implements I
 
     private static final long serialVersionUID = 1L;
 
-    private final EntityContainer<ENTITY> entityContainer;
+    private final AbstractEntityContainer<ENTITY> entityContainer;
 
-    public JPAItemSetChangeEvent(EntityContainer<ENTITY> entityContainer) {
+    public JPAItemSetChangeEvent(AbstractEntityContainer<ENTITY> entityContainer) {
         this.entityContainer = entityContainer;
     }
 

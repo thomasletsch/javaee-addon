@@ -71,7 +71,7 @@ public class EntityContainerSortingTest extends BasicEntityContainerTest {
     public void startUp() {
         JPAEntityProvider provider = new JPAEntityProvider();
         provider.entityManager = em;
-        container = new EntityContainer<>(TestEntity.class, provider);
+        container = new JPAEntityContainer<>(TestEntity.class, provider);
     }
 
 }

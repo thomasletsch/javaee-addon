@@ -17,8 +17,8 @@ public class SelectEntityConverter<ENTITY extends PersistentEntity> implements C
 
     private AbstractSelect select;
 
-    public SelectEntityConverter(EntityContainer<ENTITY> container, AbstractSelect select) {
-        this.container = container;
+    public SelectEntityConverter(EntityContainer<ENTITY> subContainer, AbstractSelect select) {
+        this.container = subContainer;
         this.select = select;
     }
 

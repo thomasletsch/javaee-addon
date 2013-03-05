@@ -23,9 +23,9 @@ public class JPAPropertySetChangeEvent<ENTITY extends PersistentEntity> implemen
 
     private static final long serialVersionUID = 1L;
 
-    private final EntityContainer<ENTITY> entityContainer;
+    private final AbstractEntityContainer<ENTITY> entityContainer;
 
-    public JPAPropertySetChangeEvent(EntityContainer<ENTITY> entityContainer) {
+    public JPAPropertySetChangeEvent(AbstractEntityContainer<ENTITY> entityContainer) {
         this.entityContainer = entityContainer;
     }
 
