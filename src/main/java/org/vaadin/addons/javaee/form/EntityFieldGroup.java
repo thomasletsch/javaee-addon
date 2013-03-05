@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.vaadin.addons.javaee.fields.NumberField;
 import org.vaadin.addons.javaee.jpa.EntityItem;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
@@ -13,6 +14,7 @@ import com.vaadin.data.util.filter.And;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 import com.vaadin.ui.AbstractSelect;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Field;
 
 public class EntityFieldGroup<ENTITY extends PersistentEntity> extends FieldGroup {
@@ -40,7 +42,16 @@ public class EntityFieldGroup<ENTITY extends PersistentEntity> extends FieldGrou
     public Filter getValuesAsFilter() {
         List<Filter> filters = new ArrayList<>();
         for (Field<?> field : getFields()) {
-            if (field instanceof AbstractSelect) {
+            if (field == null || field.getValue() == null) {
+                continue;
+            }
+            if (field instanceof NumberField) {
+                NumberField numberField = (NumberField) field;
+                filters.add(new Compare.Equal(getPropertyId(field), numberField.getValue()));
+            } else if (field instanceof CheckBox) {
+                CheckBox checkBox = (CheckBox) field;
+                filters.add(new Compare.Equal(getPropertyId(field), checkBox.getValue()));
+            } else if (field instanceof AbstractSelect) {
                 AbstractSelect abstractSelect = (AbstractSelect) field;
                 filters.add(new Compare.Equal(getPropertyId(field), abstractSelect.getValue()));
             } else if (!StringUtils.isBlank(getStringValue(field))) {
