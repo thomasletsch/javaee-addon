@@ -47,7 +47,9 @@ public class JPAEntityContainer<ENTITY extends PersistentEntity> extends Abstrac
     }
 
     @Override
-    public <SUB_ENTITY extends PersistentEntity> EntityContainer<SUB_ENTITY> getSubContainer(Class<SUB_ENTITY> entityClass) {
+    @SuppressWarnings("unchecked")
+    public <SUB_ENTITY extends PersistentEntity> EntityContainer<SUB_ENTITY> getSubContainer(String propertyId) {
+        Class<SUB_ENTITY> entityClass = (Class<SUB_ENTITY>) getType(propertyId);
         return new JPAEntityContainer<>(entityClass, jpaEntityProvider);
     }
 
@@ -146,4 +148,5 @@ public class JPAEntityContainer<ENTITY extends PersistentEntity> extends Abstrac
     public List<ENTITY> findAllEntities() {
         return jpaEntityProvider.find(entityClass, getContainerFilter(), sortDefinitions);
     }
+
 }

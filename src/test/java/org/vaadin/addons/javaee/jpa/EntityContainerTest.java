@@ -11,8 +11,9 @@ public class EntityContainerTest extends BasicEntityContainerTest {
 
     @Test
     public void testGetSubContainer() {
-        EntityContainer<PersistentEntity> subContainer = container.getSubContainer(PersistentEntity.class);
-        assertEquals("entityClass", PersistentEntity.class, subContainer.getEntityClass());
+        String propertyId = "entityClass";
+        EntityContainer<PersistentEntity> subContainer = container.getSubContainer(propertyId);
+        assertEquals(propertyId, PersistentEntity.class, subContainer.getEntityClass());
     }
 
 }

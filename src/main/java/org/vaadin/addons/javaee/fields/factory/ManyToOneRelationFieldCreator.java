@@ -17,11 +17,9 @@ public class ManyToOneRelationFieldCreator<FIELD extends AbstractSelect, ENTITY 
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void initializeField(FIELD field) {
         super.initializeField(field);
-        Class<ENTITY> type = (Class<ENTITY>) container.getType(fieldSpec.getName());
-        EntityContainer<ENTITY> subContainer = container.getSubContainer(type);
+        EntityContainer<ENTITY> subContainer = container.getSubContainer(fieldSpec.getName());
         field.setItemCaptionPropertyId(fieldSpec.getVisibleProperty());
         field.setContainerDataSource(subContainer);
         field.setConverter(new SelectEntityConverter<ENTITY>(subContainer, field));

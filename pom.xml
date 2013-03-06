@@ -16,6 +16,7 @@
         <jodatime.version>2.1</jodatime.version>
         <gwt.version>2.4.0</gwt.version>
         <jboss.javaee.version>2.0.0.Final</jboss.javaee.version>
+        <resteasy.version>2.3.1.GA</resteasy.version>
         <commons-lang.version>2.5</commons-lang.version>
         <commons-beanutils.version>1.8.3</commons-beanutils.version>
 
@@ -83,6 +84,22 @@
             <version>${jboss.javaee.version}</version>
             <scope>provided</scope>
             <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>${resteasy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxb-provider</artifactId>
+            <version>${resteasy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-multipart-provider</artifactId>
+            <version>${resteasy.version}</version>
         </dependency>
 
         <dependency>
@@ -172,6 +189,12 @@
                     <groupId>org.seleniumhq.selenium</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.github.rest-driver</groupId>
+            <artifactId>rest-client-driver</artifactId>
+            <version>1.1.30</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

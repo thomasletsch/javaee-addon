@@ -17,16 +17,21 @@ package org.vaadin.addons.javaee.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.googlecode.javaeeutils.jpa.AuditableEntity;
 
 @Entity
+@XmlRootElement
 public class TestEntity extends AuditableEntity {
 
     @Column(name = "TEST_STRING")
     private String testString;
-    protected static final String ORIGINAL_TEST_STRING = "test";
-    protected static final String UPDATED_TEST_STRING = "updated";
+
+    public static final String ORIGINAL_TEST_STRING = "test";
+
+    public static final String UPDATED_TEST_STRING = "updated";
+
     protected static final String TEST_PROPERTY = "testString";
 
     public TestEntity() {
@@ -34,6 +39,11 @@ public class TestEntity extends AuditableEntity {
 
     public TestEntity(String testString) {
         this.setTestString(testString);
+    }
+
+    public TestEntity(Long id, String testString) {
+        this.setTestString(testString);
+        setId(id);
     }
 
     public String getTestString() {

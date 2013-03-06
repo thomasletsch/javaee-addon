@@ -9,28 +9,28 @@ import com.vaadin.data.Container;
 public interface EntityContainer<ENTITY extends PersistentEntity> extends Container, Container.Ordered, Container.Filterable,
         Container.Sortable, Container.ItemSetChangeNotifier, Container.PropertySetChangeNotifier {
 
-    abstract <SUB_ENTITY extends PersistentEntity> EntityContainer<SUB_ENTITY> getSubContainer(Class<SUB_ENTITY> entityClass);
+    <SUB_ENTITY extends PersistentEntity> EntityContainer<SUB_ENTITY> getSubContainer(String propertyId);
 
-    abstract Class<ENTITY> getEntityClass();
+    Class<ENTITY> getEntityClass();
 
-    abstract void updateItem(EntityItem<ENTITY> item);
+    void updateItem(EntityItem<ENTITY> item);
 
-    abstract void refreshItem(EntityItem<ENTITY> item);
+    void refreshItem(EntityItem<ENTITY> item);
 
-    abstract void loadItemWithRelations(EntityItem<ENTITY> item);
+    void loadItemWithRelations(EntityItem<ENTITY> item);
 
-    abstract EntityItem<ENTITY> getItem(Long itemId);
+    EntityItem<ENTITY> getItem(Long itemId);
 
-    abstract EntityItem<ENTITY> addItem(ENTITY entity);
+    EntityItem<ENTITY> addItem(ENTITY entity);
 
-    abstract Class<?> getCollectionType(String propertyId);
+    Class<?> getCollectionType(String propertyId);
 
-    abstract List<String> getPropertyNames();
+    List<String> getPropertyNames();
 
-    abstract <T extends Annotation> T getAnnotation(String fieldName, Class<T> annotationClass);
+    <T extends Annotation> T getAnnotation(String fieldName, Class<T> annotationClass);
 
-    abstract void needsFiltering();
+    void needsFiltering();
 
-    abstract List<ENTITY> findAllEntities();
+    List<ENTITY> findAllEntities();
 
 }
