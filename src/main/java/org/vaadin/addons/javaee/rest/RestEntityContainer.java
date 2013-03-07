@@ -15,7 +15,6 @@
  *******************************************************************************/
 package org.vaadin.addons.javaee.rest;
 
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -27,9 +26,9 @@ import javax.ejb.EJB;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang.StringUtils;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
-import org.jboss.resteasy.util.GenericType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.container.AbstractEntityContainer;
@@ -85,7 +84,8 @@ public class RestEntityContainer<ENTITY extends PersistentEntity> extends Abstra
     @SuppressWarnings("unchecked")
     public <SUB_ENTITY extends PersistentEntity> EntityContainer<SUB_ENTITY> getSubContainer(String propertyId) {
         Class<SUB_ENTITY> entityClass = (Class<SUB_ENTITY>) getType(propertyId);
-        return new RestEntityContainer<>(entityClass, resourcePath + "/" + propertyId); // TODO path should contain id
+        // TODO path should contain id
+        return new RestEntityContainer<>(entityClass, StringUtils.lowerCase(entityClass.getSimpleName()));
     }
 
     @Override
@@ -232,10 +232,8 @@ public class RestEntityContainer<ENTITY extends PersistentEntity> extends Abstra
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public List<ENTITY> findAllEntities() {
         ClientRequest request = createRequest();
-        Type genericType = (new GenericType<List<ENTITY>>() {
-        }).getGenericType();
         try {
-            ClientResponse<List> response = request.get(List.class, genericType);
+            ClientResponse<List> response = request.accept(MediaType.APPLICATION_XML).get(List.class, entityClass);
             return response.getEntity();
         } catch (Exception e) {
             log.error("Could not GET ", e);

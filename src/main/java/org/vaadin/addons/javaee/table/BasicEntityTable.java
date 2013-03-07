@@ -23,6 +23,7 @@ import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.container.EntityItem;
+import org.vaadin.addons.javaee.fields.factory.GlobalFieldFactory;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
@@ -31,7 +32,6 @@ import com.vaadin.data.util.converter.Converter;
 import com.vaadin.data.util.filter.UnsupportedFilterException;
 import com.vaadin.shared.ui.MultiSelectMode;
 import com.vaadin.ui.Table;
-import com.vaadin.ui.TableFieldFactory;
 
 @Dependent
 public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends Table implements Container.Filterable {
@@ -44,7 +44,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     private TranslationService translationService;
 
     @Inject
-    private TableFieldFactory tableFieldFactory;
+    private GlobalFieldFactory tableFieldFactory;
 
     /**
      * Only query container if a filter is set

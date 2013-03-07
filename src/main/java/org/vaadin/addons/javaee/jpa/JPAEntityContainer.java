@@ -34,7 +34,7 @@ public class JPAEntityContainer<ENTITY extends PersistentEntity> extends Abstrac
     private static final long serialVersionUID = 1L;
 
     @EJB
-    private JPAEntityProvider jpaEntityProvider;
+    protected JPAEntityProvider jpaEntityProvider;
 
     public JPAEntityContainer(Class<ENTITY> entityClass, JPAEntityProvider jpaEntityProvider) {
         this(entityClass);

@@ -4,8 +4,8 @@ import static com.github.restdriver.clientdriver.RestClientDriver.*;
 import static org.junit.Assert.*;
 
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
@@ -40,8 +40,10 @@ public class RestEntityContainerTest {
     public void testFindAllEntities() throws Exception {
         List<TestEntity> entities = Arrays.asList(entity1, entity2, entity3);
         Lists<TestEntity> lists = new Lists<>(entities);
-        String content = marshal(entities);
-        driver.addExpectation(onRequestTo("/facade/rest"), giveResponse(content, mediaType).withStatus(404));
+        String content = marshal(lists);
+        driver.addExpectation(onRequestTo("/testEntity"), giveResponse(content, mediaType).withStatus(200));
+        Collection<?> itemIds = container.getItemIds();
+        assertNotNull(itemIds);
     }
 
     @Test
@@ -138,7 +140,7 @@ public class RestEntityContainerTest {
     }
 
     protected Marshaller getMarshaller() throws Exception {
-        JAXBContext jaxbContext = JAXBContext.newInstance(TestEntity.class, ArrayList.class);
+        JAXBContext jaxbContext = JAXBContext.newInstance(TestEntity.class, Lists.class);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         return jaxbMarshaller;
     }

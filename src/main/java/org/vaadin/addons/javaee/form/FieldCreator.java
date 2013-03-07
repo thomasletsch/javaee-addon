@@ -3,7 +3,7 @@ package org.vaadin.addons.javaee.form;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.container.EntityContainer;
-import org.vaadin.addons.javaee.fields.factory.FieldFactory;
+import org.vaadin.addons.javaee.fields.factory.GlobalFieldFactory;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
@@ -15,7 +15,7 @@ public class FieldCreator {
     protected TranslationService translationService;
 
     @Inject
-    protected FieldFactory fieldFactory;
+    protected GlobalFieldFactory fieldFactory;
 
     public Field<?> createField(EntityContainer<?> container, FieldSpecification fieldSpec) {
         Field<?> field = fieldFactory.createField(container, fieldSpec);

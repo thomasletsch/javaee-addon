@@ -10,7 +10,7 @@ public class OneToManyRelationFieldCreator<ENTITY extends PersistentEntity, FIEL
         AbstractFieldCreator<FIELD> {
 
     @Inject
-    private JavaEEFieldFactory fieldFactory;
+    private GlobalFieldFactory fieldFactory;
 
     @Override
     @SuppressWarnings("unchecked")

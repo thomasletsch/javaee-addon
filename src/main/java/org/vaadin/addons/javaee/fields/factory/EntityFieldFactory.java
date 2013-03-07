@@ -22,7 +22,7 @@ import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 
 import com.vaadin.ui.Field;
 
-public interface FieldFactory extends Serializable {
+public interface EntityFieldFactory extends Serializable {
 
     <T extends Field<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec);
 
