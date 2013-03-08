@@ -11,14 +11,15 @@
 
     <properties>
         <javaeeutils.version>1.0.1-SNAPSHOT</javaeeutils.version>
-        <vaadin.version>7.0.0</vaadin.version>
-        <cdiutils.version>2.0.1</cdiutils.version>
+        <vaadin.version>7.0.1</vaadin.version>
+        <cdiutils.version>2.1.1</cdiutils.version>
         <jodatime.version>2.1</jodatime.version>
         <gwt.version>2.4.0</gwt.version>
         <jboss.javaee.version>2.0.0.Final</jboss.javaee.version>
         <resteasy.version>2.3.1.GA</resteasy.version>
         <commons-lang.version>2.5</commons-lang.version>
         <commons-beanutils.version>1.8.3</commons-beanutils.version>
+        <jodbean.version>3.4.1</jodbean.version>
 
         <junit.version>4.10</junit.version>
         <mockito.version>1.8.5</mockito.version>
@@ -107,7 +108,7 @@
         <dependency>
             <groupId>org.jodd</groupId>
             <artifactId>jodd-bean</artifactId>
-            <version>3.4.1</version>
+            <version>${jodbean.version}</version>
         </dependency>
 
         <!-- Unit Testing -->
@@ -296,4 +297,10 @@
         </pluginManagement>
     </build>
 
+    <repositories>
+        <repository>
+            <id>vaadin-addons</id>
+            <url>http://maven.vaadin.com/vaadin-addons</url>
+        </repository>
+    </repositories>
 </project>
