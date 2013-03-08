@@ -2,14 +2,12 @@ package org.vaadin.addons.javaee.fields.factory;
 
 import org.vaadin.addons.javaee.fields.OneToOneRelationField;
 
-import com.vaadin.ui.AbstractField;
-
-public class OneToOneRelationFieldCreator<FIELD extends AbstractField<?>> extends AbstractFieldCreator<FIELD> {
+@SuppressWarnings("rawtypes")
+public class OneToOneRelationFieldCreator extends AbstractFieldCreator<OneToOneRelationField> {
 
     @Override
-    @SuppressWarnings("unchecked")
-    protected Class<FIELD> getDefaultFieldType() {
-        return (Class<FIELD>) OneToOneRelationField.class;
+    protected Class<OneToOneRelationField> getDefaultFieldType() {
+        return OneToOneRelationField.class;
     }
 
 }

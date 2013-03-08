@@ -3,6 +3,7 @@
     <persistence-unit name="JavaEEAddonTestUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>org.vaadin.addons.javaee.jpa.TestEntity</class>
+        <class>org.vaadin.addons.javaee.jpa.TestNestedEntity</class>
         <class>com.googlecode.javaeeutils.jpa.PersistentEntity</class>
         <class>com.googlecode.javaeeutils.jpa.EntityWithNaturalKey</class>
         <class>com.googlecode.javaeeutils.jpa.AuditableEntity</class>

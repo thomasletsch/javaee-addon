@@ -17,7 +17,6 @@ package org.vaadin.addons.javaee.page;
 
 import java.util.Map;
 
-import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.i18n.TranslationService;
@@ -27,7 +26,6 @@ import org.vaadin.virkki.cdiutils.mvp.AbstractView;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.VerticalLayout;
 
-@Dependent
 public abstract class AbstractContentView extends AbstractView implements ContentView {
 
     public static final int BUTTON_RATIO = 5;

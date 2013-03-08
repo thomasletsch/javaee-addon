@@ -14,6 +14,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.vaadin.addons.javaee.container.EntityItem;
@@ -21,6 +22,7 @@ import org.vaadin.addons.javaee.jpa.TestEntity;
 
 import com.github.restdriver.clientdriver.ClientDriverRule;
 
+@Ignore
 public class RestEntityContainerTest {
 
     @Rule

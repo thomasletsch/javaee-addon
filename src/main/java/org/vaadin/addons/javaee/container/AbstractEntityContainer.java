@@ -43,7 +43,7 @@ public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> i
     }
 
     protected void initProperties(Class<ENTITY> entityClass) {
-        for (Field field : ReflectionUtils.getAllFields(entityClass)) {
+        for (Field field : ReflectionUtils.getAllInstanceFields(entityClass)) {
             if (!Modifier.isStatic(field.getModifiers())) {
                 properties.put(field.getName(), field.getType());
             }

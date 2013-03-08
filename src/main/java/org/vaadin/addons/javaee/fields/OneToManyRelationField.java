@@ -14,7 +14,8 @@ import com.vaadin.ui.CustomField;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TableFieldFactory;
 
-public class OneToManyRelationField<ENTITY extends PersistentEntity> extends CustomField<Collection<ENTITY>> {
+@SuppressWarnings("rawtypes")
+public class OneToManyRelationField<ENTITY extends PersistentEntity> extends CustomField<Collection> {
 
     private static final long serialVersionUID = 1L;
 
@@ -41,8 +42,9 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
         return table;
     }
 
+    @SuppressWarnings({ "unchecked" })
     @Override
-    protected void setInternalValue(Collection<ENTITY> newValue) {
+    protected void setInternalValue(Collection newValue) {
         tableDataSource.removeAllItems();
         tableDataSource.addAll(newValue);
         items = newValue;
@@ -65,9 +67,8 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public Class<? extends Collection<ENTITY>> getType() {
-        return (Class<? extends Collection<ENTITY>>) Collection.class;
+    public Class<Collection> getType() {
+        return Collection.class;
     }
 
     public Class<ENTITY> getEntityClass() {

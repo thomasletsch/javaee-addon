@@ -9,8 +9,8 @@ import org.wamblee.inject.InjectorBuilder;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.TextField;
 
-@SuppressWarnings("unchecked")
-public abstract class AbstractFieldCreator<FIELD extends Field<?>> implements FieldCreator<FIELD> {
+@SuppressWarnings({ "unchecked", "rawtypes" })
+public abstract class AbstractFieldCreator<FIELD extends Field> implements FieldCreator<FIELD> {
 
     private static Logger log = LoggerFactory.getLogger(AbstractFieldCreator.class);
 
