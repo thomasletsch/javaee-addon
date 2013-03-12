@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.jpa;
+package org.vaadin.addons.javaee.container.jpa;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +40,7 @@ import javax.persistence.metamodel.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.container.SortDefinition;
-import org.vaadin.addons.javaee.jpa.filter.FilterToQueryTranslator;
+import org.vaadin.addons.javaee.container.jpa.filter.FilterToQueryTranslator;
 
 import com.googlecode.javaeeutils.jpa.JPAConstants;
 import com.googlecode.javaeeutils.jpa.PersistentEntity;

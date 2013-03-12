@@ -18,6 +18,7 @@ package org.vaadin.addons.javaee.jpa.filter;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.vaadin.addons.javaee.container.jpa.filter.EqualFilterTranslator;
 
 import com.vaadin.data.util.filter.Compare.Equal;
 

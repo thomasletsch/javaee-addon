@@ -13,37 +13,44 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.jpa.filter;
+package org.vaadin.addons.javaee.container.jpa.filter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
-import com.vaadin.data.util.filter.And;
+import com.vaadin.data.util.filter.Compare.Equal;
 
-public class AndFilterTranslator implements FilterTranslator<And> {
+public class EqualFilterTranslator implements FilterTranslator<Equal> {
 
     @Override
-    public Class<And> getAcceptedClass() {
-        return And.class;
+    public Class<Equal> getAcceptedClass() {
+        return Equal.class;
     }
 
     @Override
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public <ENTITY extends PersistentEntity> Predicate translate(And filter, CriteriaBuilder builder, Root<ENTITY> root,
+    public <ENTITY extends PersistentEntity> Predicate translate(Equal filter, CriteriaBuilder builder, Root<ENTITY> root,
             Map<Class<? extends Filter>, FilterTranslator<?>> filters) {
-        List<Predicate> predicates = new ArrayList<>();
-        for (Filter innerFilter : filter.getFilters()) {
-            FilterTranslator translator = filters.get(innerFilter.getClass());
-            predicates.add(translator.translate(innerFilter, builder, root, filters));
+        String propertyId = (String) filter.getPropertyId();
+        Expression<String> property = navigateThroughPath(root, propertyId);
+        return builder.equal(property, filter.getValue());
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <ENTITY extends PersistentEntity> Path<String> navigateThroughPath(Root<ENTITY> root, String propertyId) {
+        Path<?> path = root;
+        for (String pathElement : StringUtils.split(propertyId, ".")) {
+            path = path.get(pathElement);
         }
-        return builder.and(predicates.toArray(new Predicate[] {}));
+        return (Path<String>) path;
     }
 
 }

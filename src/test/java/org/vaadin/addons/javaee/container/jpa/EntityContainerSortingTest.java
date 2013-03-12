@@ -1,4 +1,4 @@
-package org.vaadin.addons.javaee.jpa;
+package org.vaadin.addons.javaee.container.jpa;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,8 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.vaadin.addons.javaee.container.jpa.JPAEntityContainer;
+import org.vaadin.addons.javaee.container.jpa.JPAEntityProvider;
 
 @Ignore
 public class EntityContainerSortingTest extends BasicEntityContainerTest {

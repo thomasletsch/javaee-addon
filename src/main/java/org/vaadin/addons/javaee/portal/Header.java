@@ -32,6 +32,8 @@ public class Header extends ViewComponent {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String ID = "Header";
+
     @Inject
     protected TranslationService translationService;
 
@@ -40,10 +42,11 @@ public class Header extends ViewComponent {
     private HorizontalLayout layout;
 
     @Inject
-    @Preconfigured(styleName = "portal_title")
+    @Preconfigured(styleName = "portal_title", id = "PortalTitle")
     private Label title;
 
     public Header() {
+        setId(ID);
     }
 
     public void init() {

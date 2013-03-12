@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.jpa;
+package org.vaadin.addons.javaee.container.jpa;
 
 import static org.junit.Assert.*;
 
@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.vaadin.addons.javaee.container.SortDefinition;
+import org.vaadin.addons.javaee.container.jpa.JPAEntityProvider;
 
 import com.vaadin.data.util.filter.SimpleStringFilter;
 

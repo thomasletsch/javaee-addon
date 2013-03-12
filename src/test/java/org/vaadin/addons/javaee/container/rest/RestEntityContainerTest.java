@@ -1,4 +1,4 @@
-package org.vaadin.addons.javaee.rest;
+package org.vaadin.addons.javaee.container.rest;
 
 import static com.github.restdriver.clientdriver.RestClientDriver.*;
 import static org.junit.Assert.*;
@@ -18,7 +18,8 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.vaadin.addons.javaee.container.EntityItem;
-import org.vaadin.addons.javaee.jpa.TestEntity;
+import org.vaadin.addons.javaee.container.jpa.TestEntity;
+import org.vaadin.addons.javaee.container.rest.RestEntityContainer;
 
 import com.github.restdriver.clientdriver.ClientDriverRule;
 

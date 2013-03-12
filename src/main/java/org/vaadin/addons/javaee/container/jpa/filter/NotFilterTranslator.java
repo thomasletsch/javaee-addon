@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.jpa.filter;
+package org.vaadin.addons.javaee.container.jpa.filter;
 
 import java.util.Map;
 
@@ -24,29 +24,22 @@ import javax.persistence.criteria.Root;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
-import com.vaadin.data.util.filter.SimpleStringFilter;
+import com.vaadin.data.util.filter.Not;
 
-public class SimpleStringFilterTranslator implements FilterTranslator<SimpleStringFilter> {
+public class NotFilterTranslator implements FilterTranslator<Not> {
 
     @Override
-    public Class<SimpleStringFilter> getAcceptedClass() {
-        return SimpleStringFilter.class;
+    public Class<Not> getAcceptedClass() {
+        return Not.class;
     }
 
     @Override
-    public <ENTITY extends PersistentEntity> Predicate translate(SimpleStringFilter filter, CriteriaBuilder builder, Root<ENTITY> root,
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public <ENTITY extends PersistentEntity> Predicate translate(Not filter, CriteriaBuilder builder, Root<ENTITY> root,
             Map<Class<? extends Filter>, FilterTranslator<?>> filters) {
-        final SimpleStringFilter ssf = filter;
-        String value = ssf.getFilterString();
-        Expression<String> property = root.get((String) ssf.getPropertyId());
-        if (ssf.isIgnoreCase()) {
-            property = builder.upper(property);
-            value = value.toUpperCase();
-        }
-        if (ssf.isOnlyMatchPrefix()) {
-            return builder.like(property, value + "%");
-        }
-        return builder.like(property, "%" + value + "%");
+        FilterTranslator translator = filters.get(filter.getFilter().getClass());
+        Expression<Boolean> predicate = translator.translate(filter.getFilter(), builder, root, filters);
+        return builder.not(predicate);
     }
 
 }

@@ -23,7 +23,6 @@ import javax.inject.Singleton;
 
 import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
-import org.vaadin.addons.javaee.jpa.JPAEntityContainer;
 
 import com.vaadin.data.Container;
 import com.vaadin.ui.Component;
@@ -72,7 +71,7 @@ public class GlobalFieldFactory implements TableFieldFactory {
     @Override
     public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
         if (container instanceof EntityContainer<?>) {
-            JPAEntityContainer<?> entityContainer = (JPAEntityContainer<?>) container;
+            EntityContainer<?> entityContainer = (EntityContainer<?>) container;
             FieldSpecification fieldSpec = new FieldSpecification((String) propertyId);
             Field<?> field = createField(entityContainer, fieldSpec);
             if (field != null) {

@@ -13,13 +13,10 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.rest;
+package org.vaadin.addons.javaee.container.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -34,10 +31,9 @@ import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.container.AbstractEntityContainer;
 import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.container.EntityItem;
-import org.vaadin.addons.javaee.jpa.JPAEntityProvider;
+import org.vaadin.addons.javaee.container.jpa.JPAEntityProvider;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
-import com.vaadin.data.Item;
 import com.vaadin.ui.UI;
 
 public class RestEntityContainer<ENTITY extends PersistentEntity> extends AbstractEntityContainer<ENTITY> {
@@ -60,7 +56,7 @@ public class RestEntityContainer<ENTITY extends PersistentEntity> extends Abstra
 
     public RestEntityContainer(Class<ENTITY> entityClass, String resourcePath) {
         this.entityClass = entityClass;
-        this.resourcePath = resourcePath;
+        this.setResourcePath(resourcePath);
         URI location = UI.getCurrent().getPage().getLocation();
         baseRestURI = location.resolve("/facade/rest");
         restURI = baseRestURI.resolve("/facade/rest/" + resourcePath);
@@ -75,7 +71,7 @@ public class RestEntityContainer<ENTITY extends PersistentEntity> extends Abstra
             log.error("Could not parse " + baseRestURI, e);
             throw new RuntimeException(e);
         }
-        this.resourcePath = resourcePath;
+        this.setResourcePath(resourcePath);
         restURI = this.baseRestURI.resolve("/" + resourcePath);
         initProperties(entityClass);
     }
@@ -104,11 +100,6 @@ public class RestEntityContainer<ENTITY extends PersistentEntity> extends Abstra
     }
 
     @Override
-    public Item getItem(Object itemId) {
-        return getItem((Long) itemId);
-    }
-
-    @Override
     public void updateItem(EntityItem<ENTITY> item) {
         assert (item.getEntity().getId() != null);
         ClientRequest request = createRequest(item.getEntity().getId());
@@ -129,45 +120,6 @@ public class RestEntityContainer<ENTITY extends PersistentEntity> extends Abstra
         } catch (Exception e) {
             log.error("Could not GET " + item.getEntity(), e);
         }
-    }
-
-    @Override
-    public void loadItemWithRelations(EntityItem<ENTITY> item) {
-        refreshItem(item);
-    }
-
-    @Override
-    public Collection<?> getItemIds() {
-        if (!needProcess()) {
-            return Collections.EMPTY_LIST;
-        }
-        List<ENTITY> entitys = findAllEntities();
-        List<Long> ids = new ArrayList<Long>(entitys.size());
-        for (ENTITY entity : entitys) {
-            ids.add(entity.getId());
-        }
-        return ids;
-    }
-
-    @Override
-    public int size() {
-        if (!needProcess()) {
-            return 0;
-        }
-        List<ENTITY> entitys = findAllEntities();
-        int size = entitys.size();
-        return size;
-    }
-
-    @Override
-    public boolean containsId(Object itemId) {
-        List<ENTITY> entitys = findAllEntities();
-        for (ENTITY entity : entitys) {
-            if (itemId.equals(entity.getId())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -249,5 +201,13 @@ public class RestEntityContainer<ENTITY extends PersistentEntity> extends Abstra
     private ClientRequest createRequest() {
         ClientRequest request = new ClientRequest(restURI.toString());
         return request;
+    }
+
+    public String getResourcePath() {
+        return resourcePath;
+    }
+
+    public void setResourcePath(String resourcePath) {
+        this.resourcePath = resourcePath;
     }
 }

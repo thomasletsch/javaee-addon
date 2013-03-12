@@ -1,4 +1,4 @@
-package org.vaadin.addons.javaee.rest;
+package org.vaadin.addons.javaee.container.rest;
 
 import java.util.ArrayList;
 import java.util.List;

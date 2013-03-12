@@ -5,9 +5,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.ejb.EJB;
+
+import org.vaadin.addons.javaee.container.jpa.JPAEntityProvider;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.googlecode.javaeeutils.reflection.ReflectionUtils;
@@ -20,6 +25,9 @@ import com.vaadin.data.util.filter.UnsupportedFilterException;
 public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> implements EntityContainer<ENTITY> {
 
     private static final long serialVersionUID = 1L;
+
+    @EJB
+    protected JPAEntityProvider jpaEntityProvider;
 
     protected List<Container.ItemSetChangeListener> itemSetChangeListeners = new ArrayList<>();
 
@@ -38,6 +46,9 @@ public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> i
     protected boolean filterSet = false;
 
     @Override
+    public abstract List<ENTITY> findAllEntities();
+
+    @Override
     public Class<ENTITY> getEntityClass() {
         return entityClass;
     }
@@ -48,6 +59,16 @@ public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> i
                 properties.put(field.getName(), field.getType());
             }
         }
+    }
+
+    @Override
+    public void loadItemWithRelations(EntityItem<ENTITY> item) {
+        refreshItem(item);
+    }
+
+    @Override
+    public Item getItem(Object itemId) {
+        return getItem((Long) itemId);
     }
 
     @Override
@@ -88,6 +109,11 @@ public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> i
         boolean result = properties.remove(propertyId.toString()) != null;
         notifyPropertySetChanged();
         return result;
+    }
+
+    @Override
+    public Class<?> getCollectionType(String propertyId) {
+        return jpaEntityProvider.getType(entityClass, propertyId);
     }
 
     @Override
@@ -309,8 +335,37 @@ public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> i
     }
 
     @Override
-    public List<ENTITY> findAllEntities() {
-        return null;
+    public Collection<?> getItemIds() {
+        if (!needProcess()) {
+            return Collections.EMPTY_LIST;
+        }
+        List<ENTITY> entitys = findAllEntities();
+        List<Long> ids = new ArrayList<Long>(entitys.size());
+        for (ENTITY entity : entitys) {
+            ids.add(entity.getId());
+        }
+        return ids;
+    }
+
+    @Override
+    public boolean containsId(Object itemId) {
+        if (!needProcess()) {
+            return false;
+        }
+        for (ENTITY item : findAllEntities()) {
+            if (item.getId().equals(itemId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int size() {
+        if (!needProcess()) {
+            return 0;
+        }
+        return findAllEntities().size();
     }
 
 }

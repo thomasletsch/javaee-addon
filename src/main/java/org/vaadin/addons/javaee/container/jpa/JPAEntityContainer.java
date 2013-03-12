@@ -13,14 +13,9 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.jpa;
+package org.vaadin.addons.javaee.container.jpa;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-
-import javax.ejb.EJB;
 
 import org.vaadin.addons.javaee.container.AbstractEntityContainer;
 import org.vaadin.addons.javaee.container.EntityContainer;
@@ -32,9 +27,6 @@ import com.vaadin.data.Item;
 public class JPAEntityContainer<ENTITY extends PersistentEntity> extends AbstractEntityContainer<ENTITY> {
 
     private static final long serialVersionUID = 1L;
-
-    @EJB
-    protected JPAEntityProvider jpaEntityProvider;
 
     public JPAEntityContainer(Class<ENTITY> entityClass, JPAEntityProvider jpaEntityProvider) {
         this(entityClass);
@@ -84,19 +76,6 @@ public class JPAEntityContainer<ENTITY extends PersistentEntity> extends Abstrac
     }
 
     @Override
-    public Collection<?> getItemIds() {
-        if (!needProcess()) {
-            return Collections.EMPTY_LIST;
-        }
-        List<ENTITY> entitys = findAllEntities();
-        List<Long> ids = new ArrayList<Long>(entitys.size());
-        for (ENTITY entity : entitys) {
-            ids.add(entity.getId());
-        }
-        return ids;
-    }
-
-    @Override
     public int size() {
         if (!needProcess()) {
             return 0;
@@ -137,11 +116,6 @@ public class JPAEntityContainer<ENTITY extends PersistentEntity> extends Abstrac
         jpaEntityProvider.createEntity(entity);
         EntityItem<ENTITY> item = new EntityItem<ENTITY>(this, entity);
         return item;
-    }
-
-    @Override
-    public Class<?> getCollectionType(String propertyId) {
-        return jpaEntityProvider.getType(entityClass, propertyId);
     }
 
     @Override

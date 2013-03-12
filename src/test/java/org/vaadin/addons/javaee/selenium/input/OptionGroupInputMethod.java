@@ -2,6 +2,8 @@ package org.vaadin.addons.javaee.selenium.input;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,8 +17,20 @@ public class OptionGroupInputMethod extends AbstractInputMethod {
 
     @Override
     public void input(String entityName, String attribute, String text) {
-        WebElement element = driver.findElement(By.xpath("//div[@id='" + entityName + "." + attribute + "']/span[" + text + "]/input"));
+        WebElement element = driver.findElement(By.xpath("//div[@id='" + getId(entityName, attribute) + "']/span[" + text + "]/input"));
         element.click();
+    }
+
+    @Override
+    public String value(String entityName, String attribute) {
+        List<WebElement> options = driver.findElements(By.xpath("//div[@id='" + getId(entityName, attribute) + "']/span"));
+        for (WebElement webElement : options) {
+            WebElement element = webElement.findElement(By.xpath("./input"));
+            if (element.getAttribute("checked") != null) {
+                return webElement.findElement(By.xpath("./label")).getText();
+            }
+        }
+        return null;
     }
 
     @Override
@@ -24,8 +38,8 @@ public class OptionGroupInputMethod extends AbstractInputMethod {
         if (StringUtils.isBlank(text)) {
             return;
         }
-        WebElement element = driver.findElement(By.xpath("//div[@id='" + entityName + "." + attribute + "']/span[" + text + "]/input"));
-        assertNotNull("Radio Button at pos " + text + " of " + entityName + "." + attribute + " must be checked",
+        WebElement element = driver.findElement(By.xpath("//div[@id='" + getId(entityName, attribute) + "']/span[" + text + "]/input"));
+        assertNotNull("Radio Button at pos " + text + " of " + getId(entityName, attribute) + " must be checked",
                 element.getAttribute("checked"));
     }
 

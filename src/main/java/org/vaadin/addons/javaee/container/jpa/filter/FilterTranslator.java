@@ -13,9 +13,8 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package org.vaadin.addons.javaee.jpa.filter;
+package org.vaadin.addons.javaee.container.jpa.filter;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -25,25 +24,20 @@ import javax.persistence.criteria.Root;
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 
-public class FilterToQueryTranslator {
+public interface FilterTranslator<FILTER extends Filter> {
 
-    private Map<Class<? extends Filter>, FilterTranslator<?>> filters = new HashMap<>();
+    Class<FILTER> getAcceptedClass();
 
-    public FilterToQueryTranslator() {
-        addFilterTranslator(new SimpleStringFilterTranslator());
-        addFilterTranslator(new AndFilterTranslator());
-        addFilterTranslator(new EqualFilterTranslator());
-        addFilterTranslator(new NotFilterTranslator());
-    }
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public <ENTITY extends PersistentEntity> Predicate translate(Filter filter, CriteriaBuilder builder, Root<?> root) {
-        FilterTranslator translator = filters.get(filter.getClass());
-        return translator.translate(filter, builder, root, filters);
-    }
-
-    private void addFilterTranslator(FilterTranslator<?> filterTranslator) {
-        filters.put(filterTranslator.getAcceptedClass(), filterTranslator);
-    }
-
+    /**
+     * 
+     * @param filter
+     *            The actual filter to translate
+     * @param builder
+     * @param root
+     * @param filters
+     *            All configured builder for recursive call of sub filter translation
+     * @return
+     */
+    <ENTITY extends PersistentEntity> Predicate translate(FILTER filter, CriteriaBuilder builder, Root<ENTITY> root,
+            Map<Class<? extends Filter>, FilterTranslator<?>> filters);
 }

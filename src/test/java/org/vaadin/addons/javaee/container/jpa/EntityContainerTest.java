@@ -1,16 +1,17 @@
-package org.vaadin.addons.javaee.jpa;
+package org.vaadin.addons.javaee.container.jpa;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.vaadin.addons.javaee.container.AbstractEntityContainer;
 import org.vaadin.addons.javaee.container.EntityContainer;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 
 public class EntityContainerTest extends BasicEntityContainerTest {
 
-    private JPAEntityContainer<TestNestedEntity> nestedContainer;
+    private AbstractEntityContainer<TestNestedEntity> nestedContainer;
 
     @Test
     public void testGetSubContainer() {

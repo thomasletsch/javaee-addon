@@ -36,7 +36,7 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends B
     }
 
     public void edit(EntityItem<ENTITY> item) {
-        getContainer().loadItemWithRelations(item);
+        // getContainer().loadItemWithRelations(item);
         fieldGroup.setItem(item);
     }
 
