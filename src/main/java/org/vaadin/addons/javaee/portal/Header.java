@@ -23,6 +23,7 @@ import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
 import org.vaadin.virkki.cdiutils.componentproducers.Preconfigured;
 import org.vaadin.virkki.cdiutils.mvp.ViewComponent;
 
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 
@@ -54,5 +55,9 @@ public class Header extends ViewComponent {
 
     public void setTitle(String newTitle) {
         title.setValue(newTitle);
+    }
+
+    public void addComponent(Component component) {
+        layout.addComponent(component);
     }
 }
