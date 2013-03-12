@@ -18,7 +18,6 @@ package org.vaadin.addons.javaee.table;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.container.EntityContainer;
@@ -33,7 +32,6 @@ import com.vaadin.data.util.filter.UnsupportedFilterException;
 import com.vaadin.shared.ui.MultiSelectMode;
 import com.vaadin.ui.Table;
 
-@Dependent
 public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends Table implements Container.Filterable {
 
     private static final long serialVersionUID = 1L;
@@ -159,6 +157,10 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     public void selectFirst() {
         select(firstItemId());
+    }
+
+    public void clearSelection() {
+        select(getNullSelectionItemId());
     }
 
     @Override

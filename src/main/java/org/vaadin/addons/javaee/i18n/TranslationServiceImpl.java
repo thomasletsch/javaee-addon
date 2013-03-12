@@ -22,14 +22,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SessionScoped
+@Singleton
 public class TranslationServiceImpl implements TranslationService {
 
     private static final long serialVersionUID = 1L;

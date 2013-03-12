@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 
-@SessionScoped
+import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
+
+@UIScoped
 public class SelectedLocale implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -14,7 +15,7 @@ public class SelectedLocale implements Serializable {
     private Locale locale;
 
     @PostConstruct
-    public void SetDefaultLocale() {
+    public void setDefaultLocale() {
         locale = Locale.getDefault();
     }
 

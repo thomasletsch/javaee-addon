@@ -16,6 +16,7 @@ public class TextInputMethod extends AbstractInputMethod {
     public void input(String entityName, String attribute, String text) {
         String id = entityName + "." + attribute;
         WebElement element = driver.findElement(By.id(id));
+        element.clear();
         element.sendKeys(text);
     }
 

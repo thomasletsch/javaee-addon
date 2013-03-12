@@ -16,4 +16,9 @@ public abstract class BasePagePO extends BasePO {
         return driver.findElements(By.xpath("//div[@id='" + tableName + "']/div[contains(@class, 'v-table-body')]//tr"));
     }
 
+    protected String getTableColumn(WebElement tableRow, int column) {
+        String text = tableRow.findElement(By.xpath(".//td[" + column + "]/div")).getText();
+        return text;
+    }
+
 }

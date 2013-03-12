@@ -22,16 +22,16 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import javax.enterprise.context.SessionScoped;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
 
-@SessionScoped
+@UIScoped
 public abstract class ResourceBundleTranslations implements Serializable, TranslationSPI {
 
     private static final long serialVersionUID = 1L;
 
+    @SuppressWarnings("unused")
     private static Logger log = LoggerFactory.getLogger(ResourceBundleTranslations.class);
 
     private Map<Locale, ResourceBundle> bundles = new HashMap<Locale, ResourceBundle>();

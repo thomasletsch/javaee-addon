@@ -32,7 +32,7 @@ import com.vaadin.ui.Field;
 import com.vaadin.ui.TableFieldFactory;
 
 /**
- * Checks all FieldFactories and TableFieldFactories in the CDI scope to find the corrent one to use.
+ * Checks all FieldFactories and TableFieldFactories in the CDI scope to find the correct one to use.
  * 
  * For extending with own factories, just create a CDI bean which implements FieldFactory or TableFieldFactory and return null for standard
  * fields.

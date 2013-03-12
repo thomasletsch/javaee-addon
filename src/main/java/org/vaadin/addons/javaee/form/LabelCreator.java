@@ -1,12 +1,14 @@
 package org.vaadin.addons.javaee.form;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
 import com.vaadin.ui.Label;
 
+@Singleton
 public class LabelCreator {
 
     @Inject
