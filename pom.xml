@@ -106,6 +106,11 @@
             <version>${commons-lang.version}</version>
         </dependency>
         <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons-beanutils.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.jodd</groupId>
             <artifactId>jodd-bean</artifactId>
             <version>${jodbean.version}</version>

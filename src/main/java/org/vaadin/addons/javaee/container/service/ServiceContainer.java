@@ -1,15 +1,19 @@
 package org.vaadin.addons.javaee.container.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
 
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.ComparatorChain;
 import org.vaadin.addons.javaee.container.AbstractEntityContainer;
 import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.container.EntityItem;
+import org.vaadin.addons.javaee.container.SortDefinition;
 import org.vaadin.addons.javaee.container.jpa.JPAEntityContainer;
 import org.vaadin.addons.javaee.container.jpa.JPAEntityProvider;
 
@@ -134,8 +138,23 @@ public abstract class ServiceContainer<ENTITY extends PersistentEntity> extends 
 
     private void refreshCache() {
         listCache.clear();
-        listCache.addAll(findEntities());
+        List<ENTITY> unsortedList = findEntities();
+        sort(unsortedList);
+        listCache = unsortedList;
         refreshListCacheNeeded = false;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void sort(List<ENTITY> unsortedList) {
+        if (sortDefinitions == null || sortDefinitions.isEmpty()) {
+            return;
+        }
+        ComparatorChain chain = new ComparatorChain();
+        for (SortDefinition sortDefinition : sortDefinitions) {
+            BeanComparator comparator = new BeanComparator(sortDefinition.getKey());
+            chain.addComparator(comparator, !sortDefinition.isAscending());
+        }
+        Collections.sort(unsortedList, chain);
     }
 
 }
