@@ -140,8 +140,13 @@ public abstract class ServiceContainer<ENTITY extends PersistentEntity> extends 
         listCache.clear();
         List<ENTITY> unsortedList = findEntities();
         sort(unsortedList);
+        filter(unsortedList);
         listCache = unsortedList;
         refreshListCacheNeeded = false;
+    }
+
+    private void filter(List<ENTITY> unsortedList) {
+        // TODO implement this
     }
 
     @SuppressWarnings("unchecked")
