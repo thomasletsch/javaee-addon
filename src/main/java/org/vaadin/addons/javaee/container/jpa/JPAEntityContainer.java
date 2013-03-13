@@ -29,13 +29,12 @@ public class JPAEntityContainer<ENTITY extends PersistentEntity> extends Abstrac
     private static final long serialVersionUID = 1L;
 
     public JPAEntityContainer(Class<ENTITY> entityClass, JPAEntityProvider jpaEntityProvider) {
-        this(entityClass);
+        super(entityClass);
         this.jpaEntityProvider = jpaEntityProvider;
     }
 
     public JPAEntityContainer(Class<ENTITY> entityClass) {
-        this.entityClass = entityClass;
-        initProperties(entityClass);
+        super(entityClass);
     }
 
     @Override

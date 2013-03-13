@@ -44,8 +44,10 @@ public abstract class BasicListAndEditForwardPage<ENTITY extends PersistentEntit
 
     @Override
     public void nextClicked() {
-        showReadonly();
-        getForm().save();
+        if (!getForm().isValid()) {
+            return;
+        }
+        saveClicked();
         if (getNextPage() != null) {
             navigateToNextPage();
         } else {

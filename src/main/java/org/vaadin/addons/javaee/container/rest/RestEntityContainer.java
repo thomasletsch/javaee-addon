@@ -55,16 +55,15 @@ public class RestEntityContainer<ENTITY extends PersistentEntity> extends Abstra
     private URI baseRestURI;
 
     public RestEntityContainer(Class<ENTITY> entityClass, String resourcePath) {
-        this.entityClass = entityClass;
+        super(entityClass);
         this.setResourcePath(resourcePath);
         URI location = UI.getCurrent().getPage().getLocation();
         baseRestURI = location.resolve("/facade/rest");
         restURI = baseRestURI.resolve("/facade/rest/" + resourcePath);
-        initProperties(entityClass);
     }
 
     public RestEntityContainer(String baseRestURI, Class<ENTITY> entityClass, String resourcePath) {
-        this.entityClass = entityClass;
+        super(entityClass);
         try {
             this.baseRestURI = new URI(baseRestURI);
         } catch (URISyntaxException e) {
@@ -73,7 +72,6 @@ public class RestEntityContainer<ENTITY extends PersistentEntity> extends Abstra
         }
         this.setResourcePath(resourcePath);
         restURI = this.baseRestURI.resolve("/" + resourcePath);
-        initProperties(entityClass);
     }
 
     @Override

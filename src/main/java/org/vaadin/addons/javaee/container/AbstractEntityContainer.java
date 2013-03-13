@@ -45,6 +45,11 @@ public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> i
 
     protected boolean filterSet = false;
 
+    public AbstractEntityContainer(Class<ENTITY> entityClass) {
+        this.entityClass = entityClass;
+        initProperties(entityClass);
+    }
+
     @Override
     public abstract List<ENTITY> findAllEntities();
 
