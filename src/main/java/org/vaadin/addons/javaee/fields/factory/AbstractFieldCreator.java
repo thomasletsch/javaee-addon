@@ -36,6 +36,7 @@ public abstract class AbstractFieldCreator<FIELD extends Field> implements Field
     }
 
     protected void commonFieldInit(FIELD field) {
+        // If we could easily change the location of the label to left side, we could avoid having a separate label.
         field.setCaption(null);
         field.setBuffered(true);
         field.setId(container.getEntityClass().getSimpleName() + "." + fieldSpec.getName());

@@ -44,7 +44,7 @@ public class EntityItem<ENTITY extends PersistentEntity> extends PropertysetItem
 
     public EntityItem(EntityContainer<ENTITY> entityContainer, ENTITY entity) {
         this.entityContainer = entityContainer;
-        this.setEntity(entity);
+        this.entity = entity;
         addPropertyDescriptors(entity);
     }
 
@@ -95,6 +95,9 @@ public class EntityItem<ENTITY extends PersistentEntity> extends PropertysetItem
 
     @Override
     public void setBuffered(boolean buffered) {
+        if (true) {
+
+        }
     }
 
     @Override

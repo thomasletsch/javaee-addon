@@ -36,13 +36,12 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends B
     }
 
     public void edit(EntityItem<ENTITY> item) {
-        // getContainer().loadItemWithRelations(item);
         fieldGroup.setItem(item);
     }
 
     public void editNew() {
         EntityItem<ENTITY> item = new EntityItem<ENTITY>(getContainer(), getDefaultValue());
-        fieldGroup.setItem(item);
+        edit(item);
     }
 
     /**

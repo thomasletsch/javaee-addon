@@ -9,6 +9,7 @@ import org.vaadin.addons.javaee.i18n.TranslationService;
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.converter.Converter;
+import com.vaadin.data.util.converter.Converter.ConversionException;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomField;
 import com.vaadin.ui.Table;
@@ -20,8 +21,6 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
     private static final long serialVersionUID = 1L;
 
     private Table table;
-
-    private Collection<ENTITY> items;
 
     private Class<ENTITY> entityClass;
 
@@ -35,6 +34,8 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
         table.setPageLength(5);
         table.setSelectable(false);
         table.setEditable(true);
+        table.setBuffered(true);
+        table.setImmediate(true);
     }
 
     @Override
@@ -42,12 +43,24 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
         return table;
     }
 
+    public void setValueForced(Collection newFieldValue) throws com.vaadin.data.Property.ReadOnlyException, ConversionException {
+        if (newFieldValue != null && newFieldValue.equals(getInternalValue())) {
+            setInternalValue(newFieldValue);
+        }
+        setValue(newFieldValue);
+    }
+
+    @Override
+    public void setValue(Collection newFieldValue) throws com.vaadin.data.Property.ReadOnlyException, ConversionException {
+        super.setValue(newFieldValue);
+    }
+
     @SuppressWarnings({ "unchecked" })
     @Override
     protected void setInternalValue(Collection newValue) {
+        super.setInternalValue(newValue);
         tableDataSource.removeAllItems();
         tableDataSource.addAll(newValue);
-        items = newValue;
     }
 
     public void setConverter(String propertyId, Converter<String, ?> converter) {
@@ -62,8 +75,9 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected Collection<ENTITY> getInternalValue() {
-        return items;
+        return super.getInternalValue();
     }
 
     @Override
