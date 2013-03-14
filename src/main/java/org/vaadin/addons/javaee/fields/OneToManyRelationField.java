@@ -43,6 +43,10 @@ public class OneToManyRelationField<ENTITY extends PersistentEntity> extends Cus
         return table;
     }
 
+    /**
+     * Sometimes the underlying value is changed already as being part of the current entity object graph. setValue would then do nothing.
+     * No setInternalValue would be called and no table data source refresh be done. Use setValueForced for that case.
+     */
     public void setValueForced(Collection newFieldValue) throws com.vaadin.data.Property.ReadOnlyException, ConversionException {
         if (newFieldValue != null && newFieldValue.equals(getInternalValue())) {
             setInternalValue(newFieldValue);

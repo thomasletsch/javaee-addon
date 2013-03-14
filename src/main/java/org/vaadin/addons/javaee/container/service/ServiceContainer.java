@@ -10,6 +10,8 @@ import javax.ejb.EJB;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections.comparators.ComparatorChain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.container.AbstractEntityContainer;
 import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.container.EntityItem;
@@ -22,6 +24,8 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 public abstract class ServiceContainer<ENTITY extends PersistentEntity> extends AbstractEntityContainer<ENTITY> {
 
     private static final long serialVersionUID = 1L;
+
+    private static Logger log = LoggerFactory.getLogger(ServiceContainer.class);
 
     @EJB
     protected JPAEntityProvider jpaEntityProvider;
@@ -159,7 +163,11 @@ public abstract class ServiceContainer<ENTITY extends PersistentEntity> extends 
             BeanComparator comparator = new BeanComparator(sortDefinition.getKey());
             chain.addComparator(comparator, !sortDefinition.isAscending());
         }
-        Collections.sort(unsortedList, chain);
+        try {
+            Collections.sort(unsortedList, chain);
+        } catch (Exception e) {
+            log.error("Could not sort by " + sortDefinitions, e);
+        }
     }
 
 }
