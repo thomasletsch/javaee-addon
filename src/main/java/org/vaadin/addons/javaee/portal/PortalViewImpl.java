@@ -46,7 +46,7 @@ public class PortalViewImpl extends AbstractView implements PortalView {
 
     protected Layout mainPanel;
 
-    private String oldPageName = null;
+    private AbstractContentView actualContentView = null;
 
     @Inject
     protected Instance<SideMenu> menu;
@@ -80,7 +80,7 @@ public class PortalViewImpl extends AbstractView implements PortalView {
     public void navigateTo(AbstractContentView portalPagePanel, Map<String, Object> parameters) {
         horizontalSplit.setSecondComponent(portalPagePanel);
         portalPagePanel.openView();
-        portalPagePanel.onShow(oldPageName, parameters);
-        oldPageName = portalPagePanel.getPageName();
+        portalPagePanel.onShow((actualContentView == null) ? null : actualContentView.getPageName(), parameters);
+        actualContentView = portalPagePanel;
     }
 }

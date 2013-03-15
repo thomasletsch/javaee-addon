@@ -373,4 +373,7 @@ public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> i
         return findAllEntities().size();
     }
 
+    @Override
+    public void refreshCache() {
+    }
 }

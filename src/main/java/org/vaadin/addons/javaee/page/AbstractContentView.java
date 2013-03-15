@@ -70,7 +70,12 @@ public abstract class AbstractContentView extends AbstractView implements Conten
     }
 
     /**
-     * Can be overwritten
+     * Can be overwritten. Called whenever a page is shown again to prepare.
+     * 
+     * @param comingFrom
+     *            The page name from the old page
+     * @param parameters
+     *            Random parameters which can be forwarded from one page to another to trigger special handling
      */
     @Override
     public void onShow(String comingFrom, Map<String, Object> parameters) {
@@ -82,7 +87,8 @@ public abstract class AbstractContentView extends AbstractView implements Conten
     }
 
     @Override
-    public void prepareShow() {
+    public boolean containsUnsavedValues() {
+        return false;
     }
 
 }

@@ -39,7 +39,7 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     private static final int DEFAULT_PAGE_SIZE = 5;
 
     @Inject
-    private TranslationService translationService;
+    protected TranslationService translationService;
 
     @Inject
     private GlobalFieldFactory tableFieldFactory;

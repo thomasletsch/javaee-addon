@@ -129,6 +129,11 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
         editNewRecord();
     }
 
+    @Override
+    public boolean containsUnsavedValues() {
+        return getForm().containsUnsavedValues();
+    }
+
     protected void showReadonly() {
         disableForm();
         if (saveButton != null) {

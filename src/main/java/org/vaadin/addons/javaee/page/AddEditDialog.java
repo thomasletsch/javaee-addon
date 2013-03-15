@@ -71,9 +71,20 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
         content.addComponent(buttons);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void editSelected(BasicEntityTable<?> table) {
-        form.edit((EntityItem) container.getItem(table.getValue()));
+        Long itemId = table.getValue();
+        edit(itemId);
+    }
+
+    @SuppressWarnings({ "rawtypes" })
+    public void edit(Long itemId) {
+        EntityItem entityItem = container.getItem(itemId);
+        edit(entityItem);
+    }
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public void edit(EntityItem entityItem) {
+        form.edit(entityItem);
         UI.getCurrent().addWindow(this);
         center();
     }

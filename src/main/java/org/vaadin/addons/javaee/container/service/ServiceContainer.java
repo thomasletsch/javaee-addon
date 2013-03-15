@@ -140,7 +140,7 @@ public abstract class ServiceContainer<ENTITY extends PersistentEntity> extends 
         return listCache;
     }
 
-    private void refreshCache() {
+    public void refreshCache() {
         listCache.clear();
         List<ENTITY> unsortedList = findEntities();
         sort(unsortedList);

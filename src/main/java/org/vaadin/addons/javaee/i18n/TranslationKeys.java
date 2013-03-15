@@ -17,11 +17,15 @@ package org.vaadin.addons.javaee.i18n;
 
 public interface TranslationKeys {
 
+    public static final String YES = "YES";
+
+    public static final String NO = "NO";
+
+    public static final String RIGHT = "right";
+
+    public static final String LEFT = "left";
+
     public static final String MENU_ITEM_PREFIX = "menuItem";
-
-    public static final String TITLE_PORTAL = "portalTitle";
-
-    public static final String TITLE_SEARCH = "title_search";
 
     public static final String BUTTON_SEARCH = "button_search";
 
@@ -45,12 +49,14 @@ public interface TranslationKeys {
 
     public static final String BUTTON_DELETE = "button_delete";
 
-    public static final String PRODUCT = "product";
+    public static final String TITLE_PORTAL = "portalTitle";
+
+    public static final String TITLE_SEARCH = "title_search";
 
     public static final String TITLE_EDIT = "title_edit";
 
-    public static final String RIGHT = "right";
+    public static final String TITLE_NAVIGATE = "title_navigate";
 
-    public static final String LEFT = "left";
+    public static final String MESSAGE_REALLY_NAVIGATE = "message_really_navigate";
 
 }

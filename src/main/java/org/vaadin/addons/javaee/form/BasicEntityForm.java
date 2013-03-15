@@ -77,4 +77,8 @@ public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends B
             log.error("Could not save " + entityClass.getSimpleName(), e);
         }
     }
+
+    public boolean containsUnsavedValues() {
+        return fieldGroup.isModified();
+    }
 }

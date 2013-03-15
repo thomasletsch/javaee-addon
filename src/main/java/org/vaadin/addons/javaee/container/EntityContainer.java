@@ -33,4 +33,6 @@ public interface EntityContainer<ENTITY extends PersistentEntity> extends Contai
 
     List<ENTITY> findAllEntities();
 
+    void refreshCache();
+
 }

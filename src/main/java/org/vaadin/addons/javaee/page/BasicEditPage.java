@@ -26,6 +26,13 @@ import org.vaadin.addons.javaee.i18n.TranslationService;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 
+/**
+ * A page with one form and a save button.
+ * 
+ * @author thomas
+ * 
+ * @param <ENTITY>
+ */
 public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends AbstractContentView implements CanHandleSaveButton {
 
     private static final long serialVersionUID = 1L;
@@ -36,8 +43,6 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Abs
 
     @Inject
     protected TranslationService translationService;
-
-    private BasicEntityForm<ENTITY> form;
 
     private final String entityName;
 
@@ -53,8 +58,7 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Abs
     @Override
     protected void initView() {
         super.initView();
-        form = getForm();
-        addComponent(form, EDIT_FORM_RATIO);
+        addComponent(getForm(), EDIT_FORM_RATIO);
         ButtonBar buttonBar = initButtons();
         addComponent(buttonBar, BUTTON_RATIO);
     }
@@ -70,10 +74,15 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Abs
 
     @Override
     public void saveClicked() {
-        form.save();
+        getForm().save();
     }
 
     public String getEntityName() {
         return entityName;
+    }
+
+    @Override
+    public boolean containsUnsavedValues() {
+        return getForm().containsUnsavedValues();
     }
 }
