@@ -28,7 +28,7 @@ public abstract class SeleniumTest {
         Properties properties = new Properties();
         properties.load(getClass().getResourceAsStream("/env.properties"));
         baseUrl = properties.getProperty("url");
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.navigate().to(baseUrl);
     }
 

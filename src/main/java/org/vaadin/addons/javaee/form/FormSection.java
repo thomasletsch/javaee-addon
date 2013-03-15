@@ -44,13 +44,14 @@ public class FormSection extends GridLayout {
     }
 
     /**
-     * Can be overwritten. Will be called after initialization.
+     * Can be overwritten. Will be called after initialization. Overwriting methods should call super class method as well.
      */
     public void init() {
         setCaption();
+        setId(container.getEntityClass().getSimpleName() + "." + name);
     }
 
-    protected void setCaption() {
+    private void setCaption() {
         if (translationService != null && name != null) {
             setCaption(translationService.getText(name));
         }
@@ -129,5 +130,4 @@ public class FormSection extends GridLayout {
         this.name = name;
         setCaption();
     }
-
 }

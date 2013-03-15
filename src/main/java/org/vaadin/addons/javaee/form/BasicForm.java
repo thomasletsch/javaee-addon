@@ -37,6 +37,7 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
 
     public BasicForm(Class<ENTITY> entityClass) {
         this.entityClass = entityClass;
+        setId(entityClass.getSimpleName() + "Form");
     }
 
     protected abstract EntityContainer<ENTITY> getContainer();
