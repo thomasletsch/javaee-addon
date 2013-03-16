@@ -48,7 +48,7 @@ public class FormSection extends GridLayout {
      */
     public void init() {
         setCaption();
-        setId(container.getEntityClass().getSimpleName() + "." + name);
+        setId(container.getEntityClass().getSimpleName() + "." + name + "-Section");
     }
 
     private void setCaption() {

@@ -23,6 +23,6 @@ public class InputMethodFactory {
                 return inputMethod;
             }
         }
-        return null;
+        throw new IllegalArgumentException("No InputMethod found for entity " + entityName + " with attribute " + attribute);
     }
 }

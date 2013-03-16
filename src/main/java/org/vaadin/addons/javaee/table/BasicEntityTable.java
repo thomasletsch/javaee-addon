@@ -163,8 +163,4 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         select(getNullSelectionItemId());
     }
 
-    @Override
-    public void refreshRowCache() {
-        super.refreshRowCache();
-    }
 }
