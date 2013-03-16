@@ -32,13 +32,14 @@ import com.vaadin.server.Page;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.VerticalSplitPanel;
+import com.vaadin.ui.themes.Reindeer;
 
 public class PortalViewImpl extends AbstractView implements PortalView {
 
     private static final long serialVersionUID = 6788886405321379139L;
 
     @Inject
-    @Preconfigured
+    @Preconfigured(styleName = Reindeer.SPLITPANEL_SMALL)
     private HorizontalSplitPanel horizontalSplit;
 
     @Inject
@@ -56,10 +57,12 @@ public class PortalViewImpl extends AbstractView implements PortalView {
 
     @Override
     protected void initView() {
+        setStyleName(Reindeer.LAYOUT_WHITE);
         setWidth(WIDTH, Unit.PIXELS);
         setHeight(HEIGHT, Unit.PIXELS);
 
         final VerticalSplitPanel mainLayout = new VerticalSplitPanel();
+        mainLayout.setStyleName(Reindeer.SPLITPANEL_SMALL);
         setCompositionRoot(mainLayout);
         mainLayout.setSizeFull();
         header.get().init();

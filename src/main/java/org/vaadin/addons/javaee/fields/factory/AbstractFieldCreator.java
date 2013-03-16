@@ -8,6 +8,7 @@ import org.wamblee.inject.InjectorBuilder;
 
 import com.vaadin.ui.Field;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.themes.Reindeer;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public abstract class AbstractFieldCreator<FIELD extends Field> implements FieldCreator<FIELD> {
@@ -39,6 +40,7 @@ public abstract class AbstractFieldCreator<FIELD extends Field> implements Field
         // If we could easily change the location of the label to left side, we could avoid having a separate label.
         field.setCaption(null);
         field.setBuffered(true);
+        field.setStyleName(Reindeer.TEXTFIELD_SMALL);
         field.setId(container.getEntityClass().getSimpleName() + "." + fieldSpec.getName());
         InjectorBuilder.getInjector().inject(field);
     }
