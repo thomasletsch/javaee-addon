@@ -25,6 +25,7 @@ import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
+import com.vaadin.ui.Panel;
 
 /**
  * A page with one form and a save button.
@@ -61,6 +62,7 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Abs
         addComponent(getForm(), EDIT_FORM_RATIO);
         ButtonBar buttonBar = initButtons();
         addComponent(buttonBar, BUTTON_RATIO);
+        addComponent(new Panel(), REST_RATIO);
     }
 
     protected abstract BasicEntityForm<ENTITY> getForm();
