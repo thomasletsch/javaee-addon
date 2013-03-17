@@ -64,4 +64,10 @@ public abstract class BasePagePO extends BasePO {
         return text;
     }
 
+    protected void clickTab(int tabNumber) {
+        WebElement tab = driver.findElement(By.xpath("//div[contains(@class, 'v-tabsheet-tabcontainer')]/table/tbody/tr/td[" + tabNumber
+                + "]/div/div"));
+        tab.click();
+    }
+
 }

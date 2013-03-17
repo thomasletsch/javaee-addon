@@ -11,6 +11,7 @@ import org.vaadin.addons.javaee.selenium.input.InputMethodFactory;
 
 public abstract class BasePO {
 
+    @SuppressWarnings("unused")
     private static Logger log = LoggerFactory.getLogger(BasePO.class);
 
     protected final static boolean DO_NOT_ASSERT_PAGE = false;

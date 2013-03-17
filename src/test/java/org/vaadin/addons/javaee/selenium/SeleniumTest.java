@@ -10,6 +10,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public abstract class SeleniumTest {
 
+    public final static int SHORT_WAIT_SEC = 1;
+
+    public final static int DEFAULT_WAIT_SEC = 10;
+
+    public final static int LONG_WAIT_SEC = 10;
+
     protected WebDriver driver;
 
     private String baseUrl;
@@ -28,7 +34,7 @@ public abstract class SeleniumTest {
         Properties properties = new Properties();
         properties.load(getClass().getResourceAsStream("/env.properties"));
         baseUrl = properties.getProperty("url");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(DEFAULT_WAIT_SEC, TimeUnit.SECONDS);
         driver.navigate().to(baseUrl);
     }
 
