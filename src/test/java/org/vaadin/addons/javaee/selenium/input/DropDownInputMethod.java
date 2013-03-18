@@ -7,6 +7,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.vaadin.addons.javaee.selenium.WaitConditions;
 
 public class DropDownInputMethod extends AbstractInputMethod {
 
@@ -46,6 +47,7 @@ public class DropDownInputMethod extends AbstractInputMethod {
         WebElement element = driver.findElement(By.id(getId(entityName, attribute)));
         WebElement selectDropDown = element.findElement(By.xpath(".//div[@class=\"v-filterselect-button\"]"));
         selectDropDown.click();
+        WaitConditions.waitForVaadin(driver);
         WebElement popupElement = driver.findElement(By.id("VAADIN_COMBOBOX_OPTIONLIST"));
         WebElement entry = popupElement.findElement(By.xpath(".//div[@class=\"v-filterselect-suggestmenu\"]/table/tbody/tr[" + text
                 + "]/td"));

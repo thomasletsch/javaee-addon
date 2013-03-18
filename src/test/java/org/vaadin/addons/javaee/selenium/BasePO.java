@@ -3,7 +3,6 @@ package org.vaadin.addons.javaee.selenium;
 import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,22 +53,8 @@ public abstract class BasePO {
     protected abstract String getIdentifyingElement();
 
     public void assertPage() {
-        waitForVaadin();
+        WaitConditions.waitForVaadin(driver);
         assertTrue("Failure while asserting page " + getClass().getSimpleName() + ". Element " + getIdentifyingElement() + " not found!",
                 driver.findElements(By.id(getIdentifyingElement())).size() == 1);
-    }
-
-    public void waitForVaadin() {
-        String isVaadinFinished = "      if (window.vaadin == null) {" + "          return true;" + "      }" + ""
-                + "      var clients = window.vaadin.clients;" + "      if (clients) {" + "          for (var client in clients) {"
-                + "              if (clients[client].isActive()) {" + "              return false;" + "              }" + "          }"
-                + "          return true;" + "      } else {" + "          return false;" + "      }";
-
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        long timeoutTime = System.currentTimeMillis() + 20000L;
-        boolean finished = false;
-        while ((System.currentTimeMillis() < timeoutTime) && (!finished)) {
-            finished = ((Boolean) js.executeScript(isVaadinFinished, new Object[0])).booleanValue();
-        }
     }
 }
