@@ -20,6 +20,7 @@
         <resteasy.version>2.3.1.GA</resteasy.version>
         <commons-lang.version>2.5</commons-lang.version>
         <commons-beanutils.version>1.8.3</commons-beanutils.version>
+        <commons-collections.version>3.2.1</commons-collections.version>
         <jodbean.version>3.4.1</jodbean.version>
 
         <junit.version>4.10</junit.version>
@@ -115,6 +116,11 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>${commons-beanutils.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons-collections.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jodd</groupId>

@@ -54,6 +54,7 @@ public abstract class BasePO {
     protected abstract String getIdentifyingElement();
 
     public void assertPage() {
+        waitForVaadin();
         assertTrue("Failure while asserting page " + getClass().getSimpleName() + ". Element " + getIdentifyingElement() + " not found!",
                 driver.findElements(By.id(getIdentifyingElement())).size() == 1);
     }
