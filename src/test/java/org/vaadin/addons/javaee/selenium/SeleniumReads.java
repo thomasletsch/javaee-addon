@@ -7,17 +7,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public abstract class BasePagePO extends BasePO {
+/**
+ * Collection of different methods to read specific data from the page. Standard elements can be read with the help of the
+ * InputMethodFactory.
+ * 
+ * @author thomas
+ * 
+ */
+public class SeleniumReads {
 
-    public BasePagePO(WebDriver driver) {
-        super(driver);
+    private WebDriver driver;
+
+    public SeleniumReads(WebDriver driver) {
+        this.driver = driver;
     }
 
-    public BasePagePO(WebDriver driver, boolean assertPage) {
-        super(driver, assertPage);
-    }
-
-    protected List<WebElement> getTableRows(String tableName) {
+    public List<WebElement> getTableRows(String tableName) {
         return driver.findElements(By.xpath("//div[@id='" + tableName + "']//div[contains(@class, 'v-table-body')]//tr"));
     }
 
@@ -27,7 +32,7 @@ public abstract class BasePagePO extends BasePO {
      * @param column
      *            the column number starting by 1
      */
-    protected String getTableColumn(WebElement tableRow, int column) {
+    public String getTableColumn(WebElement tableRow, int column) {
         String text = tableRow.findElement(By.xpath("./td[" + column + "]/div")).getText();
         return text;
     }
@@ -38,12 +43,15 @@ public abstract class BasePagePO extends BasePO {
      * @param column
      *            the column number starting by 1
      */
-    protected String getInputTableColumn(WebElement tableRow, int column) {
+    public String getInputTableColumn(WebElement tableRow, int column) {
         String text = tableRow.findElement(By.xpath("./td[" + column + "]/div/input")).getAttribute("value");
         return text;
     }
 
     /**
+     * Gets the value of the table cell identified by row and column. Checks for normal text first and if not found checks for input field
+     * with value.
+     * 
      * @param tableId
      *            id of the table
      * @param row
@@ -51,7 +59,7 @@ public abstract class BasePagePO extends BasePO {
      * @param column
      *            column starting with 1
      */
-    protected String getTableCellText(String tableId, int row, int column) {
+    public String getTableCellText(String tableId, int row, int column) {
         String xpath = "//div[@id='" + tableId + "']//div[contains(@class, 'v-table-body')]//tr[" + row + "]/td[" + column + "]/div";
         String text = driver.findElement(By.xpath(xpath)).getText();
         if (StringUtils.isBlank(text)) {
@@ -62,12 +70,6 @@ public abstract class BasePagePO extends BasePO {
             }
         }
         return text;
-    }
-
-    protected void clickTab(int tabNumber) {
-        WebElement tab = driver.findElement(By.xpath("//div[contains(@class, 'v-tabsheet-tabcontainer')]/table/tbody/tr/td[" + tabNumber
-                + "]/div/div"));
-        tab.click();
     }
 
 }

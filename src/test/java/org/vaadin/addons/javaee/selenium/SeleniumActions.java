@@ -6,6 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.vaadin.addons.javaee.selenium.input.InputMethod;
 import org.vaadin.addons.javaee.selenium.input.InputMethodFactory;
 
+/**
+ * Several methods to change values on the page.
+ * 
+ * @author thomas
+ * 
+ */
 public class SeleniumActions {
 
     private WebDriver driver;
@@ -30,6 +36,12 @@ public class SeleniumActions {
 
     public void clickButton(String button_name) {
         driver.findElement(By.id(button_name)).click();
+    }
+
+    public void clickTab(int tabNumber) {
+        WebElement tab = driver.findElement(By.xpath("//div[contains(@class, 'v-tabsheet-tabcontainer')]/table/tbody/tr/td[" + tabNumber
+                + "]/div/div"));
+        tab.click();
     }
 
 }

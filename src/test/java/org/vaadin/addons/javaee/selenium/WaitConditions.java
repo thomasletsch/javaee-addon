@@ -8,6 +8,12 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 
 public class WaitConditions {
 
+    public final static int SHORT_WAIT_SEC = 1;
+
+    public final static int DEFAULT_WAIT_SEC = 5;
+
+    public final static int LONG_WAIT_SEC = 10;
+
     /**
      * An expectation for checking if the given element is selected.
      */
@@ -46,6 +52,9 @@ public class WaitConditions {
         };
     }
 
+    /**
+     * Waits for all vaadin async calls to be finished. Has a built in timeout of 10 sec.
+     */
     public static void waitForVaadin(WebDriver driver) {
         String isVaadinFinished = "      if (window.vaadin == null) {" + "          return true;" + "      }" + ""
                 + "      var clients = window.vaadin.clients;" + "      if (clients) {" + "          for (var client in clients) {"
@@ -53,7 +62,7 @@ public class WaitConditions {
                 + "          return true;" + "      } else {" + "          return false;" + "      }";
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        long timeoutTime = System.currentTimeMillis() + 20000L;
+        long timeoutTime = System.currentTimeMillis() + LONG_WAIT_SEC;
         boolean finished = false;
         while ((System.currentTimeMillis() < timeoutTime) && (!finished)) {
             finished = ((Boolean) js.executeScript(isVaadinFinished, new Object[0])).booleanValue();

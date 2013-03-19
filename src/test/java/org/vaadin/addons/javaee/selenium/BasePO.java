@@ -13,19 +13,20 @@ public abstract class BasePO {
     @SuppressWarnings("unused")
     private static Logger log = LoggerFactory.getLogger(BasePO.class);
 
+    /**
+     * Marker for the second constructor to not assert page when initializing PO
+     */
     protected final static boolean DO_NOT_ASSERT_PAGE = false;
-
-    public final static int SHORT_WAIT_SEC = 1;
-
-    public final static int LONG_WAIT_SEC = 10;
 
     protected WebDriver driver;
 
     protected SeleniumActions actions;
 
-    protected DataDrivenActions dataActions;
-
     protected SeleniumAssertions assertions;
+
+    protected SeleniumReads reads;
+
+    protected DataDrivenActions dataActions;
 
     protected DataDrivenAssertions dataAssertions;
 
@@ -41,8 +42,9 @@ public abstract class BasePO {
     protected BasePO(WebDriver driver, boolean assertPage) {
         this.driver = driver;
         actions = new SeleniumActions(driver);
-        dataActions = new DataDrivenActions(actions);
         assertions = new SeleniumAssertions(driver);
+        reads = new SeleniumReads(driver);
+        dataActions = new DataDrivenActions(actions);
         dataAssertions = new DataDrivenAssertions(assertions);
         inputMethodFactory = new InputMethodFactory(driver);
         if (assertPage) {
@@ -50,6 +52,9 @@ public abstract class BasePO {
         }
     }
 
+    /**
+     * The id of the element used to identify the page. Used in {@link #assertPage()} and constructors
+     */
     protected abstract String getIdentifyingElement();
 
     public void assertPage() {
