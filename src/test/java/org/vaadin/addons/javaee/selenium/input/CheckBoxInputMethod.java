@@ -13,9 +13,9 @@ public class CheckBoxInputMethod extends AbstractInputMethod {
     }
 
     @Override
-    public void input(String entityName, String attribute, String text) {
+    public void input(String id, String text) {
         Boolean check = Boolean.valueOf(text);
-        WebElement inputField = driver.findElement(By.xpath("//span[@id='" + getId(entityName, attribute) + "']/input"));
+        WebElement inputField = driver.findElement(By.xpath("//span[@id='" + id + "']/input"));
         if (check) {
             if (!isChecked(inputField)) {
                 inputField.click();
@@ -28,19 +28,19 @@ public class CheckBoxInputMethod extends AbstractInputMethod {
     }
 
     @Override
-    public String value(String entityName, String attribute) {
-        WebElement inputField = driver.findElement(By.xpath("//span[@id='" + getId(entityName, attribute) + "']/input"));
+    public String value(String id) {
+        WebElement inputField = driver.findElement(By.xpath("//span[@id='" + id + "']/input"));
         return isChecked(inputField).toString();
     }
 
     @Override
-    public void assertInput(String entityName, String attribute, String text) {
+    public void assertInput(String id, String text) {
         Boolean check = Boolean.valueOf(text);
-        WebElement inputField = driver.findElement(By.xpath("//span[@id='" + getId(entityName, attribute) + "']/input"));
+        WebElement inputField = driver.findElement(By.xpath("//span[@id='" + id + "']/input"));
         if (check) {
-            assertTrue(getId(entityName, attribute), isChecked(inputField));
+            assertTrue(id, isChecked(inputField));
         } else {
-            assertFalse(getId(entityName, attribute), isChecked(inputField));
+            assertFalse(id, isChecked(inputField));
         }
     }
 

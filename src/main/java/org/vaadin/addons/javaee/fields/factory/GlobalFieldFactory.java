@@ -25,8 +25,8 @@ import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 
 import com.vaadin.data.Container;
+import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.TableFieldFactory;
 
@@ -50,10 +50,11 @@ public class GlobalFieldFactory implements TableFieldFactory {
     @Inject
     private DefaultEntityFieldFactory defaultEntityFieldFactory;
 
-    private TableFieldFactory defaultTableFieldFactory = DefaultFieldFactory.get();
+    @Inject
+    private DefaultEntityTableFieldFactory defaultTableFieldFactory;
 
     @SuppressWarnings("unchecked")
-    public <T extends Field<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec) {
+    public <T extends AbstractField<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec) {
         Iterator<EntityFieldFactory> iterator = fieldFactories.iterator();
         while (iterator.hasNext()) {
             EntityFieldFactory fieldFactory = iterator.next();
@@ -73,12 +74,21 @@ public class GlobalFieldFactory implements TableFieldFactory {
         if (container instanceof EntityContainer<?>) {
             EntityContainer<?> entityContainer = (EntityContainer<?>) container;
             FieldSpecification fieldSpec = new FieldSpecification((String) propertyId);
-            Field<?> field = createField(entityContainer, fieldSpec);
+            AbstractField<?> field = createField(entityContainer, fieldSpec);
             if (field != null) {
+                String entityName = ((EntityContainer<?>) container).getEntityClass().getSimpleName();
+                configureTableField(itemId, propertyId, field, entityName);
                 return field;
             }
         }
-        return defaultTableFieldFactory.createField(container, itemId, propertyId, uiContext);
+        AbstractField<?> field = (AbstractField<?>) defaultTableFieldFactory.createField(container, itemId, propertyId, uiContext);
+        String entityName = container.toString();
+        configureTableField(itemId, propertyId, field, entityName);
+        return field;
     }
 
+    public void configureTableField(Object itemId, Object propertyId, AbstractField<?> field, String entityName) {
+        field.setId(entityName + ":" + itemId + ":" + propertyId);
+        field.setImmediate(true);
+    }
 }

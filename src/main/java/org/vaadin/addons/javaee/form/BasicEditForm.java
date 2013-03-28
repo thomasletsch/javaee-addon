@@ -25,13 +25,13 @@ import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 
-public abstract class BasicEntityForm<ENTITY extends PersistentEntity> extends BasicForm<ENTITY> {
+public abstract class BasicEditForm<ENTITY extends PersistentEntity> extends BasicForm<ENTITY> {
 
     private static final long serialVersionUID = 1L;
 
-    private static Logger log = LoggerFactory.getLogger(BasicEntityForm.class);
+    private static Logger log = LoggerFactory.getLogger(BasicEditForm.class);
 
-    public BasicEntityForm(Class<ENTITY> entityClass) {
+    public BasicEditForm(Class<ENTITY> entityClass) {
         super(entityClass);
     }
 

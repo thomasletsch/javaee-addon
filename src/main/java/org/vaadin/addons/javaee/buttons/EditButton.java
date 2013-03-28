@@ -23,9 +23,6 @@ import com.vaadin.server.ThemeResource;
 
 public class EditButton extends BasicButton {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 1L;
 
     public EditButton(CanHandleEditButton canHandle, String title) {

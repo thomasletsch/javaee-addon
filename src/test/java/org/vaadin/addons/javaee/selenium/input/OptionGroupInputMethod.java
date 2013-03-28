@@ -16,14 +16,14 @@ public class OptionGroupInputMethod extends AbstractInputMethod {
     }
 
     @Override
-    public void input(String entityName, String attribute, String text) {
-        WebElement element = driver.findElement(By.xpath("//div[@id='" + getId(entityName, attribute) + "']/span[" + text + "]/input"));
+    public void input(String id, String text) {
+        WebElement element = driver.findElement(By.xpath("//div[@id='" + id + "']/span[" + text + "]/input"));
         element.click();
     }
 
     @Override
-    public String value(String entityName, String attribute) {
-        List<WebElement> options = driver.findElements(By.xpath("//div[@id='" + getId(entityName, attribute) + "']/span"));
+    public String value(String id) {
+        List<WebElement> options = driver.findElements(By.xpath("//div[@id='" + id + "']/span"));
         for (WebElement webElement : options) {
             WebElement element = webElement.findElement(By.xpath("./input"));
             if (element.getAttribute("checked") != null) {
@@ -34,13 +34,12 @@ public class OptionGroupInputMethod extends AbstractInputMethod {
     }
 
     @Override
-    public void assertInput(String entityName, String attribute, String text) {
+    public void assertInput(String id, String text) {
         if (StringUtils.isBlank(text)) {
             return;
         }
-        WebElement element = driver.findElement(By.xpath("//div[@id='" + getId(entityName, attribute) + "']/span[" + text + "]/input"));
-        assertNotNull("Radio Button at pos " + text + " of " + getId(entityName, attribute) + " must be checked",
-                element.getAttribute("checked"));
+        WebElement element = driver.findElement(By.xpath("//div[@id='" + id + "']/span[" + text + "]/input"));
+        assertNotNull("Radio Button at pos " + text + " of " + id + " must be checked", element.getAttribute("checked"));
     }
 
     @Override

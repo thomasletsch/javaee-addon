@@ -43,7 +43,7 @@ public class BasicButton extends Button {
     public BasicButton(String titleKey, String title) {
         super();
         setCaption(title);
-        setDebugId(titleKey);
+        setId(titleKey);
     }
 
     /**
@@ -52,12 +52,22 @@ public class BasicButton extends Button {
     public BasicButton(String titleKey) {
         super();
         this.titleKey = titleKey;
-        setDebugId(titleKey);
+        setId(titleKey);
     }
 
     @PostConstruct
     protected void finishButton() {
         setCaption(translationService.getText(titleKey));
+        addClickListener(new Button.ClickListener() {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                // Does currently not work
+                fireEvent();
+            }
+        });
     }
 
     public void fireEvent() {

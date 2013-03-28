@@ -13,22 +13,22 @@ public class TextInputMethod extends AbstractInputMethod {
     }
 
     @Override
-    public void input(String entityName, String attribute, String text) {
-        WebElement element = driver.findElement(By.id(getId(entityName, attribute)));
+    public void input(String id, String text) {
+        WebElement element = driver.findElement(By.id(id));
         element.clear();
         element.sendKeys(text);
     }
 
     @Override
-    public String value(String entityName, String attribute) {
-        WebElement element = driver.findElement(By.id(getId(entityName, attribute)));
+    public String value(String id) {
+        WebElement element = driver.findElement(By.id(id));
         return element.getAttribute("value");
     }
 
     @Override
-    public void assertInput(String entityName, String attribute, String text) {
-        WebElement element = driver.findElement(By.id(getId(entityName, attribute)));
-        assertEquals(getId(entityName, attribute), text, element.getAttribute("value"));
+    public void assertInput(String id, String text) {
+        WebElement element = driver.findElement(By.id(id));
+        assertEquals(id, text, element.getAttribute("value"));
     }
 
     @Override

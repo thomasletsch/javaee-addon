@@ -6,6 +6,8 @@ import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.vaadin.addons.javaee.selenium.input.InputMethod;
+import org.vaadin.addons.javaee.selenium.input.InputMethodFactory;
 
 /**
  * Collection of different methods to read specific data from the page. Standard elements can be read with the help of the
@@ -18,12 +20,16 @@ public class SeleniumReads {
 
     private WebDriver driver;
 
+    private InputMethodFactory factory;
+
     public SeleniumReads(WebDriver driver) {
         this.driver = driver;
+        factory = new InputMethodFactory(driver);
     }
 
     public List<WebElement> getTableRows(String tableName) {
-        return driver.findElements(By.xpath("//div[@id='" + tableName + "']//div[contains(@class, 'v-table-body')]//tr"));
+        String xpath = "//div[@id='" + tableName + "']//div[contains(@class, 'v-table-body')]//tr";
+        return driver.findElements(By.xpath(xpath));
     }
 
     /**
@@ -32,20 +38,48 @@ public class SeleniumReads {
      * @param column
      *            the column number starting by 1
      */
-    public String getTableColumn(WebElement tableRow, int column) {
-        String text = tableRow.findElement(By.xpath("./td[" + column + "]/div")).getText();
-        return text;
+    public String getTableCellText(WebElement tableRow, int column) {
+        WebElement tableCell = getTableCell(tableRow, column);
+        String id = tableCell.getAttribute("id");
+        InputMethod inputMethod = factory.get(id);
+        return inputMethod.value(id);
     }
 
     /**
-     * Gets the text of the column.
+     * Gets the text of the column. For input cells.
      * 
      * @param column
      *            the column number starting by 1
      */
-    public String getInputTableColumn(WebElement tableRow, int column) {
-        String text = tableRow.findElement(By.xpath("./td[" + column + "]/div/input")).getAttribute("value");
-        return text;
+    public String getTableInputCellText(String tableId, int row, int column) {
+        WaitConditions.waitForVaadin(driver);
+        WebElement tableCell = getTableInputCell(tableId, row, column);
+        String id = tableCell.getAttribute("id");
+        InputMethod inputMethod = factory.get(id);
+        return inputMethod.value(id);
+    }
+
+    /**
+     * Gets the element of the column.
+     * 
+     * @param column
+     *            the column number starting by 1
+     */
+    public WebElement getTableCell(WebElement tableRow, int column) {
+        WebElement element = tableRow.findElement(By.xpath("./td[" + column + "]/div"));
+        return element;
+    }
+
+    /**
+     * Gets the element of the column. For input cells.
+     * 
+     * @param column
+     *            the column number starting by 1
+     */
+    public WebElement getTableInputCell(String tableId, int row, int column) {
+        String xpath = "//div[@id='" + tableId + "']//div[contains(@class, 'v-table-body')]//tr[" + row + "]/td[" + column + "]/div/*[1]";
+        WebElement element = driver.findElement(By.xpath(xpath));
+        return element;
     }
 
     /**
@@ -66,7 +100,9 @@ public class SeleniumReads {
             xpath = xpath + "/input";
             List<WebElement> elements = driver.findElements(By.xpath(xpath));
             if (elements.size() == 1) {
-                return elements.get(0).getAttribute("value");
+                String id = elements.get(0).getAttribute("id");
+                InputMethod inputMethod = factory.get(id);
+                return inputMethod.value(id);
             }
         }
         return text;

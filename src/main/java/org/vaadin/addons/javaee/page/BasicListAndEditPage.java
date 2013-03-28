@@ -26,7 +26,7 @@ import org.vaadin.addons.javaee.buttons.SaveButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleEditButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleNewButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleSaveButton;
-import org.vaadin.addons.javaee.form.BasicEntityForm;
+import org.vaadin.addons.javaee.form.BasicEditForm;
 import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
@@ -60,7 +60,7 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
 
     protected abstract BasicEntityTable<ENTITY> getTable();
 
-    protected abstract BasicEntityForm<ENTITY> getForm();
+    protected abstract BasicEditForm<ENTITY> getForm();
 
     @Override
     protected void initView() {

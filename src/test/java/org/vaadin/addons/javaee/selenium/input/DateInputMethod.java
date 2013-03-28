@@ -13,22 +13,22 @@ public class DateInputMethod extends AbstractInputMethod {
     }
 
     @Override
-    public void input(String entityName, String attribute, String text) {
-        WebElement dateInputField = driver.findElement(By.xpath("//div[@id='" + getId(entityName, attribute) + "']/input"));
+    public void input(String id, String text) {
+        WebElement dateInputField = driver.findElement(By.xpath("//div[@id='" + id + "']/input"));
         dateInputField.clear();
         dateInputField.sendKeys(text);
     }
 
     @Override
-    public String value(String entityName, String attribute) {
-        WebElement element = driver.findElement(By.xpath("//div[@id='" + getId(entityName, attribute) + "']/input"));
+    public String value(String id) {
+        WebElement element = driver.findElement(By.xpath("//div[@id='" + id + "']/input"));
         return element.getAttribute("value");
     }
 
     @Override
-    public void assertInput(String entityName, String attribute, String text) {
-        WebElement element = driver.findElement(By.xpath("//div[@id='" + getId(entityName, attribute) + "']/input"));
-        assertEquals(getId(entityName, attribute), text, element.getAttribute("value"));
+    public void assertInput(String id, String text) {
+        WebElement element = driver.findElement(By.xpath("//div[@id='" + id + "']/input"));
+        assertEquals(id, text, element.getAttribute("value"));
     }
 
     @Override

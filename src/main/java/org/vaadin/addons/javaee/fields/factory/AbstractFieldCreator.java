@@ -21,12 +21,12 @@ import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.wamblee.inject.InjectorBuilder;
 
-import com.vaadin.ui.Field;
+import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.Reindeer;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
-public abstract class AbstractFieldCreator<FIELD extends Field> implements FieldCreator<FIELD> {
+public abstract class AbstractFieldCreator<FIELD extends AbstractField> implements FieldCreator<FIELD> {
 
     private static Logger log = LoggerFactory.getLogger(AbstractFieldCreator.class);
 

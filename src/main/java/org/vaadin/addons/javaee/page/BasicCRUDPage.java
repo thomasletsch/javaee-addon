@@ -29,7 +29,7 @@ import org.vaadin.addons.javaee.buttons.handler.CanHandleDeleteButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleEditButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleNewButton;
 import org.vaadin.addons.javaee.container.EntityContainer;
-import org.vaadin.addons.javaee.form.BasicEntityForm;
+import org.vaadin.addons.javaee.form.BasicEditForm;
 import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
@@ -47,10 +47,6 @@ public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends Abs
     protected TranslationService translationService;
 
     protected EntityContainer<ENTITY> container;
-
-    private BasicEntityTable<ENTITY> table;
-
-    private BasicEntityForm<ENTITY> form;
 
     private ButtonBar buttons = new ButtonBar();
 
@@ -70,21 +66,19 @@ public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends Abs
 
     public abstract BasicEntityTable<ENTITY> getTable();
 
-    protected abstract BasicEntityForm<ENTITY> getForm();
+    protected abstract BasicEditForm<ENTITY> getForm();
 
     @Override
     protected void initView() {
         super.initView();
         container = getContainer();
-        table = getTable();
-        form = getForm();
 
-        table.setCaption(translationService.getText(container.getEntityClass().getSimpleName() + "s"));
-        addComponent(table);
+        getTable().setCaption(translationService.getText(container.getEntityClass().getSimpleName() + "s"));
+        addComponent(getTable());
         initButtons();
         addComponent(buttons);
 
-        addEditDialog = new AddEditDialog(container, form, translationService);
+        addEditDialog = new AddEditDialog(container, getForm(), translationService);
     }
 
     private void initButtons() {
@@ -102,8 +96,8 @@ public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends Abs
 
     @Override
     public void deleteClicked() {
-        if (table.isAnySelected()) {
-            table.removeSelectedItem();
+        if (getTable().isAnySelected()) {
+            getTable().removeSelectedItem();
         } else {
             log.error("You have to select a " + getPageName() + ".");
         }
@@ -111,8 +105,8 @@ public abstract class BasicCRUDPage<ENTITY extends PersistentEntity> extends Abs
 
     @Override
     public void editClicked() {
-        if (table.isAnySelected()) {
-            addEditDialog.editSelected(table);
+        if (getTable().isAnySelected()) {
+            addEditDialog.editSelected(getTable());
         } else {
             log.error("You have to select a " + getPageName() + ".");
         }

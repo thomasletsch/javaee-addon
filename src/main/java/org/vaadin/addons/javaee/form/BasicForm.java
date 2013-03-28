@@ -31,6 +31,7 @@ import org.wamblee.inject.InjectorBuilder;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
+import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.VerticalLayout;
 
@@ -175,7 +176,7 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
     @SuppressWarnings("unchecked")
     public <ENTITY_TYPE> void addHiddenField(String fieldName, ENTITY_TYPE entity) {
         FieldSpecification fieldSpec = new FieldSpecification(fieldName);
-        Field<ENTITY_TYPE> field = (Field<ENTITY_TYPE>) fieldGroup.getField(fieldName);
+        AbstractField<ENTITY_TYPE> field = (AbstractField<ENTITY_TYPE>) fieldGroup.getField(fieldName);
         if (field == null) {
             field = fieldFactory.createField(getContainer(), fieldSpec);
             fieldGroup.bind(field, fieldName);

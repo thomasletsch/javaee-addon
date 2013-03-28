@@ -28,6 +28,9 @@ public class BooleanColumnGenerator implements Table.ColumnGenerator {
     public Component generateCell(Table source, Object itemId, Object columnId) {
         Property<?> prop = source.getItem(itemId).getItemProperty(columnId);
         CheckBox checkBox = new CheckBox(null, prop);
+        checkBox.setId(source.getId() + ":" + itemId + ":" + columnId);
+        checkBox.setImmediate(true);
+        checkBox.setBuffered(false);
         if (source.isEditable()) {
             checkBox.setReadOnly(false);
         } else {

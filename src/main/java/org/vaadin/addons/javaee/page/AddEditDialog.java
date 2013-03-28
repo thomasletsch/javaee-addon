@@ -22,7 +22,7 @@ import org.vaadin.addons.javaee.buttons.handler.CanHandleCancelButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleOkButton;
 import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.container.EntityItem;
-import org.vaadin.addons.javaee.form.BasicEntityForm;
+import org.vaadin.addons.javaee.form.BasicEditForm;
 import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.table.BasicEntityTable;
@@ -37,7 +37,7 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
 
     private TranslationService translationService;
 
-    protected BasicEntityForm<?> form;
+    protected BasicEditForm<?> form;
 
     private final EntityContainer<?> container;
 
@@ -47,7 +47,7 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
 
     private VerticalLayout content;
 
-    public AddEditDialog(EntityContainer<?> container, BasicEntityForm<?> form, TranslationService translationService) {
+    public AddEditDialog(EntityContainer<?> container, BasicEditForm<?> form, TranslationService translationService) {
         this.translationService = translationService;
         this.container = container;
         this.form = form;

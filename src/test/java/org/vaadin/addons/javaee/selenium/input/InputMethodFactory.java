@@ -17,6 +17,15 @@ public class InputMethodFactory {
         inputMethods.add(new CheckBoxInputMethod(driver));
     }
 
+    public InputMethod get(String id) {
+        for (InputMethod inputMethod : inputMethods) {
+            if (inputMethod.accepts(id)) {
+                return inputMethod;
+            }
+        }
+        throw new IllegalArgumentException("No InputMethod found for entity with id " + id);
+    }
+
     public InputMethod get(String entityName, String attribute) {
         for (InputMethod inputMethod : inputMethods) {
             if (inputMethod.accepts(entityName, attribute)) {

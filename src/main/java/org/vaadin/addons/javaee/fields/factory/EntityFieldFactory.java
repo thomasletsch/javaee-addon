@@ -20,10 +20,10 @@ import java.io.Serializable;
 import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 
-import com.vaadin.ui.Field;
+import com.vaadin.ui.AbstractField;
 
 public interface EntityFieldFactory extends Serializable {
 
-    <T extends Field<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec);
+    <T extends AbstractField<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec);
 
 }

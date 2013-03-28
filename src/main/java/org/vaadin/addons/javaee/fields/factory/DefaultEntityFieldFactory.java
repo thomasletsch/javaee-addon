@@ -30,7 +30,7 @@ import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.wamblee.inject.InjectorBuilder;
 
-import com.vaadin.ui.Field;
+import com.vaadin.ui.AbstractField;
 
 @Singleton
 public class DefaultEntityFieldFactory implements EntityFieldFactory {
@@ -39,7 +39,7 @@ public class DefaultEntityFieldFactory implements EntityFieldFactory {
 
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public <T extends Field<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec) {
+    public <T extends AbstractField<?>> T createField(EntityContainer<?> container, FieldSpecification fieldSpec) {
         Class<?> dataType = container.getType(fieldSpec.getName());
         AbstractFieldCreator<?> fieldCreator;
         if (fieldSpec.getValues() != null || fieldSpec.getValueMap() != null) {

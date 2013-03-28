@@ -16,8 +16,31 @@ public abstract class AbstractInputMethod implements InputMethod {
     protected abstract String getElementClassAttribute();
 
     @Override
+    public void input(String entityName, String attribute, String text) {
+        String id = getId(entityName, attribute);
+        input(id, text);
+    }
+
+    @Override
+    public String value(String entityName, String attribute) {
+        String id = getId(entityName, attribute);
+        return value(id);
+    }
+
+    @Override
+    public void assertInput(String entityName, String attribute, String text) {
+        String id = getId(entityName, attribute);
+        assertInput(id, text);
+    }
+
+    @Override
     public boolean accepts(String entityName, String attribute) {
         String id = getId(entityName, attribute);
+        return accepts(id);
+    }
+
+    @Override
+    public boolean accepts(String id) {
         WebElement element = driver.findElement(By.id(id));
         return element.getAttribute("class").contains(getElementClassAttribute());
     }

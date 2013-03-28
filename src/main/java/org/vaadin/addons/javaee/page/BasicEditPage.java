@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
 import org.vaadin.addons.javaee.buttons.SaveButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleSaveButton;
-import org.vaadin.addons.javaee.form.BasicEntityForm;
+import org.vaadin.addons.javaee.form.BasicEditForm;
 import org.vaadin.addons.javaee.i18n.TranslationKeys;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 
@@ -65,7 +65,7 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Abs
         addComponent(new Panel(), REST_RATIO);
     }
 
-    protected abstract BasicEntityForm<ENTITY> getForm();
+    protected abstract BasicEditForm<ENTITY> getForm();
 
     protected ButtonBar initButtons() {
         ButtonBar buttonBar = new ButtonBar();
