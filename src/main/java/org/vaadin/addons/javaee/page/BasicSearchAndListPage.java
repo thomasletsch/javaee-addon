@@ -40,10 +40,6 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
     @Inject
     protected TranslationService translationService;
 
-    private BasicSearchForm<ENTITY> searchForm;
-
-    private BasicEntityTable<ENTITY> table;
-
     public BasicSearchAndListPage(String pageName) {
         super(pageName);
     }
@@ -71,21 +67,19 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
     }
 
     protected void createListSection() {
-        table = getResultTable();
-        addComponent(table, SEARCH_RESULT_TABLE_RATIO);
+        addComponent(getResultTable(), SEARCH_RESULT_TABLE_RATIO);
     }
 
     protected void createSearchSection() {
-        searchForm = getSearchForm();
-        addComponent(searchForm, SEARCH_FORM_RATIO);
+        addComponent(getSearchForm(), SEARCH_FORM_RATIO);
         ButtonBar buttonBar = initSearchButtons();
         addComponent(buttonBar, BUTTON_RATIO);
     }
 
     @Override
     public void searchClicked() {
-        table.removeAllContainerFilters();
-        table.addContainerFilter(searchForm.getValuesAsFilter());
+        getResultTable().removeAllContainerFilters();
+        getResultTable().addContainerFilter(getSearchForm().getValuesAsFilter(false));
     }
 
 }

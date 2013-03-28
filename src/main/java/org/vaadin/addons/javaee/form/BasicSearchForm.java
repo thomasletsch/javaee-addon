@@ -15,12 +15,9 @@
  ******************************************************************************/
 package org.vaadin.addons.javaee.form;
 
-import javax.enterprise.context.Dependent;
-
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.util.BeanItem;
 
-@Dependent
 public abstract class BasicSearchForm<ENTITY extends PersistentEntity> extends BasicForm<ENTITY> {
 
     private static final long serialVersionUID = 1L;
@@ -31,9 +28,12 @@ public abstract class BasicSearchForm<ENTITY extends PersistentEntity> extends B
 
     @Override
     protected void initFields() {
+        resetSearch();
+    }
+
+    public void resetSearch() {
         BeanItem<ENTITY> itemDataSource = new BeanItem<ENTITY>(getDefaultValue());
         fieldGroup.setItemDataSource(itemDataSource);
-        super.initFields();
     }
 
 }

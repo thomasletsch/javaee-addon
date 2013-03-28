@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.vaadin.addons.javaee.selenium.WaitConditions;
 
 public abstract class AbstractInputMethod implements InputMethod {
 
@@ -41,6 +42,7 @@ public abstract class AbstractInputMethod implements InputMethod {
 
     @Override
     public boolean accepts(String id) {
+        WaitConditions.waitForVaadin(driver);
         WebElement element = driver.findElement(By.id(id));
         return element.getAttribute("class").contains(getElementClassAttribute());
     }

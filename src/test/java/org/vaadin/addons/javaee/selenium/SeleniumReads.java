@@ -6,6 +6,8 @@ import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.selenium.input.InputMethod;
 import org.vaadin.addons.javaee.selenium.input.InputMethodFactory;
 
@@ -17,6 +19,8 @@ import org.vaadin.addons.javaee.selenium.input.InputMethodFactory;
  * 
  */
 public class SeleniumReads {
+
+    private static Logger log = LoggerFactory.getLogger(SeleniumReads.class);
 
     private WebDriver driver;
 
@@ -39,10 +43,8 @@ public class SeleniumReads {
      *            the column number starting by 1
      */
     public String getTableCellText(WebElement tableRow, int column) {
-        WebElement tableCell = getTableCell(tableRow, column);
-        String id = tableCell.getAttribute("id");
-        InputMethod inputMethod = factory.get(id);
-        return inputMethod.value(id);
+        String text = tableRow.findElement(By.xpath("./td[" + column + "]/div")).getText();
+        return text;
     }
 
     /**
@@ -53,6 +55,12 @@ public class SeleniumReads {
      */
     public String getTableInputCellText(String tableId, int row, int column) {
         WaitConditions.waitForVaadin(driver);
+        try {
+            // I hate this, but in this case waitForVaadin does not seem to work.
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            log.error("", e);
+        }
         WebElement tableCell = getTableInputCell(tableId, row, column);
         String id = tableCell.getAttribute("id");
         InputMethod inputMethod = factory.get(id);

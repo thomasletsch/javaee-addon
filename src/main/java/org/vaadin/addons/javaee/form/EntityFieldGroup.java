@@ -54,10 +54,14 @@ public class EntityFieldGroup<ENTITY extends PersistentEntity> extends FieldGrou
         return getFields().iterator().next();
     }
 
-    public Filter getValuesAsFilter() {
+    /**
+     * @param onlyChanged
+     *            If true only fields with changed values are considered.
+     */
+    public Filter getValuesAsFilter(boolean onlyChanged) {
         List<Filter> filters = new ArrayList<>();
         for (Field<?> field : getFields()) {
-            if (field == null || field.getValue() == null) {
+            if (field == null || field.getValue() == null || (onlyChanged && !field.isModified())) {
                 continue;
             }
             if (field instanceof NumberField) {

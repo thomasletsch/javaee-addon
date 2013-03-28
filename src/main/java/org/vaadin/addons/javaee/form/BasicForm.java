@@ -58,8 +58,12 @@ public abstract class BasicForm<ENTITY extends PersistentEntity> extends Vertica
 
     protected abstract EntityContainer<ENTITY> getContainer();
 
-    public Filter getValuesAsFilter() {
-        return fieldGroup.getValuesAsFilter();
+    /**
+     * @param onlyChanged
+     *            If true only fields with changed values are considered.
+     */
+    public Filter getValuesAsFilter(boolean onlyChanged) {
+        return fieldGroup.getValuesAsFilter(onlyChanged);
     }
 
     protected ENTITY getDefaultValue() {

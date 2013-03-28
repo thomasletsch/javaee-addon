@@ -32,7 +32,7 @@ public class ComboBoxTranslated extends ComboBox {
 
     public ComboBoxTranslated() {
         setNullSelectionAllowed(false);
-        setTextInputAllowed(false);
+        setTextInputAllowed(true);
     }
 
     /**
@@ -45,7 +45,7 @@ public class ComboBoxTranslated extends ComboBox {
     public ComboBoxTranslated(String caption, Map<String, String> values) {
         super(caption, values.keySet());
         setNullSelectionAllowed(false);
-        setTextInputAllowed(false);
+        setTextInputAllowed(true);
         for (String value : values.keySet()) {
             setItemCaption(value, values.get(value));
         }

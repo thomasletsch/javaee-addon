@@ -53,7 +53,7 @@ public class JPAEntityContainer<ENTITY extends PersistentEntity> extends Abstrac
     @Override
     public void refreshItem(EntityItem<ENTITY> item) {
         assert (item.getEntity().getId() != null);
-        jpaEntityProvider.refreshEntity(item.getEntity());
+        item.setEntity(jpaEntityProvider.get(entityClass, item.getEntity().getId()));
     }
 
     @Override

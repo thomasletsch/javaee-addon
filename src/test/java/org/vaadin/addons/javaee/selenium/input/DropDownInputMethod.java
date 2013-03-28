@@ -1,6 +1,6 @@
 package org.vaadin.addons.javaee.selenium.input;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -24,7 +24,13 @@ public class DropDownInputMethod extends AbstractInputMethod {
 
     @Override
     public void input(String id, String text) {
-        openDropDownMenu(id);
+        if (StringUtils.isNumeric(text)) {
+            openDropDownMenu(id);
+        } else {
+            WebElement inputElement = driver.findElement(By.xpath("//div[@id='" + id + "']/input"));
+            inputElement.clear();
+            inputElement.sendKeys(text);
+        }
         WebElement entry = getDropDownElement(text);
         entry.click();
     }
@@ -45,11 +51,16 @@ public class DropDownInputMethod extends AbstractInputMethod {
 
     @Override
     public void assertInput(String id, String text) {
-        WebElement selectDropDown = openDropDownMenu(id);
-        WaitConditions.waitForVaadin(driver);
-        WebElement entry = getDropDownElement(text);
-        assertTrue("Entry " + text + " of " + id + " must be selected", entry.getAttribute("class").contains("gwt-MenuItem-selected"));
-        selectDropDown.click();
+        if (StringUtils.isNumeric(text)) {
+            WebElement selectDropDown = openDropDownMenu(id);
+            WaitConditions.waitForVaadin(driver);
+            WebElement entry = getDropDownElement(text);
+            assertTrue("Entry " + text + " of " + id + " must be selected", entry.getAttribute("class").contains("gwt-MenuItem-selected"));
+            selectDropDown.click();
+        } else {
+            WebElement inputElement = driver.findElement(By.xpath("//div[@id='" + id + "']/input"));
+            assertEquals(id, text, inputElement.getAttribute("value"));
+        }
     }
 
     private WebElement openDropDownMenu(String id) {
@@ -63,7 +74,7 @@ public class DropDownInputMethod extends AbstractInputMethod {
         WebElement entry = null;
         if (StringUtils.isNumeric(text)) {
             entry = driver.findElement(By.xpath("//div[@id='VAADIN_COMBOBOX_OPTIONLIST']"
-                    + "//div[@class=\"v-filterselect-suggestmenu\"]/table/tbody/tr[" + text + "]//span"));
+                    + "//div[@class=\"v-filterselect-suggestmenu\"]/table/tbody/tr[" + text + "]/td"));
         } else {
             entry = driver.findElement(By.xpath("//div[@id='VAADIN_COMBOBOX_OPTIONLIST']"
                     + "//div[@class='v-filterselect-suggestmenu']/table/tbody//span[contains(., '" + text + "')]"));

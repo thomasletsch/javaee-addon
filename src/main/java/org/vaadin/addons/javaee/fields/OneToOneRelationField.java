@@ -15,7 +15,6 @@
  ******************************************************************************/
 package org.vaadin.addons.javaee.fields;
 
-
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.googlecode.javaeeutils.reflection.ReflectionUtils;
 import com.vaadin.ui.Component;
@@ -41,12 +40,17 @@ public class OneToOneRelationField<ENTITY extends PersistentEntity> extends Cust
     protected void setInternalValue(ENTITY newValue) {
         super.setInternalValue(newValue);
         Object value = ReflectionUtils.getValue(newValue, captionProperty);
+        if (label == null) {
+            initContent();
+        }
         label.setValue((value == null) ? "" : value.toString());
     }
 
     @Override
     protected Component initContent() {
-        label = new Label();
+        if (label == null) {
+            label = new Label();
+        }
         return label;
     }
 
