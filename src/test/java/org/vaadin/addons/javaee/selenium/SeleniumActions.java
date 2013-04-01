@@ -36,12 +36,14 @@ public class SeleniumActions {
 
     public void clickButton(String button_name) {
         driver.findElement(By.id(button_name)).click();
+        WaitConditions.waitForVaadin(driver);
     }
 
     public void clickTab(int tabNumber) {
         WebElement tab = driver.findElement(By.xpath("//div[contains(@class, 'v-tabsheet-tabcontainer')]/table/tbody/tr/td[" + tabNumber
                 + "]/div/div"));
         tab.click();
+        WaitConditions.waitForVaadin(driver);
     }
 
 }

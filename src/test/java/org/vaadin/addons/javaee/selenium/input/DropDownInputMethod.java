@@ -26,13 +26,24 @@ public class DropDownInputMethod extends AbstractInputMethod {
     public void input(String id, String text) {
         if (StringUtils.isNumeric(text)) {
             openDropDownMenu(id);
+            WebElement entry = getDropDownElement(text);
+            entry.click();
         } else {
             WebElement inputElement = driver.findElement(By.xpath("//div[@id='" + id + "']/input"));
             inputElement.clear();
-            inputElement.sendKeys(text);
+            // If we would input all text, at some point there is only one entry left which gets selected automatically. This overwrites
+            // some chars :-(
+            // Otherwise if we do not input some text, it could be that the required entry is not in the current page of the table.
+            // Solution: Try each char, input and look if the searched entry is available. If not, add another char to the input field.
+            for (int i = 0; i < text.toCharArray().length; i++) {
+                inputElement.sendKeys("" + text.toCharArray()[i]);
+                WebElement entry = getDropDownElement(text);
+                if (entry != null) {
+                    entry.click();
+                    break;
+                }
+            }
         }
-        WebElement entry = getDropDownElement(text);
-        entry.click();
     }
 
     @Override
@@ -76,8 +87,11 @@ public class DropDownInputMethod extends AbstractInputMethod {
             entry = driver.findElement(By.xpath("//div[@id='VAADIN_COMBOBOX_OPTIONLIST']"
                     + "//div[@class=\"v-filterselect-suggestmenu\"]/table/tbody/tr[" + text + "]/td"));
         } else {
-            entry = driver.findElement(By.xpath("//div[@id='VAADIN_COMBOBOX_OPTIONLIST']"
+            List<WebElement> elements = driver.findElements(By.xpath("//div[@id='VAADIN_COMBOBOX_OPTIONLIST']"
                     + "//div[@class='v-filterselect-suggestmenu']/table/tbody//span[contains(., '" + text + "')]"));
+            if (elements.size() > 0) {
+                entry = elements.get(0);
+            }
         }
         return entry;
     }

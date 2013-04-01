@@ -103,14 +103,18 @@ public class SeleniumReads {
      */
     public String getTableCellText(String tableId, int row, int column) {
         String xpath = "//div[@id='" + tableId + "']//div[contains(@class, 'v-table-body')]//tr[" + row + "]/td[" + column + "]/div";
+        WaitConditions.waitForVaadin(driver);
         String text = driver.findElement(By.xpath(xpath)).getText();
         if (StringUtils.isBlank(text)) {
             xpath = xpath + "/input";
             List<WebElement> elements = driver.findElements(By.xpath(xpath));
             if (elements.size() == 1) {
                 String id = elements.get(0).getAttribute("id");
-                InputMethod inputMethod = factory.get(id);
-                return inputMethod.value(id);
+                if (!StringUtils.isBlank(id)) {
+                    InputMethod inputMethod = factory.get(id);
+                    return inputMethod.value(id);
+                }
+                return elements.get(0).getAttribute("value");
             }
         }
         return text;
