@@ -19,11 +19,17 @@ import javax.validation.constraints.Size;
 
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.AbstractTextField;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
 public class TextFieldCreator<FIELD extends AbstractTextField> extends AbstractFieldCreator<FIELD> {
 
     private static final int MAX_SIZE = 15;
+
+    /**
+     * If field max size is greater than 255, create a TextArea instead of TextField
+     */
+    private static final int MIN_SIZE_TEXT_AREA = 255;
 
     @Override
     protected void initializeField(FIELD field) {
@@ -33,12 +39,23 @@ public class TextFieldCreator<FIELD extends AbstractTextField> extends AbstractF
             int maxSize = Math.min(size.max(), MAX_SIZE);
             field.setWidth(maxSize, Unit.EM);
         }
+        if (field instanceof TextArea) {
+            TextArea textArea = (TextArea) field;
+            if (fieldSpec.getRows() > 1) {
+                textArea.setRows(fieldSpec.getRows());
+            } else {
+                textArea.setRows(2);
+            }
+        }
     };
 
     @Override
     @SuppressWarnings("unchecked")
     protected Class<FIELD> getDefaultFieldType() {
+        Size size = container.getAnnotation(fieldSpec.getName(), Size.class);
+        if (size != null && size.max() < Integer.MAX_VALUE && size.max() > MIN_SIZE_TEXT_AREA) {
+            return (Class<FIELD>) TextArea.class;
+        }
         return (Class<FIELD>) TextField.class;
     }
-
 }
