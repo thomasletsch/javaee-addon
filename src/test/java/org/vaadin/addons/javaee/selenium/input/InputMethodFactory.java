@@ -14,6 +14,7 @@ public class InputMethodFactory {
         inputMethods.add(new DropDownInputMethod(driver));
         inputMethods.add(new OptionGroupInputMethod(driver));
         inputMethods.add(new TextInputMethod(driver));
+        inputMethods.add(new TextAreaInputMethod(driver));
         inputMethods.add(new CheckBoxInputMethod(driver));
     }
 

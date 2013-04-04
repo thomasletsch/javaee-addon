@@ -24,9 +24,6 @@ import com.vaadin.server.ThemeResource;
 
 public class NextButton extends BasicButton {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 1L;
 
     public NextButton(CanHandleNextButton canHandle, String title) {

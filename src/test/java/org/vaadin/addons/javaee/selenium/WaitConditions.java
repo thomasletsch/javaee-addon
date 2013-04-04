@@ -5,14 +5,20 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WaitConditions {
+
+    public final static int SHORT_WAIT_MS = 100;
 
     public final static int SHORT_WAIT_SEC = 1;
 
     public final static int DEFAULT_WAIT_SEC = 1;
 
     public final static int LONG_WAIT_SEC = 10;
+
+    private static Logger log = LoggerFactory.getLogger(WaitConditions.class);
 
     /**
      * An expectation for checking if the given element is selected.
@@ -66,6 +72,14 @@ public class WaitConditions {
         boolean finished = false;
         while ((System.currentTimeMillis() < timeoutTime) && (!finished)) {
             finished = ((Boolean) js.executeScript(isVaadinFinished, new Object[0])).booleanValue();
+        }
+    }
+
+    public static void waitForShortTime() {
+        try {
+            Thread.sleep(SHORT_WAIT_MS);
+        } catch (InterruptedException e) {
+            log.error("", e);
         }
     }
 

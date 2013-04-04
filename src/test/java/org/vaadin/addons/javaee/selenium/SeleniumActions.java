@@ -39,6 +39,17 @@ public class SeleniumActions {
         WaitConditions.waitForVaadin(driver);
     }
 
+    public void clickDeleteButtonWithConfirmation(String tableName, int row, int deleteColumnPos) {
+        String xpath = "//div[@id='" + tableName + "']//div[contains(@class, 'v-table-body')]//tr[" + row + "]/td[" + deleteColumnPos
+                + "]//div[contains(@class, 'v-button')]";
+        WebElement deleteButton = driver.findElement(By.xpath(xpath));
+        deleteButton.click();
+        WaitConditions.waitForVaadin(driver);
+        ConfirmDialogPO popUpWindowPO = new ConfirmDialogPO(driver);
+        popUpWindowPO.clickOKButton();
+        WaitConditions.waitForShortTime();
+    }
+
     public void clickTab(int tabNumber) {
         WebElement tab = driver.findElement(By.xpath("//div[contains(@class, 'v-tabsheet-tabcontainer')]/table/tbody/tr/td[" + tabNumber
                 + "]/div/div"));
