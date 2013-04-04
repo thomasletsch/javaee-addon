@@ -4,8 +4,12 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.selenium.input.InputMethod;
@@ -61,8 +65,8 @@ public class SeleniumReads {
         } catch (InterruptedException e) {
             log.error("", e);
         }
-        WebElement tableCell = getTableInputCell(tableId, row, column);
-        String id = tableCell.getAttribute("id");
+        By by = By.xpath(getTableCellXPath(tableId, row, column));
+        String id = getAttributeSave(by, "id");
         InputMethod inputMethod = factory.get(id);
         return inputMethod.value(id);
     }
@@ -85,9 +89,13 @@ public class SeleniumReads {
      *            the column number starting by 1
      */
     public WebElement getTableInputCell(String tableId, int row, int column) {
-        String xpath = "//div[@id='" + tableId + "']//div[contains(@class, 'v-table-body')]//tr[" + row + "]/td[" + column + "]/div/*[1]";
+        String xpath = getTableCellXPath(tableId, row, column);
         WebElement element = driver.findElement(By.xpath(xpath));
         return element;
+    }
+
+    private String getTableCellXPath(String tableId, int row, int column) {
+        return "//div[@id='" + tableId + "']//div[contains(@class, 'v-table-body')]//tr[" + row + "]/td[" + column + "]/div/*[1]";
     }
 
     /**
@@ -104,7 +112,7 @@ public class SeleniumReads {
     public String getTableCellText(String tableId, int row, int column) {
         String xpath = "//div[@id='" + tableId + "']//div[contains(@class, 'v-table-body')]//tr[" + row + "]/td[" + column + "]/div";
         WaitConditions.waitForVaadin(driver);
-        String text = driver.findElement(By.xpath(xpath)).getText();
+        String text = getTextSave(By.xpath(xpath));
         if (StringUtils.isBlank(text)) {
             xpath = xpath + "/input";
             List<WebElement> elements = driver.findElements(By.xpath(xpath));
@@ -120,4 +128,37 @@ public class SeleniumReads {
         return text;
     }
 
+    /**
+     * A {@link StaleElementReferenceException} save version of getAttribute
+     */
+    public String getAttributeSave(final By by, final String attribute) {
+        String text = null;
+        FluentWait<WebDriver> wait = new WebDriverWait(driver, WaitConditions.SHORT_WAIT_MS, WaitConditions.SHORT_SLEEP_MS)
+                .ignoring(StaleElementReferenceException.class);
+        text = wait.until(new ExpectedCondition<String>() {
+
+            @Override
+            public String apply(WebDriver driver) {
+                return driver.findElement(by).getAttribute(attribute);
+            }
+        });
+        return text;
+    }
+
+    /**
+     * A {@link StaleElementReferenceException} save version of getText
+     */
+    public String getTextSave(final By by) {
+        String text = null;
+        FluentWait<WebDriver> wait = new WebDriverWait(driver, WaitConditions.SHORT_WAIT_MS, WaitConditions.SHORT_SLEEP_MS)
+                .ignoring(StaleElementReferenceException.class);
+        text = wait.until(new ExpectedCondition<String>() {
+
+            @Override
+            public String apply(WebDriver driver) {
+                return driver.findElement(by).getText();
+            }
+        });
+        return text;
+    }
 }
