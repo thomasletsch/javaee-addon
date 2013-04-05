@@ -62,7 +62,11 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Abs
         addComponent(getForm(), EDIT_FORM_RATIO);
         ButtonBar buttonBar = initButtons();
         addComponent(buttonBar, BUTTON_RATIO);
-        addComponent(new Panel(), REST_RATIO);
+        addComponent(getThirdSection(), REST_RATIO);
+    }
+
+    protected Panel getThirdSection() {
+        return new Panel();
     }
 
     protected abstract BasicEditForm<ENTITY> getForm();
