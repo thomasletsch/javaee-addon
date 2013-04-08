@@ -20,8 +20,8 @@ import javax.inject.Inject;
 import org.vaadin.addons.javaee.buttons.ButtonBar;
 import org.vaadin.addons.javaee.buttons.NextButton;
 import org.vaadin.addons.javaee.buttons.handler.CanHandleNextButton;
-import org.vaadin.addons.javaee.events.NavigationEvent;
 import org.vaadin.addons.javaee.i18n.TranslationKeys;
+import org.vaadin.addons.javaee.navigation.NavigationEvent;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.event.ShortcutAction.KeyCode;

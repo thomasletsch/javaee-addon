@@ -19,8 +19,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
-import org.vaadin.virkki.cdiutils.TextBundle;
-
 /**
  * Generic translation service. To extend it, just create a new TranslationSPI. The impl looks at all TranslationSPI implementations inside
  * the CDI container and uses them. The order cannot be specified.
@@ -28,8 +26,9 @@ import org.vaadin.virkki.cdiutils.TextBundle;
  * @author contact@thomas-letsch.de
  * 
  */
-public interface TranslationService extends TextBundle, Serializable {
+public interface TranslationService extends Serializable {
 
     Map<String, String> get(String prefix, Collection<String> values);
 
+    String getText(String key, Object... params);
 }

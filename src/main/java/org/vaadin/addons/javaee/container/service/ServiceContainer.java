@@ -155,6 +155,7 @@ public abstract class ServiceContainer<ENTITY extends PersistentEntity> extends 
         return listCache;
     }
 
+    @Override
     public void refreshCache() {
         listCache.clear();
         List<ENTITY> unsortedList = findEntities();
@@ -162,6 +163,7 @@ public abstract class ServiceContainer<ENTITY extends PersistentEntity> extends 
         filter(unsortedList);
         listCache = unsortedList;
         refreshListCacheNeeded = false;
+        super.notifyItemSetChanged();
     }
 
     private void filter(List<ENTITY> unsortedList) {

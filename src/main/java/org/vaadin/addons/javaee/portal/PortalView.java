@@ -18,9 +18,8 @@ package org.vaadin.addons.javaee.portal;
 import java.util.Map;
 
 import org.vaadin.addons.javaee.page.AbstractContentView;
-import org.vaadin.virkki.cdiutils.mvp.View;
 
-public interface PortalView extends View {
+public interface PortalView {
 
     public static final int HEIGHT = 850;
 

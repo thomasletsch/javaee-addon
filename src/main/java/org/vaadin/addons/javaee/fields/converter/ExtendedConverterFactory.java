@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -29,6 +30,7 @@ import org.vaadin.addons.javaee.i18n.TranslationService;
 import com.vaadin.data.util.converter.Converter;
 import com.vaadin.data.util.converter.DefaultConverterFactory;
 
+@Singleton
 public class ExtendedConverterFactory extends DefaultConverterFactory {
 
     private static final long serialVersionUID = 1L;

@@ -187,6 +187,10 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         select(getNullSelectionItemId());
     }
 
+    public void refreshCache() {
+        getContainer().refreshCache();
+    }
+
     public final class DeleteColumnGenerator implements Table.ColumnGenerator {
 
         private static final long serialVersionUID = 1L;

@@ -17,16 +17,18 @@ package org.vaadin.addons.javaee.page;
 
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.portal.PortalView;
-import org.vaadin.virkki.cdiutils.mvp.AbstractView;
 
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.AbstractComponent;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
-public abstract class AbstractContentView extends AbstractView implements ContentView {
+public abstract class AbstractContentView extends Panel implements ContentView {
 
     public static final int BUTTON_RATIO = 5;
 
@@ -47,7 +49,7 @@ public abstract class AbstractContentView extends AbstractView implements Conten
         this.pageName = pageName;
     }
 
-    @Override
+    @PostConstruct
     protected void initView() {
         setWidth(PortalView.CONTENT_WIDTH, Unit.PIXELS);
         setHeight(PortalView.CONTENT_HEIGHT, Unit.PIXELS);
@@ -57,7 +59,7 @@ public abstract class AbstractContentView extends AbstractView implements Conten
         mainPanel.setSpacing(false);
         mainPanel.setSizeFull();
         mainPanel.setCaption(translationService.getText(getPageName()));
-        setCompositionRoot(mainPanel);
+        setContent(mainPanel);
     }
 
     protected void addComponent(AbstractComponent component) {
@@ -67,6 +69,11 @@ public abstract class AbstractContentView extends AbstractView implements Conten
     protected void addComponent(AbstractComponent component, float expandRatio) {
         mainPanel.addComponent(component);
         mainPanel.setExpandRatio(component, expandRatio);
+    }
+
+    @Override
+    public void enter(ViewChangeEvent event) {
+        // View init for showing is already done inside onShow.
     }
 
     /**

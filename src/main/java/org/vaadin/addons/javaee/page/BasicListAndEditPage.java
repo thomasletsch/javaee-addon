@@ -108,6 +108,7 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
     public void onShow(String comingFrom, Map<String, Object> parameters) {
         showReadWrite();
         editFirstRecordOrNew();
+        getTable().refreshCache();
     }
 
     @Override

@@ -15,31 +15,36 @@
  ******************************************************************************/
 package org.vaadin.addons.javaee;
 
+import static org.vaadin.addons.javaee.i18n.TranslationKeys.TITLE_PORTAL;
+
 import javax.inject.Inject;
 
-import org.vaadin.addons.javaee.events.NavigationEvent;
 import org.vaadin.addons.javaee.fields.converter.ExtendedConverterFactory;
 import org.vaadin.addons.javaee.i18n.SelectedLocale;
-import org.vaadin.addons.javaee.navigation.SideMenu;
-import org.vaadin.addons.javaee.portal.PortalViewImpl;
-import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
+import org.vaadin.addons.javaee.i18n.TranslationService;
+import org.vaadin.addons.javaee.navigation.NavigationEvent;
+import org.vaadin.addons.javaee.portal.PortalPage;
 
+import com.vaadin.cdi.CDIViewProvider;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 
-@UIScoped
 public abstract class PortalUI extends UI {
 
     private static final long serialVersionUID = 1L;
 
     @Inject
-    protected PortalViewImpl mainView;
+    protected PortalPage portalPage;
 
     @Inject
     protected SelectedLocale selectedLocale;
 
     @Inject
-    protected SideMenu menu;
+    protected TranslationService translationService;
+
+    @Inject
+    private CDIViewProvider viewProvider;
 
     @Inject
     protected javax.enterprise.event.Event<NavigationEvent> navigation;
@@ -51,8 +56,10 @@ public abstract class PortalUI extends UI {
     protected void init(VaadinRequest request) {
         getSession().setConverterFactory(extendedConverterFactory);
         setLocale(selectedLocale.getLocale());
-        setContent(mainView);
-        mainView.openView();
+        getPage().setTitle(translationService.getText(TITLE_PORTAL));
+        setContent(portalPage);
+        Navigator navigator = new Navigator(PortalUI.this, portalPage.getMainPanel());
+        navigator.addProvider(viewProvider);
         initPortal();
     }
 

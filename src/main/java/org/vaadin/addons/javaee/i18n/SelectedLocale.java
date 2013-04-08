@@ -20,7 +20,7 @@ import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 
-import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
+import com.vaadin.cdi.UIScoped;
 
 @UIScoped
 public class SelectedLocale implements Serializable {

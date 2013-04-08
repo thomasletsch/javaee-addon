@@ -21,8 +21,8 @@ import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.portal.PortalView;
-import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
 
+import com.vaadin.cdi.UIScoped;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.GridLayout;

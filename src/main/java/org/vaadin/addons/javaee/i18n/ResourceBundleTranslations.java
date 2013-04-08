@@ -24,7 +24,8 @@ import java.util.ResourceBundle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
+
+import com.vaadin.cdi.UIScoped;
 
 @UIScoped
 public abstract class ResourceBundleTranslations implements Serializable, TranslationSPI {

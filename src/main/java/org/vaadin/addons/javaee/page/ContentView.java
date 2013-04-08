@@ -17,7 +17,7 @@ package org.vaadin.addons.javaee.page;
 
 import java.util.Map;
 
-import org.vaadin.virkki.cdiutils.mvp.View;
+import com.vaadin.navigator.View;
 
 /**
  * Main interface for content panel (central window part)

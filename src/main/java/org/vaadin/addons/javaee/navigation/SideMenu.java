@@ -19,18 +19,16 @@ import static org.vaadin.addons.javaee.i18n.TranslationKeys.MENU_ITEM_PREFIX;
 
 import java.util.HashMap;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import org.vaadin.addons.javaee.events.NavigationEvent;
 import org.vaadin.addons.javaee.i18n.TranslationService;
 import org.vaadin.addons.javaee.page.AbstractContentView;
-import org.vaadin.addons.javaee.portal.PortalViewImpl;
-import org.vaadin.virkki.cdiutils.application.UIContext.UIScoped;
-import org.vaadin.virkki.cdiutils.componentproducers.Preconfigured;
-import org.vaadin.virkki.cdiutils.mvp.ViewComponent;
 
+import com.vaadin.cdi.UIScoped;
 import com.vaadin.data.Property;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.Tree.ItemStyleGenerator;
 
@@ -42,23 +40,17 @@ import com.vaadin.ui.Tree.ItemStyleGenerator;
  * where section = row of first level item starting by 1 and subSection = row of second level item starting by 1
  */
 @UIScoped
-public class SideMenu extends ViewComponent {
+public class SideMenu extends Panel {
 
     private static final long serialVersionUID = 1L;
-
-    @SuppressWarnings("cdi-ambiguous-dependency")
-    @Inject
-    @Preconfigured(nullSelectionAllowed = false, immediate = false, id = "SideMenu")
-    private Tree tree;
-
-    @Inject
-    private Instance<PortalViewImpl> portal;
 
     @Inject
     private TranslationService translationService;
 
     @Inject
     javax.enterprise.event.Event<NavigationEvent> navigation;
+
+    private Tree tree;
 
     private HashMap<String, MenuItem> panels = new HashMap<>();
 
@@ -67,12 +59,16 @@ public class SideMenu extends ViewComponent {
     public SideMenu() {
     }
 
+    @PostConstruct
     public void init() {
+        tree = new Tree();
+        tree.setNullSelectionAllowed(false);
+        tree.setId("SideMenu");
         tree.setSelectable(true);
         tree.setImmediate(true);
-        setCompositionRoot(tree);
         listener = new ValueChangeListenerImplementation();
         tree.addValueChangeListener(listener);
+        setContent(tree);
         addDisabledStyleGenerator();
     }
 
