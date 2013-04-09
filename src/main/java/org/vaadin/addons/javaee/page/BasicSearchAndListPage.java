@@ -33,9 +33,9 @@ public abstract class BasicSearchAndListPage<ENTITY extends PersistentEntity> ex
 
     private static final long serialVersionUID = 1L;
 
-    public static final int SEARCH_FORM_RATIO = 40;
+    public static final float SEARCH_FORM_RATIO = 40;
 
-    public static final int SEARCH_RESULT_TABLE_RATIO = 55;
+    public static final float SEARCH_RESULT_TABLE_RATIO = 55;
 
     @Inject
     protected TranslationService translationService;

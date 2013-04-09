@@ -35,10 +35,6 @@ public interface PortalView {
 
     public static final int MENU_WIDTH = 185;
 
-    public static final int CONTENT_HEIGHT = HEIGHT - HEADER_HEIGHT - 7;
-
-    public static final int CONTENT_WIDTH = WIDTH - MENU_WIDTH - 7;
-
     void navigateTo(AbstractContentView portalPagePanel, Map<String, Object> parameters);
 
 }

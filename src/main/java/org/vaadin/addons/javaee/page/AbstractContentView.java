@@ -21,16 +21,14 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.vaadin.addons.javaee.i18n.TranslationService;
-import org.vaadin.addons.javaee.portal.PortalView;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.AbstractComponent;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
-public abstract class AbstractContentView extends Panel implements ContentView {
+public abstract class AbstractContentView extends VerticalLayout implements ContentView {
 
-    public static final int BUTTON_RATIO = 5;
+    public static final float BUTTON_RATIO = 5;
 
     private static final long serialVersionUID = 1L;
 
@@ -38,8 +36,6 @@ public abstract class AbstractContentView extends Panel implements ContentView {
     protected TranslationService translationService;
 
     private String pageName;
-
-    private VerticalLayout mainPanel;
 
     protected AbstractContentView() {
     }
@@ -51,24 +47,19 @@ public abstract class AbstractContentView extends Panel implements ContentView {
 
     @PostConstruct
     protected void initView() {
-        setWidth(PortalView.CONTENT_WIDTH, Unit.PIXELS);
-        setHeight(PortalView.CONTENT_HEIGHT, Unit.PIXELS);
-
-        mainPanel = new VerticalLayout();
-        mainPanel.setMargin(false);
-        mainPanel.setSpacing(false);
-        mainPanel.setSizeFull();
-        mainPanel.setCaption(translationService.getText(getPageName()));
-        setContent(mainPanel);
+        setSizeFull();
+        setMargin(false);
+        setSpacing(false);
+        setCaption(translationService.getText(getPageName()));
     }
 
     protected void addComponent(AbstractComponent component) {
-        mainPanel.addComponent(component);
+        super.addComponent(component);
     }
 
     protected void addComponent(AbstractComponent component, float expandRatio) {
-        mainPanel.addComponent(component);
-        mainPanel.setExpandRatio(component, expandRatio);
+        super.addComponent(component);
+        super.setExpandRatio(component, expandRatio);
     }
 
     @Override

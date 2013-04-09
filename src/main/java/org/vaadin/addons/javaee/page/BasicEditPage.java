@@ -38,9 +38,9 @@ public abstract class BasicEditPage<ENTITY extends PersistentEntity> extends Abs
 
     private static final long serialVersionUID = 1L;
 
-    public static final int EDIT_FORM_RATIO = 40;
+    public static final float EDIT_FORM_RATIO = 40;
 
-    public static final int REST_RATIO = 55;
+    public static final float REST_RATIO = 55;
 
     @Inject
     protected TranslationService translationService;

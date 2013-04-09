@@ -64,15 +64,17 @@ public class PortalPage extends Panel {
         setWidth(WIDTH, Unit.PIXELS);
         setHeight(HEIGHT, Unit.PIXELS);
 
-        menuAndContentPanel = new HorizontalSplitPanel();
+        contentPanel.setSizeFull();
+
+        menuAndContentPanel.setSizeFull();
         menuAndContentPanel.setStyleName(Reindeer.SPLITPANEL_SMALL);
         menuAndContentPanel.setSplitPosition(MENU_WIDTH, Unit.PIXELS);
         menuAndContentPanel.setLocked(true);
         menuAndContentPanel.setFirstComponent(menu);
         menuAndContentPanel.setSecondComponent(contentPanel);
 
-        mainPanel.setStyleName(Reindeer.SPLITPANEL_SMALL);
         mainPanel.setSizeFull();
+        mainPanel.setStyleName(Reindeer.SPLITPANEL_SMALL);
         mainPanel.setSplitPosition(HEADER_HEIGHT, Unit.PIXELS);
         mainPanel.setLocked(true);
         mainPanel.setFirstComponent(header);

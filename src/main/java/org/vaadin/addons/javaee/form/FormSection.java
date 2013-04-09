@@ -20,7 +20,6 @@ import javax.inject.Inject;
 import org.vaadin.addons.javaee.container.EntityContainer;
 import org.vaadin.addons.javaee.fields.spec.FieldSpecification;
 import org.vaadin.addons.javaee.i18n.TranslationService;
-import org.vaadin.addons.javaee.portal.PortalView;
 
 import com.vaadin.cdi.UIScoped;
 import com.vaadin.ui.Component;
@@ -32,8 +31,6 @@ import com.vaadin.ui.Label;
 public class FormSection extends GridLayout {
 
     private static final long serialVersionUID = 1L;
-
-    public static final int WIDTH = PortalView.CONTENT_WIDTH - (PortalView.DEFAULT_MARGIN * 2);
 
     private String name;
 
@@ -55,7 +52,7 @@ public class FormSection extends GridLayout {
         setSpacing(true);
         setMargin(true);
         setStyleName("border smallmargin smallspacing");
-        setWidth("100%");
+        setWidth("95%");
     }
 
     /**
