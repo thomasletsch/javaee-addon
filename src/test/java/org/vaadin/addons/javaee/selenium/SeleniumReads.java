@@ -28,11 +28,8 @@ public class SeleniumReads {
 
     private WebDriver driver;
 
-    private InputMethodFactory factory;
-
     public SeleniumReads(WebDriver driver) {
         this.driver = driver;
-        factory = new InputMethodFactory(driver);
     }
 
     public List<WebElement> getTableRows(String tableName) {
@@ -67,7 +64,7 @@ public class SeleniumReads {
         }
         By by = By.xpath(getTableCellXPath(tableId, row, column));
         String id = getAttributeSave(by, "id");
-        InputMethod inputMethod = factory.get(id);
+        InputMethod inputMethod = new InputMethodFactory(driver).get(id);
         return inputMethod.value(id);
     }
 
@@ -119,7 +116,7 @@ public class SeleniumReads {
             if (elements.size() == 1) {
                 String id = elements.get(0).getAttribute("id");
                 if (!StringUtils.isBlank(id)) {
-                    InputMethod inputMethod = factory.get(id);
+                    InputMethod inputMethod = new InputMethodFactory(driver).get(id);
                     return inputMethod.value(id);
                 }
                 return elements.get(0).getAttribute("value");
