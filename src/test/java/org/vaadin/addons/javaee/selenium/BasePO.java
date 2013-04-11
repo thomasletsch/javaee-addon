@@ -2,6 +2,8 @@ package org.vaadin.addons.javaee.selenium;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -57,9 +59,14 @@ public abstract class BasePO {
      */
     protected abstract String getIdentifyingElement();
 
+    /**
+     * Tries to find out if the page object belongs to the current page. Sets the timeout for the page to show up to LONG_TIMEOUT.
+     */
     public void assertPage() {
         WaitConditions.waitForVaadin(driver);
+        driver.manage().timeouts().implicitlyWait(WaitConditions.LONG_WAIT_SEC, TimeUnit.SECONDS);
         assertTrue("Failure while asserting page " + getClass().getSimpleName() + ". Element " + getIdentifyingElement() + " not found!",
                 driver.findElements(By.id(getIdentifyingElement())).size() == 1);
+        driver.manage().timeouts().implicitlyWait(WaitConditions.DEFAULT_WAIT_SEC, TimeUnit.SECONDS);
     }
 }

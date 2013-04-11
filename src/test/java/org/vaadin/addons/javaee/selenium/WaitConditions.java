@@ -16,7 +16,7 @@ public class WaitConditions {
 
     public final static int SHORT_WAIT_SEC = 1;
 
-    public final static int DEFAULT_WAIT_SEC = 1;
+    public final static int DEFAULT_WAIT_SEC = 2;
 
     public final static int LONG_WAIT_SEC = 10;
 
