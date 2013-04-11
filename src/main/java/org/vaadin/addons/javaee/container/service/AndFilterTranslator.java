@@ -13,33 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.vaadin.addons.javaee.container.jpa.filter;
+package org.vaadin.addons.javaee.container.service;
 
 import java.util.Map;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
-import com.vaadin.data.util.filter.Not;
+import com.vaadin.data.util.filter.And;
 
-public class NotFilterTranslator implements QueryFilterTranslator<Not> {
+public class AndFilterTranslator implements ExampleFilterTranslator<And> {
 
     @Override
-    public Class<Not> getAcceptedClass() {
-        return Not.class;
+    public Class<And> getAcceptedClass() {
+        return And.class;
     }
 
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public <ENTITY extends PersistentEntity> Predicate translate(Not filter, CriteriaBuilder builder, Root<ENTITY> root,
-            Map<Class<? extends Filter>, QueryFilterTranslator<?>> filters) {
-        QueryFilterTranslator translator = filters.get(filter.getFilter().getClass());
-        Expression<Boolean> predicate = translator.translate(filter.getFilter(), builder, root, filters);
-        return builder.not(predicate);
+    public <ENTITY extends PersistentEntity> ENTITY translate(And filter, ENTITY example,
+            Map<Class<? extends Filter>, ExampleFilterTranslator<?>> filters) {
+        for (Filter innerFilter : filter.getFilters()) {
+            ExampleFilterTranslator translator = filters.get(innerFilter.getClass());
+            translator.translate(innerFilter, example, filters);
+        }
+        return example;
     }
 
 }

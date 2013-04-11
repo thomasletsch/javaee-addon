@@ -50,4 +50,6 @@ public interface EntityContainer<ENTITY extends PersistentEntity> extends Contai
 
     void refreshCache();
 
+    void clear();
+
 }

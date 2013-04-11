@@ -26,7 +26,7 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 
-public class SimpleStringFilterTranslator implements FilterTranslator<SimpleStringFilter> {
+public class SimpleStringFilterTranslator implements QueryFilterTranslator<SimpleStringFilter> {
 
     @Override
     public Class<SimpleStringFilter> getAcceptedClass() {
@@ -35,7 +35,7 @@ public class SimpleStringFilterTranslator implements FilterTranslator<SimpleStri
 
     @Override
     public <ENTITY extends PersistentEntity> Predicate translate(SimpleStringFilter filter, CriteriaBuilder builder, Root<ENTITY> root,
-            Map<Class<? extends Filter>, FilterTranslator<?>> filters) {
+            Map<Class<? extends Filter>, QueryFilterTranslator<?>> filters) {
         final SimpleStringFilter ssf = filter;
         String value = ssf.getFilterString();
         Expression<String> property = root.get((String) ssf.getPropertyId());

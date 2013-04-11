@@ -13,31 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.vaadin.addons.javaee.container.jpa.filter;
+package org.vaadin.addons.javaee.container.service;
 
 import java.util.Map;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import jodd.bean.BeanUtil;
 
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
+import com.vaadin.data.util.filter.Compare.Equal;
 
-public interface FilterTranslator<FILTER extends Filter> {
+public class EqualFilterTranslator implements ExampleFilterTranslator<Equal> {
 
-    Class<FILTER> getAcceptedClass();
+    @Override
+    public Class<Equal> getAcceptedClass() {
+        return Equal.class;
+    }
 
-    /**
-     * 
-     * @param filter
-     *            The actual filter to translate
-     * @param builder
-     * @param root
-     * @param filters
-     *            All configured builder for recursive call of sub filter translation
-     * @return
-     */
-    <ENTITY extends PersistentEntity> Predicate translate(FILTER filter, CriteriaBuilder builder, Root<ENTITY> root,
-            Map<Class<? extends Filter>, FilterTranslator<?>> filters);
+    @Override
+    public <ENTITY extends PersistentEntity> ENTITY translate(Equal filter, ENTITY example,
+            Map<Class<? extends Filter>, ExampleFilterTranslator<?>> filters) {
+        String propertyId = (String) filter.getPropertyId();
+        BeanUtil.setPropertyForced(example, propertyId, filter.getValue());
+        return example;
+    }
+
 }

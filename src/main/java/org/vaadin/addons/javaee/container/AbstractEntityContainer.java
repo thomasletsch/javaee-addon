@@ -82,6 +82,12 @@ public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> i
     }
 
     @Override
+    public void clear() {
+        filterSet = false;
+        notifyItemSetChanged();
+    }
+
+    @Override
     public void loadItemWithRelations(EntityItem<ENTITY> item) {
         refreshItem(item);
     }

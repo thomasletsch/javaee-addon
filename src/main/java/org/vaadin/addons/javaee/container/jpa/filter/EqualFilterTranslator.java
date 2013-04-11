@@ -29,7 +29,7 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.util.filter.Compare.Equal;
 
-public class EqualFilterTranslator implements FilterTranslator<Equal> {
+public class EqualFilterTranslator implements QueryFilterTranslator<Equal> {
 
     @Override
     public Class<Equal> getAcceptedClass() {
@@ -38,7 +38,7 @@ public class EqualFilterTranslator implements FilterTranslator<Equal> {
 
     @Override
     public <ENTITY extends PersistentEntity> Predicate translate(Equal filter, CriteriaBuilder builder, Root<ENTITY> root,
-            Map<Class<? extends Filter>, FilterTranslator<?>> filters) {
+            Map<Class<? extends Filter>, QueryFilterTranslator<?>> filters) {
         String propertyId = (String) filter.getPropertyId();
         Expression<String> property = navigateThroughPath(root, propertyId);
         return builder.equal(property, filter.getValue());
