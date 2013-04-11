@@ -24,7 +24,7 @@ import javax.persistence.criteria.Root;
 import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 
-public interface FilterTranslator<FILTER extends Filter> {
+public interface QueryFilterTranslator<FILTER extends Filter> {
 
     Class<FILTER> getAcceptedClass();
 
@@ -39,5 +39,5 @@ public interface FilterTranslator<FILTER extends Filter> {
      * @return
      */
     <ENTITY extends PersistentEntity> Predicate translate(FILTER filter, CriteriaBuilder builder, Root<ENTITY> root,
-            Map<Class<? extends Filter>, FilterTranslator<?>> filters);
+            Map<Class<? extends Filter>, QueryFilterTranslator<?>> filters);
 }

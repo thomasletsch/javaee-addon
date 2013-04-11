@@ -26,7 +26,7 @@ import com.googlecode.javaeeutils.jpa.PersistentEntity;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.util.filter.Not;
 
-public class NotFilterTranslator implements FilterTranslator<Not> {
+public class NotFilterTranslator implements QueryFilterTranslator<Not> {
 
     @Override
     public Class<Not> getAcceptedClass() {
@@ -36,8 +36,8 @@ public class NotFilterTranslator implements FilterTranslator<Not> {
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public <ENTITY extends PersistentEntity> Predicate translate(Not filter, CriteriaBuilder builder, Root<ENTITY> root,
-            Map<Class<? extends Filter>, FilterTranslator<?>> filters) {
-        FilterTranslator translator = filters.get(filter.getFilter().getClass());
+            Map<Class<? extends Filter>, QueryFilterTranslator<?>> filters) {
+        QueryFilterTranslator translator = filters.get(filter.getFilter().getClass());
         Expression<Boolean> predicate = translator.translate(filter.getFilter(), builder, root, filters);
         return builder.not(predicate);
     }

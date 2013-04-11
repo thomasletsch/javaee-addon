@@ -27,7 +27,7 @@ import com.vaadin.data.Container.Filter;
 
 public class FilterToQueryTranslator {
 
-    private Map<Class<? extends Filter>, FilterTranslator<?>> filters = new HashMap<>();
+    private Map<Class<? extends Filter>, QueryFilterTranslator<?>> filters = new HashMap<>();
 
     public FilterToQueryTranslator() {
         addFilterTranslator(new SimpleStringFilterTranslator());
@@ -38,11 +38,11 @@ public class FilterToQueryTranslator {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public <ENTITY extends PersistentEntity> Predicate translate(Filter filter, CriteriaBuilder builder, Root<?> root) {
-        FilterTranslator translator = filters.get(filter.getClass());
+        QueryFilterTranslator translator = filters.get(filter.getClass());
         return translator.translate(filter, builder, root, filters);
     }
 
-    private void addFilterTranslator(FilterTranslator<?> filterTranslator) {
+    private void addFilterTranslator(QueryFilterTranslator<?> filterTranslator) {
         filters.put(filterTranslator.getAcceptedClass(), filterTranslator);
     }
 

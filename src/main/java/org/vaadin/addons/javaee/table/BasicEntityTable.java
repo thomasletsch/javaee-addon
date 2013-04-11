@@ -110,6 +110,10 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
         initColumns();
     }
 
+    public void clear() {
+        getContainer().clear();
+    }
+
     /**
      * Adds a generated column with a delete button for each row. Clicking on this button will cause a remove item on the underlying
      * container, thus deleting the entity behind the current row.
@@ -163,12 +167,18 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
 
     public ENTITY getSelectedEntity() {
         EntityItem<ENTITY> item = getSelectedEntityItem();
+        if (item == null) {
+            return null;
+        }
         ENTITY entity = item.getEntity();
         return entity;
     }
 
     @SuppressWarnings("unchecked")
     public EntityItem<ENTITY> getSelectedEntityItem() {
+        if (getValue() == null || getValue().equals(getNullSelectionItemId())) {
+            return null;
+        }
         Long id = getValue();
         EntityItem<ENTITY> item = (EntityItem<ENTITY>) getItem(id);
         return item;

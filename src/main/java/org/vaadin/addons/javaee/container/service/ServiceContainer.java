@@ -57,11 +57,11 @@ public abstract class ServiceContainer<ENTITY extends PersistentEntity> extends 
 
     protected abstract ENTITY createEntity(ENTITY entity);
 
-    protected abstract ENTITY getEntity(Long entity);
+    protected abstract ENTITY getEntity(Long id);
 
     protected abstract ENTITY updateEntity(ENTITY entity);
 
-    protected abstract boolean deleteEntity(Long entity);
+    protected abstract boolean deleteEntity(Long id);
 
     protected abstract List<ENTITY> findEntities();
 
@@ -160,14 +160,9 @@ public abstract class ServiceContainer<ENTITY extends PersistentEntity> extends 
         listCache.clear();
         List<ENTITY> unsortedList = findEntities();
         sort(unsortedList);
-        filter(unsortedList);
         listCache = unsortedList;
         refreshListCacheNeeded = false;
         super.notifyItemSetChanged();
-    }
-
-    private void filter(List<ENTITY> unsortedList) {
-        // TODO implement this
     }
 
     @SuppressWarnings("unchecked")
