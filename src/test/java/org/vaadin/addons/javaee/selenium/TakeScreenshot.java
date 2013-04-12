@@ -33,7 +33,9 @@ public class TakeScreenshot extends TestWatcher {
     @Override
     public void finished(Description desc) {
         log.info("Quitting driver...");
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     @Override
@@ -48,7 +50,9 @@ public class TakeScreenshot extends TestWatcher {
         } catch (IOException ioe) {
             log.error("Error copying screenshot after exception.", ioe);
         }
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     public WebDriver getDriver() {
