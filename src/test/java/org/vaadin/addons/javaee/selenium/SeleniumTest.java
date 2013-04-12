@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -26,6 +27,9 @@ public abstract class SeleniumTest {
     private static final String SELENIUM_GRID_KEY = "seleniumGrid";
 
     private static Logger log = LoggerFactory.getLogger(SeleniumTest.class);
+
+    @Rule
+    public TakeScreenshot takeScreenshot = new TakeScreenshot();
 
     protected WebDriver driver;
 
@@ -53,6 +57,7 @@ public abstract class SeleniumTest {
             seleniumGrid = properties.getProperty(SELENIUM_GRID_KEY);
         }
         setUpDriver();
+        takeScreenshot.setDriver(driver);
         driver.navigate().to(baseUrl);
     }
 
@@ -106,7 +111,7 @@ public abstract class SeleniumTest {
 
     @After
     public void tearDownSelenium() {
-        driver.quit();
+
     }
 
 }
