@@ -45,7 +45,9 @@ public class TakeScreenshot extends TestWatcher {
         WebDriver augmentedDriver = new Augmenter().augment(driver);
         File scrFile = ((TakesScreenshot) augmentedDriver).getScreenshotAs(OutputType.FILE);
         String scrFilename = d.getTestClass().getSimpleName() + "#" + d.getMethodName() + "-failed.png";
-        File outputFile = new File("target/surefire", scrFilename);
+        File directory = new File("target/surefire-reports");
+        directory.mkdirs();
+        File outputFile = new File(directory, scrFilename);
         log.info(scrFilename + " screenshot created.");
         try {
             FileUtils.copyFile(scrFile, outputFile);
