@@ -33,30 +33,22 @@ public class TakeScreenshot extends TestWatcher {
     @Override
     public void finished(Description desc) {
         log.info("Quitting driver...");
-        if (driver != null) {
-            driver.quit();
-        }
+        driver.quit();
     }
 
     @Override
     public void failed(Throwable e, Description d) {
         log.debug("Creating screenshot...");
-        if (driver instanceof TakeScreenshot) {
-            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            String scrFilename = d.getTestClass().getSimpleName() + "#" + d.getMethodName() + "-failed.png";
-            File directory = new File("target/surefire-reports");
-            directory.mkdirs();
-            File outputFile = new File(directory, scrFilename);
-            log.info(scrFilename + " screenshot created.");
-            try {
-                FileUtils.copyFile(scrFile, outputFile);
-            } catch (IOException ioe) {
-                log.error("Error copying screenshot after exception.", ioe);
-            }
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        String scrFilename = d.getTestClass().getSimpleName() + "#" + d.getMethodName() + "-failed.png";
+        File outputFile = new File("target/surefire", scrFilename);
+        log.info(scrFilename + " screenshot created.");
+        try {
+            FileUtils.copyFile(scrFile, outputFile);
+        } catch (IOException ioe) {
+            log.error("Error copying screenshot after exception.", ioe);
         }
-        if (driver != null) {
-            driver.quit();
-        }
+        driver.quit();
     }
 
     public WebDriver getDriver() {
