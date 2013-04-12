@@ -9,6 +9,7 @@ import org.junit.runner.Description;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.Augmenter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +42,8 @@ public class TakeScreenshot extends TestWatcher {
     @Override
     public void failed(Throwable e, Description d) {
         log.debug("Creating screenshot...");
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        WebDriver augmentedDriver = new Augmenter().augment(driver);
+        File scrFile = ((TakesScreenshot) augmentedDriver).getScreenshotAs(OutputType.FILE);
         String scrFilename = d.getTestClass().getSimpleName() + "#" + d.getMethodName() + "-failed.png";
         File outputFile = new File("target/surefire", scrFilename);
         log.info(scrFilename + " screenshot created.");
