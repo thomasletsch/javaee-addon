@@ -1,7 +1,6 @@
 package org.vaadin.addons.javaee.selenium;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.rules.TestWatcher;
@@ -39,20 +38,20 @@ public class TakeScreenshot extends TestWatcher {
     @Override
     public void failed(Throwable e, Description d) {
         log.info("Creating screenshot...");
-        WebDriver driver = seleniumDriverRule.getDriver();
-        if (!(driver instanceof TakesScreenshot)) {
-            driver = new Augmenter().augment(seleniumDriverRule.getDriver());
-        }
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        String scrFilename = d.getTestClass().getSimpleName() + "#" + d.getMethodName() + "-failed.png";
-        File directory = new File("target/surefire-reports");
-        directory.mkdirs();
-        File outputFile = new File(directory, scrFilename);
-        log.info(scrFilename + " screenshot created.");
         try {
+            WebDriver driver = seleniumDriverRule.getDriver();
+            if (!(driver instanceof TakesScreenshot)) {
+                driver = new Augmenter().augment(seleniumDriverRule.getDriver());
+            }
+            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            String scrFilename = d.getTestClass().getSimpleName() + "#" + d.getMethodName() + "-failed.png";
+            File directory = new File("target/surefire-reports");
+            directory.mkdirs();
+            File outputFile = new File(directory, scrFilename);
+            log.info(scrFilename + " screenshot created.");
             FileUtils.copyFile(scrFile, outputFile);
-        } catch (IOException ioe) {
-            log.error("Error copying screenshot after exception.", ioe);
+        } catch (Exception ioe) {
+            log.error("Error creating screenshot.", ioe);
         }
     }
 }
