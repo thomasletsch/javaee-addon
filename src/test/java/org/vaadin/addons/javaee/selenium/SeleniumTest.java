@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
@@ -20,11 +21,19 @@ public abstract class SeleniumTest {
 
     private static final String SAUCE_USER_NAME_KEY = "SAUCE_ONDEMAND_USERNAME";
 
+    private static final String URL_KEY = "url";
+
+    private static final String SELENIUM_GRID_KEY = "seleniumGrid";
+
     private static Logger log = LoggerFactory.getLogger(SeleniumTest.class);
 
     protected WebDriver driver;
 
     private String baseUrl;
+
+    private boolean remote = false;
+
+    private String seleniumGrid;
 
     public SeleniumTest() {
         super();
@@ -36,11 +45,14 @@ public abstract class SeleniumTest {
 
     @Before
     public void setUpSelenium() throws Exception {
-        setUpDriver();
         Properties properties = new Properties();
         properties.load(getClass().getResourceAsStream("/env.properties"));
-        baseUrl = properties.getProperty("url");
-        driver.manage().timeouts().implicitlyWait(WaitConditions.DEFAULT_WAIT_SEC, TimeUnit.SECONDS);
+        baseUrl = properties.getProperty(URL_KEY);
+        if (!StringUtils.isBlank(properties.getProperty(SELENIUM_GRID_KEY))) {
+            remote = true;
+            seleniumGrid = properties.getProperty(SELENIUM_GRID_KEY);
+        }
+        setUpDriver();
         driver.navigate().to(baseUrl);
     }
 
@@ -48,12 +60,26 @@ public abstract class SeleniumTest {
      * To be overwritten. This implementation works with Firefox local and on SauceLabs
      */
     protected void setUpDriver() {
+        if (remote) {
+            setUpRemoteDriver();
+        } else {
+            setUpLocalDriver();
+        }
+        driver.manage().timeouts().implicitlyWait(WaitConditions.DEFAULT_WAIT_SEC, TimeUnit.SECONDS);
+    }
+
+    private void setUpRemoteDriver() {
         String username = System.getenv(SAUCE_USER_NAME_KEY);
         String apiKey = System.getenv(SAUCE_API_KEY_KEY);
         if (username != null) {
             setUpSauceLabsDriver(username, apiKey);
         } else {
-            setUpLocalDriver();
+            DesiredCapabilities capabillities = DesiredCapabilities.firefox();
+            try {
+                driver = new RemoteWebDriver(new URL(seleniumGrid), capabillities);
+            } catch (MalformedURLException e) {
+                log.error("Could not create a webdriver for seleniumGrid " + seleniumGrid, e);
+            }
         }
     }
 
