@@ -54,9 +54,6 @@ public class TakeScreenshot extends TestWatcher {
         } catch (IOException ioe) {
             log.error("Error copying screenshot after exception.", ioe);
         }
-        if (driver != null) {
-            driver.quit();
-        }
     }
 
     public WebDriver getDriver() {
