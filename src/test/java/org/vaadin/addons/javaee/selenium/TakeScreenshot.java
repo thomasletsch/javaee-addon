@@ -41,9 +41,13 @@ public class TakeScreenshot extends TestWatcher {
         try {
             WebDriver driver = seleniumDriverRule.getDriver();
             if (!(driver instanceof TakesScreenshot)) {
+                log.info("Augmenting driver " + driver);
                 driver = new Augmenter().augment(seleniumDriverRule.getDriver());
+                log.info("Augmented driver " + driver);
             }
-            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
+            log.info("TagesScreenshot " + takesScreenshot);
+            File scrFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
             String scrFilename = d.getTestClass().getSimpleName() + "#" + d.getMethodName() + "-failed.png";
             File directory = new File("target/surefire-reports");
             directory.mkdirs();
