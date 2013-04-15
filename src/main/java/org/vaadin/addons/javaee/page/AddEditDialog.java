@@ -54,7 +54,7 @@ public class AddEditDialog extends Window implements CanHandleOkButton, CanHandl
 
         setId(container.getEntityClass().getSimpleName() + "AddEditDialog");
         setCaption(translationService.getText(container.getEntityClass().getSimpleName()));
-        setWidth(300, Unit.PIXELS);
+        setWidth(600, Unit.PIXELS);
 
         content = new VerticalLayout();
         setContent(content);

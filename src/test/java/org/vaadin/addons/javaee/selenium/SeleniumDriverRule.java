@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.rules.ExternalResource;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -56,6 +57,7 @@ public class SeleniumDriverRule extends ExternalResource {
             setUpLocalDriver();
         }
         driver.manage().timeouts().implicitlyWait(WaitConditions.DEFAULT_WAIT_SEC, TimeUnit.SECONDS);
+        driver.manage().window().setSize(new Dimension(1200, 1024));
     }
 
     private void setUpRemoteDriver() {

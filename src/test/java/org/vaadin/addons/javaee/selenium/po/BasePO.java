@@ -1,4 +1,4 @@
-package org.vaadin.addons.javaee.selenium;
+package org.vaadin.addons.javaee.selenium.po;
 
 import static org.junit.Assert.assertTrue;
 
@@ -8,6 +8,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vaadin.addons.javaee.selenium.DataDrivenActions;
+import org.vaadin.addons.javaee.selenium.DataDrivenAssertions;
+import org.vaadin.addons.javaee.selenium.SeleniumActions;
+import org.vaadin.addons.javaee.selenium.SeleniumAssertions;
+import org.vaadin.addons.javaee.selenium.SeleniumReads;
+import org.vaadin.addons.javaee.selenium.WaitConditions;
 import org.vaadin.addons.javaee.selenium.input.InputMethodFactory;
 
 public abstract class BasePO {

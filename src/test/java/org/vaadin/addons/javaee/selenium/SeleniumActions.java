@@ -1,10 +1,16 @@
 package org.vaadin.addons.javaee.selenium;
 
+import java.io.File;
+import java.io.FileWriter;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.selenium.input.InputMethod;
 import org.vaadin.addons.javaee.selenium.input.InputMethodFactory;
+import org.vaadin.addons.javaee.selenium.po.ConfirmDialogPO;
 
 /**
  * Several methods to change values on the page.
@@ -13,6 +19,8 @@ import org.vaadin.addons.javaee.selenium.input.InputMethodFactory;
  * 
  */
 public class SeleniumActions {
+
+    private static Logger log = LoggerFactory.getLogger(SeleniumActions.class);
 
     private WebDriver driver;
 
@@ -55,6 +63,18 @@ public class SeleniumActions {
                 + "]/div/div"));
         tab.click();
         WaitConditions.waitForVaadin(driver);
+    }
+
+    public void writePageSourceToFIle() {
+        try {
+            File source = new File("target/pageSource.html");
+            source.createNewFile();
+            FileWriter fw = new FileWriter(source);
+            fw.append(driver.getPageSource());
+            fw.close();
+        } catch (Exception e) {
+            log.error("Could not save file", e);
+        }
     }
 
 }

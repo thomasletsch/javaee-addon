@@ -1,10 +1,11 @@
-package org.vaadin.addons.javaee.selenium;
+package org.vaadin.addons.javaee.selenium.po;
 
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.vaadin.addons.javaee.selenium.WaitConditions;
 
 /**
  * PO for the confirm-dialog-addon

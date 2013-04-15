@@ -84,7 +84,7 @@ public class DropDownInputMethod extends AbstractInputMethod {
     private WebElement getDropDownElement(String text) {
         WebElement entry = null;
         if (StringUtils.isNumeric(text)) {
-            entry = driver.findElement(By.xpath("//div[@id='VAADIN_COMBOBOX_OPTIONLIST']"
+            entry = saveElementAccess.getElementSave(By.xpath("//div[@id='VAADIN_COMBOBOX_OPTIONLIST']"
                     + "//div[@class=\"v-filterselect-suggestmenu\"]/table/tbody/tr[" + text + "]/td"));
         } else {
             List<WebElement> elements = driver.findElements(By.xpath("//div[@id='VAADIN_COMBOBOX_OPTIONLIST']"

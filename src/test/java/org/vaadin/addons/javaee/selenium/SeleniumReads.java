@@ -4,12 +4,8 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.selenium.input.InputMethod;
@@ -28,8 +24,11 @@ public class SeleniumReads {
 
     private WebDriver driver;
 
+    private SaveElementAccess saveElementAccess;
+
     public SeleniumReads(WebDriver driver) {
         this.driver = driver;
+        saveElementAccess = new SaveElementAccess(driver);
     }
 
     public List<WebElement> getTableRows(String tableName) {
@@ -63,7 +62,7 @@ public class SeleniumReads {
             log.error("", e);
         }
         By by = By.xpath(getTableCellXPath(tableId, row, column));
-        String id = getAttributeSave(by, "id");
+        String id = saveElementAccess.getAttributeSave(by, "id");
         InputMethod inputMethod = new InputMethodFactory(driver).get(id);
         return inputMethod.value(id);
     }
@@ -109,7 +108,7 @@ public class SeleniumReads {
     public String getTableCellText(String tableId, int row, int column) {
         String xpath = "//div[@id='" + tableId + "']//div[contains(@class, 'v-table-body')]//tr[" + row + "]/td[" + column + "]/div";
         WaitConditions.waitForVaadin(driver);
-        String text = getTextSave(By.xpath(xpath));
+        String text = saveElementAccess.getTextSave(By.xpath(xpath));
         if (StringUtils.isBlank(text)) {
             xpath = xpath + "/input";
             List<WebElement> elements = driver.findElements(By.xpath(xpath));
@@ -122,40 +121,6 @@ public class SeleniumReads {
                 return elements.get(0).getAttribute("value");
             }
         }
-        return text;
-    }
-
-    /**
-     * A {@link StaleElementReferenceException} save version of getAttribute
-     */
-    public String getAttributeSave(final By by, final String attribute) {
-        String text = null;
-        FluentWait<WebDriver> wait = new WebDriverWait(driver, WaitConditions.SHORT_WAIT_MS, WaitConditions.SHORT_SLEEP_MS)
-                .ignoring(StaleElementReferenceException.class);
-        text = wait.until(new ExpectedCondition<String>() {
-
-            @Override
-            public String apply(WebDriver driver) {
-                return driver.findElement(by).getAttribute(attribute);
-            }
-        });
-        return text;
-    }
-
-    /**
-     * A {@link StaleElementReferenceException} save version of getText
-     */
-    public String getTextSave(final By by) {
-        String text = null;
-        FluentWait<WebDriver> wait = new WebDriverWait(driver, WaitConditions.SHORT_WAIT_MS, WaitConditions.SHORT_SLEEP_MS)
-                .ignoring(StaleElementReferenceException.class);
-        text = wait.until(new ExpectedCondition<String>() {
-
-            @Override
-            public String apply(WebDriver driver) {
-                return driver.findElement(by).getText();
-            }
-        });
         return text;
     }
 }

@@ -1,4 +1,4 @@
-package org.vaadin.addons.javaee.selenium;
+package org.vaadin.addons.javaee.selenium.po;
 
 import static org.junit.Assert.assertEquals;
 

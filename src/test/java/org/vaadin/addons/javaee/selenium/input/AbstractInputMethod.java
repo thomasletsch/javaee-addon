@@ -3,15 +3,18 @@ package org.vaadin.addons.javaee.selenium.input;
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.vaadin.addons.javaee.selenium.SeleniumReads;
+import org.vaadin.addons.javaee.selenium.SaveElementAccess;
 import org.vaadin.addons.javaee.selenium.WaitConditions;
 
 public abstract class AbstractInputMethod implements InputMethod {
 
     protected WebDriver driver;
 
+    protected SaveElementAccess saveElementAccess;
+
     public AbstractInputMethod(WebDriver driver) {
         this.driver = driver;
+        saveElementAccess = new SaveElementAccess(driver);
     }
 
     protected abstract String getElementClassAttribute();
@@ -43,7 +46,7 @@ public abstract class AbstractInputMethod implements InputMethod {
     @Override
     public boolean accepts(String id) {
         WaitConditions.waitForVaadin(driver);
-        String attribute = new SeleniumReads(driver).getAttributeSave(By.id(id), "class");
+        String attribute = saveElementAccess.getAttributeSave(By.id(id), "class");
         return attribute.contains(getElementClassAttribute());
     }
 

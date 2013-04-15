@@ -14,20 +14,20 @@ public class TextInputMethod extends AbstractInputMethod {
 
     @Override
     public void input(String id, String text) {
-        WebElement element = driver.findElement(By.id(id));
+        WebElement element = saveElementAccess.getElementSave(By.id(id));
         element.clear();
         element.sendKeys(text);
     }
 
     @Override
     public String value(String id) {
-        WebElement element = driver.findElement(By.id(id));
+        WebElement element = saveElementAccess.getElementSave(By.id(id));
         return element.getAttribute("value");
     }
 
     @Override
     public void assertInput(String id, String text) {
-        WebElement element = driver.findElement(By.id(id));
+        WebElement element = saveElementAccess.getElementSave(By.id(id));
         assertEquals(id, text, element.getAttribute("value"));
     }
 
