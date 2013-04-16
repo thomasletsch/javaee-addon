@@ -2,10 +2,15 @@ package org.vaadin.addons.javaee.selenium;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vaadin.addons.javaee.selenium.input.InputMethod;
@@ -55,6 +60,16 @@ public class SeleniumActions {
         WaitConditions.waitForVaadin(driver);
         ConfirmDialogPO popUpWindowPO = new ConfirmDialogPO(driver);
         popUpWindowPO.clickOKButton();
+        FluentWait<WebDriver> wait = new WebDriverWait(driver, WaitConditions.LONG_WAIT_SEC, WaitConditions.SHORT_SLEEP_MS)
+                .ignoring(StaleElementReferenceException.class);
+        wait.until(new ExpectedCondition<Boolean>() {
+
+            @Override
+            public Boolean apply(WebDriver driver) {
+                List<WebElement> findElements = driver.findElements(By.xpath("//div[contains(@class, 'v-window ')]"));
+                return findElements.size() == 0;
+            }
+        });
         WaitConditions.waitForShortTime();
     }
 
