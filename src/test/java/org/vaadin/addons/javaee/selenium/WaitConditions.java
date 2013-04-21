@@ -42,7 +42,7 @@ public class WaitConditions {
     }
 
     /**
-     * An expectation for checking if the given element is selected.
+     * An expectation for checking if the given element contains the expected attribute.
      */
     public static ExpectedCondition<Boolean> elementAttributeContains(final String id, final String attribute, final String attributeValue) {
         return new ExpectedCondition<Boolean>() {
@@ -56,6 +56,26 @@ public class WaitConditions {
             @Override
             public String toString() {
                 return String.format("element with id (%s): attribute \"%s\" contains \"%s\"", id, attribute, attributeValue);
+            }
+        };
+    }
+
+    /**
+     * An expectation for checking if the given element doesn't contain the expected attribute.
+     */
+    public static ExpectedCondition<Boolean> elementAttributeNotContains(final String id, final String attribute,
+            final String attributeValue) {
+        return new ExpectedCondition<Boolean>() {
+
+            @Override
+            public Boolean apply(WebDriver driver) {
+                WebElement element = driver.findElement(By.id(id));
+                return element.getAttribute(attribute) != null && !element.getAttribute(attribute).contains(attributeValue);
+            }
+
+            @Override
+            public String toString() {
+                return String.format("element with id (%s): attribute \"%s\" not contains \"%s\"", id, attribute, attributeValue);
             }
         };
     }
