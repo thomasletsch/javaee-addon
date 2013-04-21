@@ -94,6 +94,11 @@ public class FormSection extends GridLayout {
         addComponent(fieldSpec, label, field);
     }
 
+    public void addField(FieldSpecification fieldSpec, Field<?> field, int column1, int row1, int column2, int row2) {
+        fieldGroup.bind(field, fieldSpec.getName());
+        addComponent(field, column1, row1, column2, row2);
+    }
+
     public void addComponent(FieldSpecification fieldSpec, Component field) {
         addComponent(fieldSpec, labelCreator.createLabel(getName(), fieldSpec), field);
     }
