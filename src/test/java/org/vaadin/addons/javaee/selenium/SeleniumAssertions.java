@@ -21,4 +21,9 @@ public class SeleniumAssertions {
         inputMethod.assertInput(entityName, attribute, text);
     }
 
+    public void assertText(String id, String text) {
+        InputMethod inputMethod = inputMethodFactory.get(id);
+        inputMethod.assertInput(id, text);
+    }
+
 }

@@ -62,7 +62,10 @@ public class DropDownInputMethod extends AbstractInputMethod {
 
     @Override
     public void assertInput(String id, String text) {
-        if (StringUtils.isNumeric(text)) {
+        if (StringUtils.isBlank(text)) {
+            WebElement inputElement = driver.findElement(By.xpath("//div[@id='" + id + "']/input"));
+            assertEquals(id, "", inputElement.getAttribute("value"));
+        } else if (StringUtils.isNumeric(text)) {
             WebElement selectDropDown = openDropDownMenu(id);
             WaitConditions.waitForVaadin(driver);
             WebElement entry = getDropDownElement(text);
