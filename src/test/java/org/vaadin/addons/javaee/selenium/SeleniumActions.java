@@ -52,12 +52,8 @@ public class SeleniumActions {
         WaitConditions.waitForVaadin(driver);
     }
 
-    public void clickDeleteButtonWithConfirmation(String tableName, int row, int deleteColumnPos) {
-        String xpath = "//div[@id='" + tableName + "']//div[contains(@class, 'v-table-body')]//tr[" + row + "]/td[" + deleteColumnPos
-                + "]//div[contains(@class, 'v-button')]";
-        WebElement deleteButton = driver.findElement(By.xpath(xpath));
-        deleteButton.click();
-        WaitConditions.waitForVaadin(driver);
+    public void clickTableButtonWithConfirmation(String tableName, int row, int col) {
+        clickTableButton(tableName, row, col);
         ConfirmDialogPO popUpWindowPO = new ConfirmDialogPO(driver);
         popUpWindowPO.clickOKButton();
         FluentWait<WebDriver> wait = new WebDriverWait(driver, WaitConditions.LONG_WAIT_SEC, WaitConditions.SHORT_SLEEP_MS)
@@ -71,6 +67,14 @@ public class SeleniumActions {
             }
         });
         WaitConditions.waitForShortTime();
+    }
+
+    public void clickTableButton(String tableName, int row, int col) {
+        String xpath = "//div[@id='" + tableName + "']//div[contains(@class, 'v-table-body')]//tr[" + row + "]/td[" + col
+                + "]//div[contains(@class, 'v-button')]";
+        WebElement button = driver.findElement(By.xpath(xpath));
+        button.click();
+        WaitConditions.waitForVaadin(driver);
     }
 
     public void clickTab(int tabNumber) {

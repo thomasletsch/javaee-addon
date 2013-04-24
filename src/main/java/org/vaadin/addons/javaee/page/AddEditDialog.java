@@ -15,6 +15,8 @@
  ******************************************************************************/
 package org.vaadin.addons.javaee.page;
 
+import javax.enterprise.context.Dependent;
+
 import org.vaadin.addons.javaee.buttons.ButtonBar;
 import org.vaadin.addons.javaee.buttons.CancelButton;
 import org.vaadin.addons.javaee.buttons.OkButton;
@@ -31,6 +33,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
+@Dependent
 public class AddEditDialog extends Window implements CanHandleOkButton, CanHandleCancelButton {
 
     private static final long serialVersionUID = 1L;
