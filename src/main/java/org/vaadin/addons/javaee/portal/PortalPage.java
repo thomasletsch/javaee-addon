@@ -111,6 +111,9 @@ public class PortalPage extends Panel {
     public void realHandleNavigation(NavigationEvent navigationEvent) {
         MenuItem menuItem = menu.getMenuItem(navigationEvent.getPageName());
         AbstractContentView newContentView = menuItem.getPanel();
+        if (newContentView == null) {
+            return;
+        }
         newContentView.onShow((actualContentView == null) ? null : actualContentView.getPageName(), navigationEvent.getParameters());
         menu.selectMenu(menuItem.getName());
         UI.getCurrent().getNavigator().navigateTo(navigationEvent.getPageName());

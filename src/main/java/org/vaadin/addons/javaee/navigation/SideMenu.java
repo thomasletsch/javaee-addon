@@ -82,6 +82,16 @@ public class SideMenu extends Panel {
         tree.addValueChangeListener(listener);
     }
 
+    public void addMenuBranch(String branchName) {
+        MenuItem item = new MenuItem(branchName, translationService.getText(MENU_ITEM_PREFIX + branchName));
+        addMenu(item);
+    }
+
+    public void addMenuBranch(String parent, String branchName) {
+        MenuItem item = new MenuItem(parent, branchName, translationService.getText(MENU_ITEM_PREFIX + branchName));
+        addMenu(item);
+    }
+
     public void addMenu(String pageName, Instance<? extends AbstractContentView> panel) {
         MenuItem item = new MenuItem(pageName, translationService.getText(MENU_ITEM_PREFIX + pageName), panel);
         addMenu(item);
@@ -151,11 +161,11 @@ public class SideMenu extends Panel {
             }
             String pageName = (String) event.getProperty().getValue();
             MenuItem item = panels.get(pageName);
-            navigateToPageIfEnabled(item);
+            navigateToPageIfPossible(item);
         }
 
-        private void navigateToPageIfEnabled(MenuItem item) {
-            if (item.isEnabled()) {
+        private void navigateToPageIfPossible(MenuItem item) {
+            if (item.isNavigable() && item.isEnabled()) {
                 navigation.fire(new NavigationEvent(item.getName()));
                 previous = tree.getValue();
             } else {

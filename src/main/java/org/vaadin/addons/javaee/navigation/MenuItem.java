@@ -31,6 +31,14 @@ public class MenuItem {
 
     private Instance<? extends AbstractContentView> panel;
 
+    public MenuItem(String name, String title) {
+        this(null, name, title, null, true);
+    }
+
+    public MenuItem(String parent, String name, String title) {
+        this(parent, name, title, null, true);
+    }
+
     public MenuItem(String name, String title, Instance<? extends AbstractContentView> panel) {
         this(null, name, title, panel, true);
     }
@@ -64,6 +72,9 @@ public class MenuItem {
     }
 
     public AbstractContentView getPanel() {
+        if (panel == null) {
+            return null;
+        }
         return panel.get();
     }
 
@@ -73,6 +84,10 @@ public class MenuItem {
 
     public boolean hasParent() {
         return parent != null;
+    }
+
+    public boolean isNavigable() {
+        return panel != null;
     }
 
     public void enable() {
