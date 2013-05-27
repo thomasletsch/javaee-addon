@@ -29,7 +29,7 @@ public class TextFieldCreator<FIELD extends AbstractTextField> extends AbstractF
     /**
      * If field max size is greater than 255, create a TextArea instead of TextField
      */
-    private static final int MIN_SIZE_TEXT_AREA = 255;
+    private static final int MIN_SIZE_TEXT_AREA = 150;
 
     @Override
     protected void initializeField(FIELD field) {

@@ -59,8 +59,12 @@ public interface TranslationKeys {
 
     public static final String TITLE_DELETE = "title_delete";
 
+    public static final String TITLE_ERROR = "title_error";
+
     public static final String MESSAGE_REALLY_NAVIGATE = "message_really_navigate";
 
     public static final String MESSAGE_REALLY_DELETE = "message_really_delete";
+
+    public static final String MESSAGE_UNKNOWN_ERROR = "message_unknown_error";
 
 }
