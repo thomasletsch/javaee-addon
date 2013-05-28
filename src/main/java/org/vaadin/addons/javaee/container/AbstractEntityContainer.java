@@ -397,4 +397,8 @@ public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> i
     @Override
     public void refreshCache() {
     }
+
+    @Override
+    public void refreshEntity(Long id) {
+    }
 }

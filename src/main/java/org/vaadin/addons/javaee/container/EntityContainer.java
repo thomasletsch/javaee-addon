@@ -52,4 +52,6 @@ public interface EntityContainer<ENTITY extends PersistentEntity> extends Contai
 
     void clear();
 
+    void refreshEntity(Long id);
+
 }

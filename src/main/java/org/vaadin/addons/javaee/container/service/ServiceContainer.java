@@ -83,7 +83,7 @@ public abstract class ServiceContainer<ENTITY extends PersistentEntity> extends 
 
     @Override
     public void refreshItem(EntityItem<ENTITY> item) {
-        item.setEntity(getFromEntityCache(item.getEntity().getId()));
+        item.setEntity(getEntity(item.getEntity().getId()));
     }
 
     @Override
@@ -163,6 +163,12 @@ public abstract class ServiceContainer<ENTITY extends PersistentEntity> extends 
         listCache = unsortedList;
         refreshListCacheNeeded = false;
         super.notifyItemSetChanged();
+    }
+
+    @Override
+    public void refreshEntity(Long id) {
+        ENTITY entity = getEntity(id);
+        entityCache.put(entity.getId(), entity);
     }
 
     @SuppressWarnings("unchecked")

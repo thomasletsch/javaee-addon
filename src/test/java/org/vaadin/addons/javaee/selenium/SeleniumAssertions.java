@@ -1,12 +1,17 @@
 package org.vaadin.addons.javaee.selenium;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.vaadin.addons.javaee.selenium.input.InputMethod;
 import org.vaadin.addons.javaee.selenium.input.InputMethodFactory;
 
 public class SeleniumAssertions {
 
-    @SuppressWarnings("unused")
     private WebDriver driver;
 
     private InputMethodFactory inputMethodFactory;
@@ -24,6 +29,11 @@ public class SeleniumAssertions {
     public void assertText(String id, String text) {
         InputMethod inputMethod = inputMethodFactory.get(id);
         inputMethod.assertInput(id, text);
+    }
+
+    public void assertNoError() {
+        List<WebElement> elements = driver.findElements(By.className("v-Notification"));
+        assertTrue("Error Element found!", elements.isEmpty());
     }
 
 }
