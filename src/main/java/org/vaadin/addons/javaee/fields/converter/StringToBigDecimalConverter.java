@@ -38,7 +38,8 @@ public class StringToBigDecimalConverter implements Converter<String, BigDecimal
     }
 
     @Override
-    public BigDecimal convertToModel(String value, Locale locale) throws Converter.ConversionException {
+    public BigDecimal convertToModel(String value, Class<? extends BigDecimal> targetType, Locale locale)
+            throws Converter.ConversionException {
         if (StringUtils.isBlank(value)) {
             return null;
         }
@@ -48,7 +49,8 @@ public class StringToBigDecimalConverter implements Converter<String, BigDecimal
     }
 
     @Override
-    public String convertToPresentation(BigDecimal value, Locale locale) throws Converter.ConversionException {
+    public String convertToPresentation(BigDecimal value, Class<? extends String> targetType, Locale locale)
+            throws Converter.ConversionException {
         if (value == null) {
             return null;
         }

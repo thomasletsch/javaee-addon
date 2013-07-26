@@ -33,12 +33,12 @@ public class StringToEnumConverter implements Converter<String, Enum> {
     }
 
     @Override
-    public Enum convertToModel(String value, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
+    public Enum convertToModel(String value, Class<? extends Enum> targetType, Locale locale) throws Converter.ConversionException {
         return null;
     }
 
     @Override
-    public String convertToPresentation(Enum value, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
+    public String convertToPresentation(Enum value, Class<? extends String> targetType, Locale locale) throws Converter.ConversionException {
         if (value == null) {
             return null;
         }

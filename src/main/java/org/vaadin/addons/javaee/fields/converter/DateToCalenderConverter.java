@@ -26,7 +26,7 @@ public class DateToCalenderConverter implements Converter<Date, Calendar> {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public Calendar convertToModel(Date value, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
+    public Calendar convertToModel(Date value, Class<? extends Calendar> targetType, Locale locale) throws Converter.ConversionException {
         if (value == null) {
             return null;
         }
@@ -36,7 +36,7 @@ public class DateToCalenderConverter implements Converter<Date, Calendar> {
     }
 
     @Override
-    public Date convertToPresentation(Calendar value, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
+    public Date convertToPresentation(Calendar value, Class<? extends Date> targetType, Locale locale) throws Converter.ConversionException {
         if (value == null) {
             return null;
         }

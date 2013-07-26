@@ -15,6 +15,7 @@
  ******************************************************************************/
 package org.vaadin.addons.javaee.table;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -144,6 +145,11 @@ public abstract class BasicEntityTable<ENTITY extends PersistentEntity> extends 
     @Override
     public Long getValue() {
         return (Long) super.getValue();
+    }
+
+    @Override
+    public Collection<Filter> getContainerFilters() {
+        return getContainer().getContainerFilters();
     }
 
     @Override

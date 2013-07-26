@@ -46,7 +46,7 @@ public class StringToCalenderConverter implements Converter<String, Calendar> {
     }
 
     @Override
-    public Calendar convertToModel(String value, Locale locale) throws Converter.ConversionException {
+    public Calendar convertToModel(String value, Class<? extends Calendar> targetType, Locale locale) throws Converter.ConversionException {
         if (value == null) {
             return null;
         }
@@ -65,7 +65,8 @@ public class StringToCalenderConverter implements Converter<String, Calendar> {
     }
 
     @Override
-    public String convertToPresentation(Calendar value, Locale locale) throws Converter.ConversionException {
+    public String convertToPresentation(Calendar value, Class<? extends String> targetType, Locale locale)
+            throws Converter.ConversionException {
         if (value == null) {
             return null;
         }

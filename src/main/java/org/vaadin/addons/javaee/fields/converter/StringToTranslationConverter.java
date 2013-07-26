@@ -17,12 +17,13 @@ public class StringToTranslationConverter implements Converter<String, String> {
     }
 
     @Override
-    public String convertToModel(String value, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
+    public String convertToModel(String value, Class<? extends String> targetType, Locale locale) throws Converter.ConversionException {
         return null;
     }
 
     @Override
-    public String convertToPresentation(String value, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
+    public String convertToPresentation(String value, Class<? extends String> targetType, Locale locale)
+            throws Converter.ConversionException {
         return translationService.getText(value);
     }
 

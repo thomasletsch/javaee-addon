@@ -27,7 +27,8 @@ public class StringToLocalTimeConverter implements Converter<String, LocalTime> 
     private static final long serialVersionUID = 1L;
 
     @Override
-    public LocalTime convertToModel(String value, Locale locale) throws Converter.ConversionException {
+    public LocalTime convertToModel(String value, Class<? extends LocalTime> targetType, Locale locale)
+            throws Converter.ConversionException {
         if (value == null) {
             return null;
         }
@@ -35,7 +36,8 @@ public class StringToLocalTimeConverter implements Converter<String, LocalTime> 
     }
 
     @Override
-    public String convertToPresentation(LocalTime value, Locale locale) throws Converter.ConversionException {
+    public String convertToPresentation(LocalTime value, Class<? extends String> targetType, Locale locale)
+            throws Converter.ConversionException {
         if (value == null) {
             return null;
         }

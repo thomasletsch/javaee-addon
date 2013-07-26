@@ -208,6 +208,11 @@ public abstract class AbstractEntityContainer<ENTITY extends PersistentEntity> i
         itemSetChangeListeners.remove(listener);
     }
 
+    @Override
+    public Collection<Filter> getContainerFilters() {
+        return filters;
+    }
+
     protected Filter getContainerFilter() {
         if (filters.isEmpty()) {
             return null;

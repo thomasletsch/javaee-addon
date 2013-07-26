@@ -34,7 +34,7 @@ public class StringToEntityConverter<ENTITY extends PersistentEntity> implements
     }
 
     @Override
-    public ENTITY convertToModel(String value, Locale locale) throws Converter.ConversionException {
+    public ENTITY convertToModel(String value, Class<? extends ENTITY> targetType, Locale locale) throws Converter.ConversionException {
         if (StringUtils.isBlank(value)) {
             return null;
         }
@@ -42,7 +42,8 @@ public class StringToEntityConverter<ENTITY extends PersistentEntity> implements
     }
 
     @Override
-    public String convertToPresentation(ENTITY value, Locale locale) throws Converter.ConversionException {
+    public String convertToPresentation(ENTITY value, Class<? extends String> targetType, Locale locale)
+            throws Converter.ConversionException {
         if (value == null) {
             return "";
         }

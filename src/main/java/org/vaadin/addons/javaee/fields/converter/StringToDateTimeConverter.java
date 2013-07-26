@@ -27,7 +27,7 @@ public class StringToDateTimeConverter implements Converter<String, DateTime> {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public DateTime convertToModel(String value, Locale locale) throws Converter.ConversionException {
+    public DateTime convertToModel(String value, Class<? extends DateTime> targetType, Locale locale) throws Converter.ConversionException {
         if (value == null) {
             return null;
         }
@@ -35,7 +35,8 @@ public class StringToDateTimeConverter implements Converter<String, DateTime> {
     }
 
     @Override
-    public String convertToPresentation(DateTime value, Locale locale) throws Converter.ConversionException {
+    public String convertToPresentation(DateTime value, Class<? extends String> targetType, Locale locale)
+            throws Converter.ConversionException {
         if (value == null) {
             return null;
         }

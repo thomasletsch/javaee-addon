@@ -36,7 +36,7 @@ public class NumberField extends TextField {
     }
 
     public void setValue(BigDecimal newFieldValue) throws Property.ReadOnlyException, Converter.ConversionException {
-        super.setValue(getConverter().convertToPresentation(newFieldValue, getLocale()));
+        super.setValue(getConverter().convertToPresentation(newFieldValue, String.class, getLocale()));
     }
 
 }

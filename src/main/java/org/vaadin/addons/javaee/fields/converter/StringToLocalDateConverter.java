@@ -27,7 +27,8 @@ public class StringToLocalDateConverter implements Converter<String, LocalDate> 
     private static final long serialVersionUID = 1L;
 
     @Override
-    public LocalDate convertToModel(String value, Locale locale) throws Converter.ConversionException {
+    public LocalDate convertToModel(String value, Class<? extends LocalDate> targetType, Locale locale)
+            throws Converter.ConversionException {
         if (value == null) {
             return null;
         }
@@ -35,7 +36,8 @@ public class StringToLocalDateConverter implements Converter<String, LocalDate> 
     }
 
     @Override
-    public String convertToPresentation(LocalDate value, Locale locale) throws Converter.ConversionException {
+    public String convertToPresentation(LocalDate value, Class<? extends String> targetType, Locale locale)
+            throws Converter.ConversionException {
         if (value == null) {
             return null;
         }

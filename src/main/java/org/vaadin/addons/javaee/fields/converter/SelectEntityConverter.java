@@ -39,7 +39,7 @@ public class SelectEntityConverter<ENTITY extends PersistentEntity> implements C
 
     @SuppressWarnings("unchecked")
     @Override
-    public ENTITY convertToModel(Object value, Locale locale) throws Converter.ConversionException {
+    public ENTITY convertToModel(Object value, Class<? extends ENTITY> targetType, Locale locale) throws Converter.ConversionException {
         if (value == null) {
             return null;
         }
@@ -50,7 +50,8 @@ public class SelectEntityConverter<ENTITY extends PersistentEntity> implements C
     }
 
     @Override
-    public Object convertToPresentation(ENTITY value, Locale locale) throws Converter.ConversionException {
+    public Object convertToPresentation(ENTITY value, Class<? extends Object> targetType, Locale locale)
+            throws Converter.ConversionException {
         if (value == null) {
             return select.getNullSelectionItemId();
         }
