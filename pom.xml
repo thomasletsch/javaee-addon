@@ -11,6 +11,7 @@
 
     <properties>
         <javaeeutils.version>1.0.1-SNAPSHOT</javaeeutils.version>
+        <selenium-addon.version>1.0.1-SNAPSHOT</selenium-addon.version>
         <vaadin.version>7.1.1</vaadin.version>
         <vaadin-cdi.version>1.0-SNAPSHOT</vaadin-cdi.version>
         <confirmdialog.version>2.0.4</confirmdialog.version>
@@ -176,6 +177,12 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.2.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>selenium-addon</artifactId>
+            <version>${selenium-addon.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
