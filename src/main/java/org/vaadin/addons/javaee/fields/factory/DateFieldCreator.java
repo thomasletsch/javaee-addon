@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.DateField;
+import com.vaadin.ui.PopupDateField;
 
 public class DateFieldCreator<FIELD extends DateField> extends AbstractFieldCreator<FIELD> {
 
@@ -48,7 +49,7 @@ public class DateFieldCreator<FIELD extends DateField> extends AbstractFieldCrea
     @Override
     @SuppressWarnings("unchecked")
     protected Class<FIELD> getDefaultFieldType() {
-        return (Class<FIELD>) DateField.class;
+        return (Class<FIELD>) PopupDateField.class;
     }
 
 }

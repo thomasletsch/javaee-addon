@@ -15,8 +15,11 @@
  ******************************************************************************/
 package org.vaadin.addons.javaee.fields.factory;
 
+import org.vaadin.addons.javaee.fields.converter.DateToLocalDateConverter;
+
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.DateField;
+import com.vaadin.ui.PopupDateField;
 
 public class LocalDateFieldCreator<FIELD extends DateField> extends AbstractFieldCreator<FIELD> {
 
@@ -24,12 +27,13 @@ public class LocalDateFieldCreator<FIELD extends DateField> extends AbstractFiel
     protected void initializeField(FIELD field) {
         super.initializeField(field);
         field.setResolution(Resolution.DAY);
+        field.setConverter(new DateToLocalDateConverter());
     }
 
     @Override
     @SuppressWarnings("unchecked")
     protected Class<FIELD> getDefaultFieldType() {
-        return (Class<FIELD>) DateField.class;
+        return (Class<FIELD>) PopupDateField.class;
     }
 
 }
