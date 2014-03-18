@@ -24,9 +24,6 @@ import com.vaadin.ui.Button;
 
 public class BasicButton extends Button {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 1L;
 
     @Inject

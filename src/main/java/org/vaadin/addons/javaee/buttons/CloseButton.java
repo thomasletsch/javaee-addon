@@ -15,32 +15,17 @@
  ******************************************************************************/
 package org.vaadin.addons.javaee.buttons;
 
-import org.vaadin.addons.javaee.buttons.clickhandler.SaveClickHandler;
-import org.vaadin.addons.javaee.buttons.handler.CanHandleSaveButton;
+import org.vaadin.addons.javaee.buttons.clickhandler.CloseClickHandler;
+import org.vaadin.addons.javaee.buttons.handler.CanHandleCloseButton;
 import org.vaadin.addons.javaee.i18n.TranslationKeys;
 
-import com.vaadin.event.ShortcutAction.KeyCode;
-import com.vaadin.server.ThemeResource;
-
-public class SaveButton extends BasicButton {
+public class CloseButton extends BasicButton {
 
     private static final long serialVersionUID = 1L;
 
-    public SaveButton(CanHandleSaveButton canHandle) {
-        super(TranslationKeys.BUTTON_SAVE);
-        configure(canHandle);
-    }
-
-    public SaveButton(CanHandleSaveButton canHandle, String title) {
-        super(TranslationKeys.BUTTON_SAVE, title);
-        configure(canHandle);
-    }
-
-    private void configure(CanHandleSaveButton canHandle) {
-        addClickListener(new SaveClickHandler(this, canHandle));
-        setIcon(new ThemeResource("icons/silk/page_save.png"));
-        setClickShortcut(KeyCode.ENTER);
-        addStyleName("primary");
+    public CloseButton(CanHandleCloseButton canHandle, String title) {
+        super(TranslationKeys.BUTTON_CLOSE, title);
+        addClickListener(new CloseClickHandler(this, canHandle));
     }
 
 }

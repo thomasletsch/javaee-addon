@@ -13,22 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package org.vaadin.addons.javaee.buttons;
+package org.vaadin.addons.javaee.buttons.clickhandler;
 
-import org.vaadin.addons.javaee.buttons.clickhandler.CancelClickHandler;
-import org.vaadin.addons.javaee.buttons.handler.CanHandleCancelButton;
-import org.vaadin.addons.javaee.i18n.TranslationKeys;
+import org.vaadin.addons.javaee.buttons.BasicButton;
+import org.vaadin.addons.javaee.buttons.handler.CanHandleCloseButton;
 
-import com.vaadin.server.ThemeResource;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
-public class CancelButton extends BasicButton {
+public class CloseClickHandler implements ClickListener {
 
     private static final long serialVersionUID = 1L;
 
-    public CancelButton(CanHandleCancelButton canHandle, String title) {
-        super(TranslationKeys.BUTTON_CANCEL, title);
-        addClickListener(new CancelClickHandler(this, canHandle));
-        setIcon(new ThemeResource("icons/silk/cancel.png"));
+    private final CanHandleCloseButton handle;
+
+    private final BasicButton button;
+
+    public CloseClickHandler(BasicButton button, CanHandleCloseButton handle) {
+        this.button = button;
+        this.handle = handle;
+    }
+
+    @Override
+    public void buttonClick(ClickEvent event) {
+        if (event.getButton() == button) {
+            handle.closeClicked();
+        }
     }
 
 }

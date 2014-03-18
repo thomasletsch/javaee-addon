@@ -33,6 +33,8 @@ public interface TranslationKeys {
 
     public static final String BUTTON_CANCEL = "button_cancel";
 
+    public static final String BUTTON_CLOSE = "button_close";
+
     public static final String BUTTON_OK = "button_ok";
 
     public static final String BUTTON_RESET = "button_reset";
