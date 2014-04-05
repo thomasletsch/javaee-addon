@@ -24,7 +24,8 @@ import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.Before;
 
-import com.googlecode.javaeeutils.jpa.manager.EntityManagerHelper;
+import com.googlecode.javaeeutils.jpa.manager.EntityFinder;
+import com.googlecode.javaeeutils.jpa.manager.EntityManagerLocator;
 
 public class BaseEntityTest {
 
@@ -36,7 +37,7 @@ public class BaseEntityTest {
         TestEntity testEntity = new TestEntity(TestEntity.ORIGINAL_TEST_STRING);
         em.persist(testEntity);
         em.flush();
-        TestEntity savedEntity = testEntity.getSavedEntity(testEntity);
+        TestEntity savedEntity = EntityFinder.getSavedEntity(testEntity);
         return savedEntity;
     }
 
@@ -45,7 +46,7 @@ public class BaseEntityTest {
         try {
             emFactory = Persistence.createEntityManagerFactory("JavaEEAddonTestUnit");
             em = emFactory.createEntityManager();
-            EntityManagerHelper.put(em);
+            EntityManagerLocator.put(em);
             em.getTransaction().begin();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -57,7 +58,7 @@ public class BaseEntityTest {
     public void tearDown() throws Exception {
         em.flush();
         em.getTransaction().rollback();
-        EntityManagerHelper.reset();
+        EntityManagerLocator.reset();
         if (em != null) {
             em.close();
         }
