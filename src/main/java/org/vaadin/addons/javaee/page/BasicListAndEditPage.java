@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Thomas Letsch (contact@thomas-letsch.de)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,6 +42,8 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
     public static final float FORM_RATIO = 80;
 
     public static final float TABLE_RATIO = 15;
+
+    public static final String ID_PARAMETER = "ID";
 
     @Inject
     protected TranslationService translationService;
@@ -108,7 +110,7 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
     public void onShow(String comingFrom, Map<String, Object> parameters) {
         getTable().refreshCache();
         showReadWrite();
-        editFirstRecordOrNew();
+        editSelectedRecordOrNew(parameters != null ? (Long) (parameters.get(ID_PARAMETER)) : null);
     }
 
     @Override
@@ -126,9 +128,12 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
         showReadWrite();
     }
 
-    protected void editFirstRecordOrNew() {
+    protected void editSelectedRecordOrNew(Long id) {
         if (getTable().getItemIds().isEmpty()) {
             editNewRecord();
+        } else if (id != null) {
+            getTable().select(id);
+            getForm().edit(getTable().getSelectedEntityItem());
         } else {
             getTable().selectFirst();
             getForm().edit(getTable().getSelectedEntityItem());
