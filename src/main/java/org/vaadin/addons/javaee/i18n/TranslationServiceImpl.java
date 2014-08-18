@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Thomas Letsch (contact@thomas-letsch.de)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -57,6 +57,9 @@ public class TranslationServiceImpl implements TranslationService {
 
     @Override
     public String getText(String key, Object... params) {
+        if (key == null) {
+            throw new IllegalArgumentException("key may not be null!");
+        }
         List<String> variations = getPossibleKeyVariations(key);
         for (String variation : variations) {
             String translation = searchInAllProviders(variation);
@@ -83,6 +86,9 @@ public class TranslationServiceImpl implements TranslationService {
     }
 
     List<String> getPossibleKeyVariations(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key may not be null!");
+        }
         List<String> result = new ArrayList<String>();
         result.add(key);
         int pos = key.indexOf(".");
