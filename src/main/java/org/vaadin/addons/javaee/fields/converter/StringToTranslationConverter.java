@@ -24,6 +24,9 @@ public class StringToTranslationConverter implements Converter<String, String> {
     @Override
     public String convertToPresentation(String value, Class<? extends String> targetType, Locale locale)
             throws Converter.ConversionException {
+        if (value == null) {
+            return "";
+        }
         return translationService.getText(value);
     }
 
