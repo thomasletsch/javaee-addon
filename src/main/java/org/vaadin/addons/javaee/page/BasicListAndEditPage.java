@@ -118,7 +118,7 @@ public abstract class BasicListAndEditPage<ENTITY extends PersistentEntity> exte
         if (!getForm().isValid()) {
             return;
         }
-        showReadonly();
+        // showReadonly();
         getForm().save();
     }
 
