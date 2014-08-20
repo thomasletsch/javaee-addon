@@ -12,11 +12,11 @@
     <properties>
         <javaeeutils.version>1.0.1-SNAPSHOT</javaeeutils.version>
         <selenium-addon.version>1.0.1-SNAPSHOT</selenium-addon.version>
-        <vaadin.version>7.1.12</vaadin.version>
+        <vaadin.version>7.2.6</vaadin.version>
         <vaadin-cdi.version>1.0-SNAPSHOT</vaadin-cdi.version>
         <confirmdialog.version>2.0.4</confirmdialog.version>
         <jodatime.version>2.1</jodatime.version>
-        <gwt.version>2.4.0</gwt.version>
+        <gwt.version>2.6.0</gwt.version>
         <jboss.javaee.version>2.0.0.Final</jboss.javaee.version>
         <resteasy.version>2.3.1.GA</resteasy.version>
         <commons-lang.version>2.5</commons-lang.version>
