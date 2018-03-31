@@ -17,7 +17,7 @@
         <confirmdialog.version>2.0.4</confirmdialog.version>
         <jodatime.version>2.1</jodatime.version>
         <gwt.version>2.6.0</gwt.version>
-        <jboss.javaee.version>1.1.1.Final</jboss.javaee.version>
+        <jboss.javaee.version>2.0.0.Final</jboss.javaee.version>
         <resteasy.version>2.3.1.GA</resteasy.version>
         <commons-lang.version>2.5</commons-lang.version>
         <commons-beanutils.version>1.8.3</commons-beanutils.version>
@@ -27,12 +27,12 @@
         <junit.version>4.10</junit.version>
         <mockito.version>1.8.5</mockito.version>
         <slf4j.version>1.6.2</slf4j.version>
-        <hibernate.version>5.1.10.Final</hibernate.version>
-        <hibernate-validator.version>5.3.6.Final</hibernate-validator.version>
+        <hibernate.version>4.1.0.Final</hibernate.version>
+        <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
         <hsqldb.version>2.2.4</hsqldb.version>
         <selenium.version>2.31.0</selenium.version>
 
-        <jdk.version>1.8</jdk.version>
+        <jdk.version>1.7</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -105,7 +105,7 @@
 
         <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-7.0</artifactId>
+            <artifactId>jboss-javaee-6.0</artifactId>
             <version>${jboss.javaee.version}</version>
             <scope>provided</scope>
             <type>pom</type>
